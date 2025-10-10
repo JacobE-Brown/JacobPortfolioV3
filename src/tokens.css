@@ -176,17 +176,51 @@
     }
   }
   
-  /* Responsive honeycomb grid */
+  /* React HexGrid Styling */
+  .honeycomb-svg {
+    background: transparent;
+  }
+  
+  /* Hide the SVG hexagons since we're using custom TechBadge components */
+  .honeycomb-svg .hexagon {
+    fill: transparent;
+    stroke: transparent;
+    stroke-width: 0;
+  }
+  
+  /* Add hover effects to the foreignObject content */
+  .honeycomb-svg .hexagon:hover {
+    transform: scale(1.05);
+  }
+  
+  .honeycomb-svg .hexagon:hover ~ .hexagon {
+    opacity: 0.7;
+    transform: scale(0.95);
+  }
+  
+  /* Ensure TechBadge components inside foreignObject have proper styling */
+  .honeycomb-svg foreignObject {
+    overflow: visible;
+  }
+  
+  .honeycomb-svg foreignObject article {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .honeycomb-svg .hexagon:hover foreignObject article {
+    transform: scale(1.05);
+    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.15));
+  }
+  
+  /* Responsive hexgrid */
   @media (max-width: 768px) {
-    .honeycomb-grid {
-      padding: 15px;
+    .honeycomb-svg {
       transform: scale(0.8);
     }
   }
   
   @media (max-width: 480px) {
-    .honeycomb-grid {
-      padding: 10px;
+    .honeycomb-svg {
       transform: scale(0.6);
     }
   }
