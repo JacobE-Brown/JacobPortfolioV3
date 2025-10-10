@@ -233,15 +233,13 @@ export const ReactHexGrid: React.FC<ReactHexGridProps> = ({ technologies }) => {
   return (
       <HexGrid 
         width="100%" 
-        height="50vh" 
+        height="66.666vh" 
         viewBox="-300 -300 600 600"
         className={`honeycomb-svg w-1/2 responsive-hexgrid ${screenSize}`}
         style={{ 
           border: '2px solid #54BAB9',
           '--zoom-level': zoomLevel,
-          '--screen-size': screenSize,
-          transform: `scale(${zoomLevel})`,
-          transformOrigin: 'center'
+          '--screen-size': screenSize
         } as React.CSSProperties}
       >
         <Layout 

@@ -41,56 +41,58 @@ import githubIcon from '@/assets/images/TechLogos/github-1-1.svg'
 import sqlIcon from '@/assets/images/TechLogos/sql.svg'
 
 const technologies = [
-  // Row 1: 1 item (top center)
-  { name: 'C#', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="C#" src={csharpIcon} />, q: 0, r: 0, s: 0 },
+  // Row 1: 2 items (top row)
+  { name: 'My Education', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="Education" src={educationIcon} />, q: -1, r: -3, s: 4 },
+  { name: 'Type Script', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="TypeScript" src={tsIcon} />, q: 0, r: -3, s: 3 },
   
   // Row 2: 3 items (offset row)
-  { name: 'Vite JS', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="Vite" src={vitejsIcon} />, q: -1, r: 1, s: 0 },
-  { name: 'Tailwinds CSS', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="Tailwind" src={tailwindIcon} />, q: 0, r: 1, s: -1 },
-  { name: 'AWS', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="AWS" src={awsIcon} />, q: 1, r: 0, s: -1 },
+  { name: 'Figma', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="Figma" src={figmaIcon} />, q: -2, r: -2, s: 4 },
+  { name: 'C#', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="C#" src={csharpIcon} />, q: -1, r: -2, s: 3 },
+  { name: 'AWS', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="AWS" src={awsIcon} />, q: 0, r: -2, s: 2 },
   
   // Row 3: 4 items (aligned row)
-  { name: 'React', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="React" src={reactIcon} />, q: -2, r: 1, s: 1 },
-  { name: 'Figma', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="Figma" src={figmaIcon} />, q: -1, r: 0, s: 1 },
-  { name: 'My Education', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="Education" src={educationIcon} />, q: 0, r: -1, s: 1 },
-  { name: 'Type Script', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="TypeScript" src={tsIcon} />, q: 1, r: -1, s: 0 },
+  { name: 'React', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="React" src={reactIcon} />, q: -3, r: -1, s: 4 },
+  { name: 'Vite JS', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="Vite" src={vitejsIcon} />, q: -2, r: -1, s: 3 },
+  { name: 'Tailwinds CSS', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="Tailwind" src={tailwindIcon} />, q: -1, r: -1, s: 2 },
+  { name: 'CSS 3', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="CSS" src={cssIcon} />, q: 0, r: -1, s: 1 },
   
-  // Row 4: 3 items (offset row)
-  { name: 'ASP.NET Core', icon: <img className="relative w-[33.65px] h-[33.65px]" alt=".NET" src={netcoreIcon} />, q: -1, r: 2, s: -1 },
-  { name: 'BootStrap', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="Bootstrap" src={bootstrapIcon} />, q: 0, r: 2, s: -2 },
-  { name: 'CSS 3', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="CSS" src={cssIcon} />, q: 1, r: 1, s: -2 },
+  // Row 4: 5 items (offset row)
+  { name: 'HTML 5', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="HTML" src={htmlIcon} />, q: -3, r: 0, s: 3 },
+  { name: 'ASP.NET Core', icon: <img className="relative w-[33.65px] h-[33.65px]" alt=".NET" src={netcoreIcon} />, q: -2, r: 0, s: 2 },
+  { name: 'BootStrap', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="Bootstrap" src={bootstrapIcon} />, q: -1, r: 0, s: 1 },
+  { name: 'Python', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="Python" src={pythonIcon} />, q: 0, r: 0, s: 0 },
+  { name: 'Kotlin', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="Kotlin" src={kotlinIcon} />, q: 1, r: -1, s: 0 },
   
   // Row 5: 4 items (aligned row)
-  { name: 'HTML 5', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="HTML" src={htmlIcon} />, q: -2, r: 2, s: 0 },
-  { name: 'Java Script', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="JavaScript" src={jsIcon} />, q: -1, r: 3, s: -2 },
-  { name: 'Kotlin', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="Kotlin" src={kotlinIcon} />, q: 0, r: 3, s: -3 },
-  { name: 'Python', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="Python" src={pythonIcon} />, q: 1, r: 2, s: -3 },
+  { name: 'Arch Linux', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="Arch" src={archIcon} />, q: -3, r: 1, s: 2 },
+  { name: 'Java Script', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="JavaScript" src={jsIcon} />, q: -2, r: 1, s: 1 },
+  { name: 'Linux', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="Linux" src={linuxIcon} />, q: -1, r: 1, s: 0 },
+  { name: 'SQL / Databases', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="SQL" src={sqlIcon} />, q: 0, r: 1, s: -1 },
   
   // Row 6: 3 items (offset row)
-  { name: 'Jetpack Compose', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="Jetpack" src={jetpackIcon} />, q: -1, r: 4, s: -3 },
-  { name: 'Android', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="Android" src={androidIcon} />, q: 0, r: 4, s: -4 },
-  { name: 'Linux', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="Linux" src={linuxIcon} />, q: 1, r: 3, s: -4 },
+  { name: 'Jetpack Compose', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="Jetpack" src={jetpackIcon} />, q: -2, r: 2, s: 0 },
+  { name: 'Android', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="Android" src={androidIcon} />, q: -1, r: 2, s: -1 },
+  { name: 'Django', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="Django" src={djangoIcon} />, q: 0, r: 2, s: -2 },
   
-  // Row 7: 4 items (aligned row)
-  { name: 'Arch Linux', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="Arch" src={archIcon} />, q: -2, r: 3, s: -1 },
-  { name: 'Django', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="Django" src={djangoIcon} />, q: -1, r: 5, s: -4 },
-  { name: 'Git and Github', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="GitHub" src={githubIcon} />, q: 0, r: 5, s: -5 },
-  { name: 'SQL / Databases', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="SQL" src={sqlIcon} />, q: 1, r: 4, s: -5 },
+  // Row 7: 1 item (bottom row)
+  { name: 'Git and Github', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="GitHub" src={githubIcon} />, q: -1, r: 3, s: -2 },
 ]
 
 export function Technologies(): React.JSX.Element {
   return (
     <div className="flex flex-col items-center gap-4 p-6 pb-16 min-h-fit">
       {/* Category filters */}
-      <div className="flex flex-wrap items-center gap-[7px_5px] justify-center">
-        {categories.map((category, index) => (
-          <div key={index} className={`category-filter inline-flex items-center justify-center gap-[4.49px] px-[5.62px] py-[4.49px] relative flex-[0_0_auto] ${category.active ? 'bg-blue-medium-1 border-blue-medium-2' : 'bg-cream-neutral border-blue-medium-1'} rounded-[31.64px] overflow-hidden border-[1.31px] border-solid shadow-[0px_1.7px_1.7px_#00000040]`}>
-            <div className={`relative flex items-center justify-center w-fit ${category.active ? 'mt-[-1.17px]' : 'mt-[-1.31px]'} font-medium text-text-1 text-[11.2px] tracking-[0.45px] leading-[normal] whitespace-nowrap`}>
-              {category.name}
+      <div className="w-1/2">
+        <div className="flex flex-wrap items-center justify-start gap-3">
+          {categories.map((category, index) => (
+            <div key={index} className={`category-filter flex items-center justify-center gap-2 px-4 py-2 ${category.active ? 'bg-blue-medium-1 border-blue-medium-2' : 'bg-cream-neutral border-blue-medium-1'} rounded-full border-2 shadow-sm hover:shadow-md transition-shadow`}>
+              <span className="font-medium text-text-1 text-sm whitespace-nowrap">
+                {category.name}
+              </span>
+              {category.icon && <img className="w-4 h-3" alt="Vector" src={category.icon} />}
             </div>
-            {category.icon && <img className="relative w-[17.76px] h-[13.28px]" alt="Vector" src={category.icon} />}
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
 
       {/* React HexGrid */}
