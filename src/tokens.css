@@ -181,11 +181,36 @@
     background: transparent;
   }
   
+  /* Responsive Honeycomb Patterns */
+  .responsive-hexgrid {
+    transition: all 0.3s ease;
+  }
+  
+  /* Mobile: Smaller hexagons, tighter spacing */
+  .responsive-hexgrid.mobile {
+    transform: scale(0.8);
+  }
+  
+  /* Tablet Small: Medium hexagons */
+  .responsive-hexgrid.tablet-small {
+    transform: scale(0.9);
+  }
+  
+  /* Tablet: Slightly smaller than desktop */
+  .responsive-hexgrid.tablet {
+    transform: scale(0.95);
+  }
+  
+  /* Desktop: Full size */
+  .responsive-hexgrid.desktop {
+    transform: scale(1);
+  }
+  
   /* Hide the SVG hexagons since we're using custom TechBadge components */
   .honeycomb-svg .hexagon {
     fill: transparent;
-    stroke: transparent;
-    stroke-width: 0;
+    stroke: rgb(var(--blue-medium-1) / 0.3);
+    stroke-width: 1;
   }
   
   /* Add hover effects to the foreignObject content */
