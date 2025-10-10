@@ -1,0 +1,4 @@
+@import "tailwindcss";
+
+/* Design tokens and animations */
+@import "./tokens.css";
