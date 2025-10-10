@@ -121,17 +121,7 @@
   .honeycomb-item:nth-child(23) { left: 86px; top: 264px; animation-delay: 2.3s; }
   .honeycomb-item:nth-child(24) { left: 172px; top: 264px; animation-delay: 2.4s; }
   
-  /* Dynamic hover effects - when one hexagon is hovered, others move away */
-  .honeycomb-grid:hover .honeycomb-item:not(:hover) {
-    transform: scale(0.95) translateY(5px);
-    opacity: 0.7;
-  }
-  
-  .honeycomb-item:hover {
-    transform: scale(1.1) translateY(-10px);
-    z-index: 20;
-    filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.2));
-  }
+  /* Removed honeycomb hover effects */
   
   @keyframes fadeInUp {
     from {
@@ -160,10 +150,7 @@
   .category-filter:nth-child(6) { animation-delay: 0.35s; }
   .category-filter:nth-child(7) { animation-delay: 0.4s; }
   
-  .category-filter:hover {
-    transform: scale(1.05);
-    filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.1));
-  }
+  /* Removed category filter hover effects */
   
   @keyframes fadeInScale {
     from {
@@ -186,24 +173,27 @@
     transition: all 0.3s ease;
   }
   
-  /* Mobile: Smaller hexagons, tighter spacing */
-  .responsive-hexgrid.mobile {
-    transform: scale(0.8);
+  /* SVG Icon Animations */
+  .tech-icon {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
   
-  /* Tablet Small: Medium hexagons */
-  .responsive-hexgrid.tablet-small {
-    transform: scale(0.9);
+  /* Removed tech-icon hover effects */
+  
+  /* Tech Badge Responsive Scaling */
+  .tech-badge-responsive {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
   
-  /* Tablet: Slightly smaller than desktop */
-  .responsive-hexgrid.tablet {
-    transform: scale(0.95);
+  /* Removed tech-badge-responsive hover effects */
+  
+  /* Hexagon Content Animations */
+  .hexagon-content {
+    transition: all 0.3s ease;
   }
   
-  /* Desktop: Full size */
-  .responsive-hexgrid.desktop {
-    transform: scale(1);
+  .hexagon-foreign-object {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
   
   /* Hide the SVG hexagons since we're using custom TechBadge components */
@@ -211,17 +201,15 @@
     fill: transparent;
     stroke: rgb(var(--blue-medium-1) / 0.3);
     stroke-width: 1;
+    transition: all 0.3s ease;
   }
   
-  /* Add hover effects to the foreignObject content */
-  .honeycomb-svg .hexagon:hover {
-    transform: scale(1.05);
+  /* Scale SVG hexagons with zoom */
+  .honeycomb-svg .hexagon {
+    transform-origin: center;
   }
   
-  .honeycomb-svg .hexagon:hover ~ .hexagon {
-    opacity: 0.7;
-    transform: scale(0.95);
-  }
+  /* Removed hexagon hover scaling effects */
   
   /* Ensure TechBadge components inside foreignObject have proper styling */
   .honeycomb-svg foreignObject {
@@ -234,15 +222,7 @@
     z-index: 1;
   }
   
-  .honeycomb-svg .hexagon:hover foreignObject {
-    z-index: 10;
-  }
-  
-  .honeycomb-svg .hexagon:hover foreignObject article {
-    transform: scale(1.05);
-    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.15));
-    z-index: 10;
-  }
+  /* Removed hexagon hover effects on foreignObject */
   
   /* Responsive hexgrid */
   @media (max-width: 768px) {
