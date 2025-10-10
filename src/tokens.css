@@ -59,6 +59,17 @@
 @keyframes marquee { 0% { transform: translate(0); } 100% { transform: translateX(calc(-100% - var(--gap))); } }
 @keyframes marquee-vertical { 0% { transform: translateY(0); } 100% { transform: translateY(calc(-100% - var(--gap))); } }
 
+/* GSAP Animation Support */
+.hexagon-content {
+  transform-origin: center;
+  will-change: transform;
+}
+
+.tech-badge-responsive {
+  transform-origin: center;
+  will-change: transform;
+}
+
 /* Base resets aligning with snippet intent */
 @layer base {
   button, input, select, textarea { appearance: none; background: transparent; border: 0; outline: 0; }

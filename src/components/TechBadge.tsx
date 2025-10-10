@@ -20,7 +20,15 @@ const TechBadge = ({ icon, name, className = "", zoomLevel = 1 }: TechBadgeProps
       <div className="relative w-[33.65px] h-[33.65px] tech-icon">
         {icon}
       </div>
-      <div className="flex w-[69.74px] items-center justify-center gap-[3.06px] px-[8.87px] py-[1.84px] relative flex-[0_0_auto] rounded-[6.12px] overflow-hidden border-[1.22px] border-solid border-blue-medium-2 shadow-[0px_1.22px_1.22px_#00000040] tech-label" style={{ backgroundColor: 'hsl(192, 45%, 98%)' }}>
+      <div 
+        className="flex w-[69.74px] items-center justify-center gap-[3.06px] px-[8.87px] py-[1.84px] relative flex-[0_0_auto] overflow-hidden tech-label"
+        style={{
+          borderRadius: '6.118px',
+          border: '1.224px solid #54BAB9',
+          background: '#F7FBFC',
+          boxShadow: '0 1.224px 1.224px 0 rgba(0, 0, 0, 0.25)'
+        }}
+      >
         <div className="relative flex items-center justify-center w-fit mt-[-1.22px] font-black text-text-1 text-[8px] tracking-[0] leading-[normal] whitespace-nowrap">
           {name}
         </div>

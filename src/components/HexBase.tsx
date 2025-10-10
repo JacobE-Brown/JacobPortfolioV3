@@ -4,11 +4,12 @@ import base from "@/assets/images/TechLogos/hex-base.svg";
 interface HexBaseProps {
   children: React.ReactNode;
   className?: string;
+  style?: React.CSSProperties;
 }
 
-export const HexBase = ({ children, className = "" }: HexBaseProps) => {
+export const HexBase = ({ children, className = "", style }: HexBaseProps) => {
   return (
-    <article className={`flex flex-col w-[86px] h-[87px] items-center justify-end gap-[3.06px] px-0 py-[8.26px] relative ${className}`}>
+    <article className={`flex flex-col w-[86px] h-[87px] items-center justify-end gap-[3.06px] px-0 py-[8.26px] relative ${className}`} style={style}>
       <div className="absolute top-0 left-0 w-[86px] h-[87px]" aria-hidden="true">
         <img
           className="absolute w-full h-full top-0 left-0"
