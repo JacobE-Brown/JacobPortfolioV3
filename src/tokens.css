@@ -201,15 +201,22 @@
   /* Ensure TechBadge components inside foreignObject have proper styling */
   .honeycomb-svg foreignObject {
     overflow: visible;
+    z-index: 1;
   }
   
   .honeycomb-svg foreignObject article {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1;
+  }
+  
+  .honeycomb-svg .hexagon:hover foreignObject {
+    z-index: 10;
   }
   
   .honeycomb-svg .hexagon:hover foreignObject article {
     transform: scale(1.05);
     filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.15));
+    z-index: 10;
   }
   
   /* Responsive hexgrid */

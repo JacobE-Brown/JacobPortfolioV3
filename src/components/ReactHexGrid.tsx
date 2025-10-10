@@ -18,7 +18,7 @@ interface ReactHexGridProps {
 const CustomHexagon: React.FC<{ tech: Technology }> = ({ tech }) => {
   return (
     <Hexagon q={tech.q} r={tech.r} s={tech.s}>
-      <foreignObject x="-43" y="-43.5" width="86" height="87">
+      <foreignObject x="-50" y="-55" width="100" height="110">
         <div className="flex items-center justify-center w-full h-full">
           <TechBadge icon={tech.icon} name={tech.name} />
         </div>
@@ -38,8 +38,8 @@ export const ReactHexGrid: React.FC<ReactHexGridProps> = ({ technologies }) => {
       >
         <Layout 
           size={{ x: 43, y: 43 }} 
-          flat={true} 
-          spacing={1.0} 
+          flat={false} 
+          spacing={1.2} 
           origin={{ x: 0, y: 0 }}
         >
           {technologies.map((tech, index) => (
