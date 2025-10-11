@@ -182,19 +182,19 @@ export const ReactHexGrid: React.FC<ReactHexGridProps> = ({ technologies }) => {
       if (width < 480) {
         setScreenSize('mobile');
         setHexSize({ x: 35, y: 35 });
-        setSpacing(0.8);
+        setSpacing(1.0);
       } else if (width < 768) {
         setScreenSize('tablet-small');
         setHexSize({ x: 40, y: 40 });
-        setSpacing(0.9);
+        setSpacing(1.1);
       } else if (width < 1200) {
         setScreenSize('tablet');
-        setHexSize({ x: 45, y: 45 });
-        setSpacing(1.0);
+        setHexSize({ x: 40, y: 40 });
+        setSpacing(1.1);
       } else {
         setScreenSize('desktop');
-        setHexSize({ x: 50, y: 50 });
-        setSpacing(1.0);
+        setHexSize({ x: 45, y: 45 });
+        setSpacing(1.2);
       }
     };
 
@@ -233,8 +233,8 @@ export const ReactHexGrid: React.FC<ReactHexGridProps> = ({ technologies }) => {
   return (
       <HexGrid 
         width="100%" 
-        height="66.666vh" 
-        viewBox="-300 -300 600 600"
+        height="80vh" 
+        viewBox="-200 -300 600 600"
         className={`honeycomb-svg w-1/2 responsive-hexgrid ${screenSize}`}
         style={{ 
           border: '2px solid #54BAB9',

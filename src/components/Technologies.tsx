@@ -41,41 +41,43 @@ import githubIcon from '@/assets/images/TechLogos/github-1-1.svg'
 import sqlIcon from '@/assets/images/TechLogos/sql.svg'
 
 const technologies = [
-  // Row 1: 2 items (top row)
-  { name: 'My Education', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="Education" src={educationIcon} />, q: -1, r: -3, s: 4 },
-  { name: 'Type Script', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="TypeScript" src={tsIcon} />, q: 0, r: -3, s: 3 },
+  // Row 1: 3 items (top row) - Figma, My Education, AWS - move right by 1 more
+  { name: 'Figma', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="Figma" src={figmaIcon} />, q: 1, r: -3, s: 2 },
+  { name: 'My Education', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="Education" src={educationIcon} />, q: 2, r: -3, s: 1 },
+  { name: 'AWS', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="AWS" src={awsIcon} />, q: 3, r: -3, s: 0 },
   
-  // Row 2: 3 items (offset row)
-  { name: 'Figma', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="Figma" src={figmaIcon} />, q: -2, r: -2, s: 4 },
-  { name: 'C#', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="C#" src={csharpIcon} />, q: -1, r: -2, s: 3 },
-  { name: 'AWS', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="AWS" src={awsIcon} />, q: 0, r: -2, s: 2 },
+  // Row 2: 4 items (offset row) - Vue, React, Vite JS, Tailwinds CSS - move right by 1 more
+  { name: 'Vue', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="Vue" src={reactIcon} />, q: 0, r: -2, s: 2 },
+  { name: 'React', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="React" src={reactIcon} />, q: 1, r: -2, s: 1 },
+  { name: 'Vite JS', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="Vite" src={vitejsIcon} />, q: 2, r: -2, s: 0 },
+  { name: 'Tailwinds CSS', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="Tailwind" src={tailwindIcon} />, q: 3, r: -2, s: -1 },
   
-  // Row 3: 4 items (aligned row)
-  { name: 'React', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="React" src={reactIcon} />, q: -3, r: -1, s: 4 },
-  { name: 'Vite JS', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="Vite" src={vitejsIcon} />, q: -2, r: -1, s: 3 },
-  { name: 'Tailwinds CSS', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="Tailwind" src={tailwindIcon} />, q: -1, r: -1, s: 2 },
-  { name: 'CSS 3', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="CSS" src={cssIcon} />, q: 0, r: -1, s: 1 },
+  // Row 3: 3 items (aligned row) - C#, ASP.NET Core, BootStrap - move right by 1 more
+  { name: 'C#', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="C#" src={csharpIcon} />, q: 0, r: -1, s: 1 },
+  { name: 'ASP.NET Core', icon: <img className="relative w-[33.65px] h-[33.65px]" alt=".NET" src={netcoreIcon} />, q: 1, r: -1, s: 0 },
+  { name: 'BootStrap', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="Bootstrap" src={bootstrapIcon} />, q: 2, r: -1, s: -1 },
   
-  // Row 4: 5 items (offset row)
-  { name: 'HTML 5', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="HTML" src={htmlIcon} />, q: -3, r: 0, s: 3 },
-  { name: 'ASP.NET Core', icon: <img className="relative w-[33.65px] h-[33.65px]" alt=".NET" src={netcoreIcon} />, q: -2, r: 0, s: 2 },
-  { name: 'BootStrap', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="Bootstrap" src={bootstrapIcon} />, q: -1, r: 0, s: 1 },
-  { name: 'Python', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="Python" src={pythonIcon} />, q: 0, r: 0, s: 0 },
-  { name: 'Kotlin', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="Kotlin" src={kotlinIcon} />, q: 1, r: -1, s: 0 },
+  // Row 4: 4 items (offset row) - CSS 3, HTML 5, Java Script, Type Script - move right by 1 more
+  { name: 'CSS 3', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="CSS" src={cssIcon} />, q: -1, r: 0, s: 1 },
+  { name: 'HTML 5', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="HTML" src={htmlIcon} />, q: 0, r: 0, s: 0 },
+  { name: 'Java Script', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="JavaScript" src={jsIcon} />, q: 1, r: 0, s: -1 },
+  { name: 'Type Script', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="TypeScript" src={tsIcon} />, q: 2, r: 0, s: -2 },
   
-  // Row 5: 4 items (aligned row)
-  { name: 'Arch Linux', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="Arch" src={archIcon} />, q: -3, r: 1, s: 2 },
-  { name: 'Java Script', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="JavaScript" src={jsIcon} />, q: -2, r: 1, s: 1 },
-  { name: 'Linux', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="Linux" src={linuxIcon} />, q: -1, r: 1, s: 0 },
-  { name: 'SQL / Databases', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="SQL" src={sqlIcon} />, q: 0, r: 1, s: -1 },
+  // Row 5: 3 items (aligned row) - Kotlin, Jetpack Compose, Android - move right by 1 more
+  { name: 'Kotlin', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="Kotlin" src={kotlinIcon} />, q: -1, r: 1, s: 0 },
+  { name: 'Jetpack Compose', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="Jetpack" src={jetpackIcon} />, q: 0, r: 1, s: -1 },
+  { name: 'Android', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="Android" src={androidIcon} />, q: 1, r: 1, s: -2 },
   
-  // Row 6: 3 items (offset row)
-  { name: 'Jetpack Compose', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="Jetpack" src={jetpackIcon} />, q: -2, r: 2, s: 0 },
-  { name: 'Android', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="Android" src={androidIcon} />, q: -1, r: 2, s: -1 },
-  { name: 'Django', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="Django" src={djangoIcon} />, q: 0, r: 2, s: -2 },
+  // Row 6: 4 items (offset row) - Linux, Arch Linux, Python, Django - move right by 1 more
+  { name: 'Linux', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="Linux" src={linuxIcon} />, q: -2, r: 2, s: 0 },
+  { name: 'Arch Linux', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="Arch" src={archIcon} />, q: -1, r: 2, s: -1 },
+  { name: 'Python', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="Python" src={pythonIcon} />, q: 0, r: 2, s: -2 },
+  { name: 'Django', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="Django" src={djangoIcon} />, q: 1, r: 2, s: -3 },
   
-  // Row 7: 1 item (bottom row)
-  { name: 'Git and Github', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="GitHub" src={githubIcon} />, q: -1, r: 3, s: -2 },
+  // Row 7: 3 items (aligned row) - Git and Github, SQL / Databases, Linux - move right by 1 more
+  { name: 'Git and Github', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="GitHub" src={githubIcon} />, q: -2, r: 3, s: -1 },
+  { name: 'SQL / Databases', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="SQL" src={sqlIcon} />, q: -1, r: 3, s: -2 },
+  { name: 'Linux', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="Linux" src={linuxIcon} />, q: 0, r: 3, s: -3 },
 ]
 
 export function Technologies(): React.JSX.Element {
