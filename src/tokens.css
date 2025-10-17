@@ -174,12 +174,13 @@
     }
   }
   
-  /* React HexGrid Styling */
-  .honeycomb-svg {
+  /* Custom HexGrid Styling */
+  .hex-grid-container {
     background: transparent;
+    position: relative;
   }
   
-  /* Responsive Honeycomb Patterns */
+  /* Responsive HexGrid Patterns */
   .responsive-hexgrid {
     transition: all 0.3s ease;
   }
@@ -207,44 +208,175 @@
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
   
-  /* Hide the SVG hexagons since we're using custom TechBadge components */
-  .honeycomb-svg .hexagon {
-    fill: transparent;
-    stroke: rgb(var(--blue-medium-1) / 0.3);
-    stroke-width: 1;
-    transition: all 0.3s ease;
-  }
-  
-  /* Scale SVG hexagons with zoom */
-  .honeycomb-svg .hexagon {
-    transform-origin: center;
-  }
-  
-  /* Removed hexagon hover scaling effects */
-  
-  /* Ensure TechBadge components inside foreignObject have proper styling */
-  .honeycomb-svg foreignObject {
-    overflow: visible;
-    z-index: 1;
-  }
-  
-  .honeycomb-svg foreignObject article {
+  /* HexTile styling for custom hex grid */
+  .hex-tile {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: 1;
+    transform-origin: center;
+    will-change: transform;
   }
   
-  /* Removed hexagon hover effects on foreignObject */
+  .hex-tile:hover {
+    z-index: 5;
+  }
   
-  /* Responsive hexgrid */
-  @media (max-width: 768px) {
-    .honeycomb-svg {
-      transform: scale(0.8);
+  .hex-tile.selected {
+    z-index: 10;
+  }
+
+  /* Responsive hex grid container */
+  .hex-grid-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    /* Ensure container maintains aspect ratio */
+    aspect-ratio: 16/9;
+    min-height: 300px;
+  }
+
+  /* Override aspect ratio on very small screens */
+  @media (max-width: 480px) {
+    .hex-grid-container {
+      aspect-ratio: 4/3;
+      min-height: 250px;
     }
   }
-  
+
+  @media (min-width: 1200px) {
+    .hex-grid-container {
+      aspect-ratio: 21/9;
+    }
+  }
+
+  /* Ensure proper spacing on mobile */
   @media (max-width: 480px) {
-    .honeycomb-svg {
-      transform: scale(0.6);
+    .hex-grid-container {
+      padding: 0.5rem;
+    }
+    
+    .hex-tile {
+      min-width: 60px;
+      min-height: 60px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .hex-grid-container {
+      padding: 1rem;
+    }
+    
+    .hex-tile {
+      min-width: 70px;
+      min-height: 70px;
+    }
+  }
+
+  .tech-badge-responsive {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-origin: center;
+  }
+
+  /* Ensure icons inside TechBadge scale properly */
+  .tech-badge-responsive .tech-icon img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    max-width: none !important;
+    max-height: none !important;
+  }
+
+  /* Enhanced scaling for tech icon content */
+  .tech-badge-responsive .tech-icon-content {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-origin: center;
+  }
+
+  .tech-badge-responsive .tech-icon-content img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    max-width: none !important;
+    max-height: none !important;
+  }
+
+  /* Override any Tailwind fixed sizes */
+  .tech-badge-responsive img[class*="w-["],
+  .tech-badge-responsive img[class*="h-["] {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+  }
+
+  /* Ensure all images in tech badges scale properly */
+  .tech-badge-responsive img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+    max-width: none !important;
+    max-height: none !important;
+    min-width: 0 !important;
+    min-height: 0 !important;
+  }
+
+  /* Enhanced scaling for tech label */
+  .tech-badge-responsive .tech-label {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-origin: center;
+  }
+
+  .tech-badge-responsive .tech-label-text {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-origin: center;
+  }
+
+  /* Responsive scaling for different screen sizes */
+  @media (max-width: 1200px) {
+    .hexagon-foreign-object {
+      --scale-factor: 0.9;
+    }
+    
+    .tech-badge-responsive {
+      --scale-factor: 0.9;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .hexagon-foreign-object {
+      --scale-factor: 0.8;
+    }
+    
+    .tech-badge-responsive {
+      --scale-factor: 0.8;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .hexagon-foreign-object {
+      --scale-factor: 0.7;
+    }
+    
+    .tech-badge-responsive {
+      --scale-factor: 0.7;
+    }
+  }
+
+  /* Ensure proper clipping for foreign objects */
+  .hexagon-foreign-object {
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  }
+
+  /* Responsive hexgrid */
+  @media (max-width: 768px) {
+    .hex-grid-container {
+      transform: scale(0.9);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .hex-grid-container {
+      transform: scale(0.8);
     }
   }
 }

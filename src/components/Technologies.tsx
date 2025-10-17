@@ -1,5 +1,5 @@
 import React from 'react'
-import ReactHexGrid from './ReactHexGrid'
+import HexGrid from './HexGrid'
 
 // Category icons
 import vector3 from '@/assets/images/TechLogos/vector-3.svg'
@@ -41,43 +41,40 @@ import githubIcon from '@/assets/images/TechLogos/github-1-1.svg'
 import sqlIcon from '@/assets/images/TechLogos/sql.svg'
 
 const technologies = [
-  // Row 1: 3 items (top row) - Figma, My Education, AWS - move right by 1 more
-  { name: 'Figma', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="Figma" src={figmaIcon} />, q: 1, r: -3, s: 2 },
-  { name: 'My Education', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="Education" src={educationIcon} />, q: 2, r: -3, s: 1 },
-  { name: 'AWS', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="AWS" src={awsIcon} />, q: 3, r: -3, s: 0 },
+  // Row 1: 3 items (top row) - Figma, My Education, AWS
+  { id: 'figma', label: 'Figma', icon: <img className="relative w-full h-full object-contain" alt="Figma" src={figmaIcon} />, q: -1, r: -2 },
+  { id: 'education', label: 'My Education', icon: <img className="relative w-full h-full object-contain" alt="Education" src={educationIcon} />, q: 0, r: -2 },
+  { id: 'aws', label: 'AWS', icon: <img className="relative w-full h-full object-contain" alt="AWS" src={awsIcon} />, q: 1, r: -2 },
   
-  // Row 2: 4 items (offset row) - Vue, React, Vite JS, Tailwinds CSS - move right by 1 more
-  { name: 'Vue', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="Vue" src={reactIcon} />, q: 0, r: -2, s: 2 },
-  { name: 'React', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="React" src={reactIcon} />, q: 1, r: -2, s: 1 },
-  { name: 'Vite JS', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="Vite" src={vitejsIcon} />, q: 2, r: -2, s: 0 },
-  { name: 'Tailwinds CSS', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="Tailwind" src={tailwindIcon} />, q: 3, r: -2, s: -1 },
+  // Row 2: 4 items (offset row) - Vue, React, Vite JS, Tailwinds CSS
+  { id: 'vue', label: 'Vue', icon: <img className="relative w-full h-full object-contain" alt="Vue" src={reactIcon} />, q: -2, r: -1 },
+  { id: 'react', label: 'React', icon: <img className="relative w-full h-full object-contain" alt="React" src={reactIcon} />, q: -1, r: -1 },
+  { id: 'vite', label: 'Vite JS', icon: <img className="relative w-full h-full object-contain" alt="Vite" src={vitejsIcon} />, q: 0, r: -1 },
+  { id: 'tailwind', label: 'Tailwinds CSS', icon: <img className="relative w-full h-full object-contain" alt="Tailwind" src={tailwindIcon} />, q: 1, r: -1 },
   
-  // Row 3: 3 items (aligned row) - C#, ASP.NET Core, BootStrap - move right by 1 more
-  { name: 'C#', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="C#" src={csharpIcon} />, q: 0, r: -1, s: 1 },
-  { name: 'ASP.NET Core', icon: <img className="relative w-[33.65px] h-[33.65px]" alt=".NET" src={netcoreIcon} />, q: 1, r: -1, s: 0 },
-  { name: 'BootStrap', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="Bootstrap" src={bootstrapIcon} />, q: 2, r: -1, s: -1 },
+  // Row 3: 5 items (aligned row) - C#, ASP.NET Core, BootStrap, CSS 3, HTML 5
+  { id: 'csharp', label: 'C#', icon: <img className="relative w-full h-full object-contain" alt="C#" src={csharpIcon} />, q: -2, r: 0 },
+  { id: 'netcore', label: 'ASP.NET Core', icon: <img className="relative w-full h-full object-contain" alt=".NET" src={netcoreIcon} />, q: -1, r: 0 },
+  { id: 'bootstrap', label: 'BootStrap', icon: <img className="relative w-full h-full object-contain" alt="Bootstrap" src={bootstrapIcon} />, q: 0, r: 0 },
+  { id: 'css', label: 'CSS 3', icon: <img className="relative w-full h-full object-contain" alt="CSS" src={cssIcon} />, q: 1, r: 0 },
+  { id: 'html', label: 'HTML 5', icon: <img className="relative w-full h-full object-contain" alt="HTML" src={htmlIcon} />, q: 2, r: 0 },
   
-  // Row 4: 4 items (offset row) - CSS 3, HTML 5, Java Script, Type Script - move right by 1 more
-  { name: 'CSS 3', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="CSS" src={cssIcon} />, q: -1, r: 0, s: 1 },
-  { name: 'HTML 5', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="HTML" src={htmlIcon} />, q: 0, r: 0, s: 0 },
-  { name: 'Java Script', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="JavaScript" src={jsIcon} />, q: 1, r: 0, s: -1 },
-  { name: 'Type Script', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="TypeScript" src={tsIcon} />, q: 2, r: 0, s: -2 },
+  // Row 4: 4 items (offset row) - Java Script, Type Script, Kotlin, Jetpack Compose
+  { id: 'javascript', label: 'Java Script', icon: <img className="relative w-full h-full object-contain" alt="JavaScript" src={jsIcon} />, q: -1, r: 1 },
+  { id: 'typescript', label: 'Type Script', icon: <img className="relative w-full h-full object-contain" alt="TypeScript" src={tsIcon} />, q: 0, r: 1 },
+  { id: 'kotlin', label: 'Kotlin', icon: <img className="relative w-full h-full object-contain" alt="Kotlin" src={kotlinIcon} />, q: 1, r: 1 },
+  { id: 'jetpack', label: 'Jetpack Compose', icon: <img className="relative w-full h-full object-contain" alt="Jetpack" src={jetpackIcon} />, q: 2, r: 1 },
   
-  // Row 5: 3 items (aligned row) - Kotlin, Jetpack Compose, Android - move right by 1 more
-  { name: 'Kotlin', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="Kotlin" src={kotlinIcon} />, q: -1, r: 1, s: 0 },
-  { name: 'Jetpack Compose', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="Jetpack" src={jetpackIcon} />, q: 0, r: 1, s: -1 },
-  { name: 'Android', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="Android" src={androidIcon} />, q: 1, r: 1, s: -2 },
+  // Row 5: 5 items (aligned row) - Python, Android, Linux, Arch Linux, SQL / Databases
+  { id: 'python', label: 'Python', icon: <img className="relative w-full h-full object-contain" alt="Python" src={pythonIcon} />, q: -2, r: 2 },
+  { id: 'android', label: 'Android', icon: <img className="relative w-full h-full object-contain" alt="Android" src={androidIcon} />, q: -1, r: 2 },
+  { id: 'linux', label: 'Linux', icon: <img className="relative w-full h-full object-contain" alt="Linux" src={linuxIcon} />, q: 0, r: 2 },
+  { id: 'arch', label: 'Arch Linux', icon: <img className="relative w-full h-full object-contain" alt="Arch" src={archIcon} />, q: 1, r: 2 },
+  { id: 'sql', label: 'SQL / Databases', icon: <img className="relative w-full h-full object-contain" alt="SQL" src={sqlIcon} />, q: 2, r: 2 },
   
-  // Row 6: 4 items (offset row) - Linux, Arch Linux, Python, Django - move right by 1 more
-  { name: 'Linux', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="Linux" src={linuxIcon} />, q: -2, r: 2, s: 0 },
-  { name: 'Arch Linux', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="Arch" src={archIcon} />, q: -1, r: 2, s: -1 },
-  { name: 'Python', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="Python" src={pythonIcon} />, q: 0, r: 2, s: -2 },
-  { name: 'Django', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="Django" src={djangoIcon} />, q: 1, r: 2, s: -3 },
-  
-  // Row 7: 3 items (aligned row) - Git and Github, SQL / Databases, Linux - move right by 1 more
-  { name: 'Git and Github', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="GitHub" src={githubIcon} />, q: -2, r: 3, s: -1 },
-  { name: 'SQL / Databases', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="SQL" src={sqlIcon} />, q: -1, r: 3, s: -2 },
-  { name: 'Linux', icon: <img className="relative w-[33.65px] h-[33.65px]" alt="Linux" src={linuxIcon} />, q: 0, r: 3, s: -3 },
+  // Row 6: 2 items (offset row) - Django, Git and Github
+  { id: 'django', label: 'Django', icon: <img className="relative w-full h-full object-contain" alt="Django" src={djangoIcon} />, q: -1, r: 3 },
+  { id: 'github', label: 'Git and Github', icon: <img className="relative w-full h-full object-contain" alt="GitHub" src={githubIcon} />, q: 0, r: 3 },
 ]
 
 export function Technologies(): React.JSX.Element {
@@ -97,8 +94,23 @@ export function Technologies(): React.JSX.Element {
         </div>
       </div>
 
-      {/* React HexGrid */}
-      <ReactHexGrid technologies={technologies} />
+      {/* Custom HexGrid */}
+      <div className="w-full max-w-6xl mx-auto">
+        <div className="relative w-full aspect-[16/9] sm:aspect-[21/9] md:aspect-[16/9] lg:aspect-[21/9] border-2 border-blue-medium-2 rounded-lg overflow-hidden">
+          <HexGrid 
+            hexes={technologies} 
+            size={45}
+            onSelect={(id) => {
+              console.log('Selected technology:', id);
+              // You can add more sophisticated selection logic here
+            }}
+            onReturn={() => {
+              console.log('Returned to grid view');
+              // You can add more sophisticated return logic here
+            }}
+          />
+        </div>
+      </div>
     </div>
   )
 }

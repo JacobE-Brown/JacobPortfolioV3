@@ -1,5 +1,3 @@
-import React from "react";
-
 const Python = ({ className = "" }) => {
   return (
     <div className={`flex items-center justify-center ${className}`}>
