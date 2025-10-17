@@ -282,9 +282,43 @@ useEffect(() => {
 <HexGrid size={hexSize} />
 ```
 
+## Recent Changes & Important Notes
+
+### Overlay Removal (Latest Update)
+- **Removed broken overlay**: The overlay that appeared when clicking hexagons has been completely removed
+- **Removed blurring effect**: All hexagons now remain at full opacity (100%) when one is selected
+- **Simplified interaction**: Clicking hexagons only changes selection state, no visual overlays
+- **Removed keyboard handlers**: Escape key functionality removed along with overlay
+- **Cleaner codebase**: Removed unused `areAdjacent` function and `isVisible` parameters
+
+### Key Implementation Details
+- **No animations**: All GSAP animations have been removed per user request
+- **Simple selection**: Only basic selection state management remains
+- **Responsive sizing**: Grid scales based on viewport width with breakpoints
+- **Content-hugging**: Container sizes itself to fit hexagon content
+- **Pointy-top orientation**: Uses Red Blob Games formulas for proper hexagonal layout
+
+### Starburst Hover Animation (Latest Update)
+- **GSAP Integration**: Added GSAP animations for smooth hover effects
+- **Scale Animation**: Hovered hexagon scales up to 1.05x size (very subtle)
+- **Hexagonal Axis Movement**: Adjacent hexagons move directly away along q, r, s axes (not circular)
+- **Fixed Distance**: All adjacent hexagons move exactly 10px away in their respective directions (very subtle)
+- **Adjacent Scale**: Adjacent hexagons scale down to 0.98x (very subtle)
+- **Snappy Transitions**: 0.2s duration with back.out(1.2) for hovered hex, power2.out for adjacent hexes
+- **Auto Reset**: All animations reset when mouse leaves
+- **Transform Origin**: Set to center for proper scaling
+
+### Current State
+- Hexagons are clickable and show selection state
+- **NEW**: Hover animations with starburst effect using GSAP
+- Grid is fully responsive and maintains aspect ratio
+- All hexagons remain visible and clear at all times
+- Smooth, professional animations on hover
+
 ## Future Improvements
 - Add animation when scaling changes
 - Consider adding more breakpoints
 - Optimize for very small screens (< 320px)
 - Add keyboard navigation
 - Consider adding hexagon selection animations
+- Implement new interaction patterns (user wants something different than overlay)
