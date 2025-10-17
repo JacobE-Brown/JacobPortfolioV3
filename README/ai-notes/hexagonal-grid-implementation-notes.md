@@ -112,6 +112,42 @@ const getResponsiveScale = useCallback(() => {
 - Don't use viewport height units without aspect ratio control
 - Don't mix different scaling approaches
 - Always maintain mathematical relationships from Red Blob Games
+- **CRITICAL**: Don't use the same size value for both positioning and hexagon dimensions
+
+## Label Overlap Fix (CRITICAL)
+
+### Problem
+Hexagon labels were overlapping because:
+- **Positioning calculations** used `size` for center-to-center distance
+- **Hexagon containers** used `size * 2` width and `size * Math.sqrt(3)` height
+- This created overlap because hexagons were larger than the spacing between their centers
+
+### Solution
+Add a **spacing multiplier** to positioning calculations:
+
+```javascript
+// WRONG - causes label overlap
+const x = responsiveSize * (Math.sqrt(3) * q + Math.sqrt(3) / 2 * r);
+const y = responsiveSize * (3 / 2 * r);
+
+// CORRECT - proper spacing
+const spacingMultiplier = 1.2; // 20% more spacing
+const x = responsiveSize * spacingMultiplier * (Math.sqrt(3) * q + Math.sqrt(3) / 2 * r);
+const y = responsiveSize * spacingMultiplier * (3 / 2 * r);
+```
+
+### Why This Works
+- **Maintains Red Blob Games formulas**: Still uses correct mathematical relationships
+- **Increases center-to-center distance**: Hexagons positioned further apart
+- **Preserves hexagon size**: Containers remain the same size
+- **Eliminates overlap**: Labels have proper breathing room
+
+### Key Insight
+The **positioning size** and **hexagon container size** are different concepts:
+- **Positioning**: Controls center-to-center distance between hexagons
+- **Container size**: Controls actual hexagon dimensions (`size * 2` wide, `size * Math.sqrt(3)` tall)
+
+Always use a spacing multiplier when hexagons appear too close together!
 
 ## Testing Scenarios
 - Resize browser window horizontally and vertically

@@ -25,18 +25,17 @@ const HexGrid: React.FC<HexGridProps> = ({
   className = ""
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
   const [selectedHex, setSelectedHex] = useState<string | null>(null);
   const [, setHoveredHex] = useState<string | null>(null);
-  const [screenSize, setScreenSize] = useState('desktop');
   const [responsiveSize, setResponsiveSize] = useState(size);
 
   // Calculate hex position from QRS coordinates (pointy-top hexagons)
-  // Use responsive size for positioning
+  // Use responsive size for positioning with increased spacing
   const getHexPosition = useCallback((q: number, r: number) => {
-    // Pointy-top hexagon formulas from Red Blob Games
-    const x = responsiveSize * (Math.sqrt(3) * q + Math.sqrt(3) / 2 * r);
-    const y = responsiveSize * (3 / 2 * r);
+    // Pointy-top hexagon formulas from Red Blob Games with increased spacing
+    const spacingMultiplier = 1.1; // Increase spacing by 10%
+    const x = responsiveSize * spacingMultiplier * (Math.sqrt(3) * q + Math.sqrt(3) / 2 * r);
+    const y = responsiveSize * spacingMultiplier * (3 / 2 * r);
     
     return { x, y };
   }, [responsiveSize]);
@@ -62,6 +61,18 @@ const HexGrid: React.FC<HexGridProps> = ({
 
 
 
+  // Calculate container size based on hexagon bounds
+  const getContainerSize = useCallback(() => {
+    const bounds = getGridBounds();
+    const padding = responsiveSize * 2; // Add padding around the grid
+    return {
+      width: Math.abs(bounds.maxX - bounds.minX) + padding,
+      height: Math.abs(bounds.maxY - bounds.minY) + padding
+    };
+  }, [getGridBounds, responsiveSize]);
+
+  const calculatedContainerSize = getContainerSize();
+
   // Calculate center offset to center the grid
   const getCenterOffset = useCallback(() => {
     const bounds = getGridBounds();
@@ -69,40 +80,29 @@ const HexGrid: React.FC<HexGridProps> = ({
     const gridHeight = bounds.maxY - bounds.minY;
     
     return {
-      x: (containerSize.width - gridWidth) / 2 - bounds.minX,
-      y: (containerSize.height - gridHeight) / 2 - bounds.minY
+      x: (calculatedContainerSize.width - gridWidth) / 2 - bounds.minX,
+      y: (calculatedContainerSize.height - gridHeight) / 2 - bounds.minY
     };
-  }, [containerSize, getGridBounds]);
+  }, [calculatedContainerSize, getGridBounds]);
 
-  // Update container size, screen size, and responsive size on resize
+  // Update responsive size on resize
   useEffect(() => {
     const updateSize = () => {
-      if (containerRef.current) {
-        const rect = containerRef.current.getBoundingClientRect();
-        setContainerSize({ width: rect.width, height: rect.height });
-        
-        // Update screen size and responsive size
-        const width = window.innerWidth;
-        let newScreenSize = 'desktop';
-        let newResponsiveSize = size;
-        
-        if (width < 480) {
-          newScreenSize = 'mobile';
-          newResponsiveSize = size * 0.5; // 50% of base size
-        } else if (width < 768) {
-          newScreenSize = 'tablet-small';
-          newResponsiveSize = size * 0.7; // 70% of base size
-        } else if (width < 1200) {
-          newScreenSize = 'tablet';
-          newResponsiveSize = size * 0.85; // 85% of base size
-        } else {
-          newScreenSize = 'desktop';
-          newResponsiveSize = size; // Full size
-        }
-        
-        setScreenSize(newScreenSize);
-        setResponsiveSize(newResponsiveSize);
+      // Update responsive size based on screen width
+      const width = window.innerWidth;
+      let newResponsiveSize = size;
+      
+      if (width < 480) {
+        newResponsiveSize = size * 0.6; // 60% of base size
+      } else if (width < 768) {
+        newResponsiveSize = size * 0.8; // 80% of base size
+      } else if (width < 1200) {
+        newResponsiveSize = size * 0.9; // 90% of base size
+      } else {
+        newResponsiveSize = size; // Full size
       }
+      
+      setResponsiveSize(newResponsiveSize);
     };
 
     updateSize();
@@ -163,11 +163,12 @@ const HexGrid: React.FC<HexGridProps> = ({
   return (
     <div
       ref={containerRef}
-      className={`hex-grid-container relative w-full h-full overflow-visible transition-all duration-300 p-2 sm:p-4 md:p-6 lg:p-8 ${className}`}
+      className={`hex-grid-container relative overflow-visible transition-all duration-300 p-2 sm:p-4 md:p-6 lg:p-8 ${className}`}
       style={{ 
-        minHeight: screenSize === 'mobile' ? '400px' : 
-                   screenSize === 'tablet-small' ? '450px' :
-                   screenSize === 'tablet' ? '500px' : '600px'
+        width: `${calculatedContainerSize.width}px`,
+        height: `${calculatedContainerSize.height}px`,
+        minWidth: '300px', // Ensure minimum width
+        minHeight: '200px'  // Ensure minimum height
       }}
     >
       <div 

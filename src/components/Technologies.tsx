@@ -97,11 +97,11 @@ export function Technologies(): React.JSX.Element {
       </div>
 
       {/* Custom HexGrid */}
-      <div className="w-full max-w-6xl mx-auto">
-        <div className="relative w-full aspect-[16/9] sm:aspect-[21/9] md:aspect-[16/9] lg:aspect-[21/9] border border-gray-300 rounded-lg overflow-visible">
+      <div className="flex justify-center">
+        <div className="relative border border-gray-300 rounded-lg overflow-visible">
           <HexGrid 
             hexes={technologies} 
-            size={70}
+            size={100}
             onSelect={(id) => {
               console.log('Selected technology:', id);
               // You can add more sophisticated selection logic here
