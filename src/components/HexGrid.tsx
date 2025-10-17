@@ -29,16 +29,17 @@ const HexGrid: React.FC<HexGridProps> = ({
   const [selectedHex, setSelectedHex] = useState<string | null>(null);
   const [, setHoveredHex] = useState<string | null>(null);
   const [screenSize, setScreenSize] = useState('desktop');
+  const [responsiveSize, setResponsiveSize] = useState(size);
 
   // Calculate hex position from QRS coordinates (pointy-top hexagons)
-  // Always use the base size for positioning - scaling happens at the container level
+  // Use responsive size for positioning
   const getHexPosition = useCallback((q: number, r: number) => {
     // Pointy-top hexagon formulas from Red Blob Games
-    const x = size * (Math.sqrt(3) * q + Math.sqrt(3) / 2 * r);
-    const y = size * (3 / 2 * r);
+    const x = responsiveSize * (Math.sqrt(3) * q + Math.sqrt(3) / 2 * r);
+    const y = responsiveSize * (3 / 2 * r);
     
     return { x, y };
-  }, [size]);
+  }, [responsiveSize]);
 
   // Calculate grid bounds using the base size
   const getGridBounds = useCallback(() => {
@@ -57,35 +58,7 @@ const HexGrid: React.FC<HexGridProps> = ({
     return { minX, maxX, maxY, minY };
   }, [hexes, getHexPosition]);
 
-  // Get responsive scale factor based on container dimensions
-  const getResponsiveScale = useCallback(() => {
-    if (containerSize.width === 0 || containerSize.height === 0) {
-      return 1; // Fallback to no scaling
-    }
-
-    // Calculate the maximum size that fits in the container
-    const maxWidth = containerSize.width * 0.8; // Use 80% of container width
-    const maxHeight = containerSize.height * 0.8; // Use 80% of container height
-    
-    // Calculate grid bounds using base size
-    const bounds = getGridBounds();
-    const gridWidth = Math.abs(bounds.maxX - bounds.minX);
-    const gridHeight = Math.abs(bounds.maxY - bounds.minY);
-    
-    // Calculate scale factors based on both width and height constraints
-    const widthScale = maxWidth / (gridWidth + size * 2); // Add padding
-    const heightScale = maxHeight / (gridHeight + size * 2); // Add padding
-    
-    // Use the smaller scale to ensure everything fits
-    const scale = Math.min(widthScale, heightScale, 1); // Don't scale up beyond original
-    
-    // Apply screen size constraints
-    const screenScale = screenSize === 'mobile' ? 0.6 :
-                       screenSize === 'tablet-small' ? 0.7 :
-                       screenSize === 'tablet' ? 0.8 : 1;
-    
-    return Math.max(scale * screenScale, 0.3); // Minimum 30% scale
-  }, [size, screenSize, containerSize, getGridBounds]);
+  // No longer needed - using responsive sizing instead of scaling
 
 
 
@@ -101,31 +74,41 @@ const HexGrid: React.FC<HexGridProps> = ({
     };
   }, [containerSize, getGridBounds]);
 
-  // Update container size and screen size on resize
+  // Update container size, screen size, and responsive size on resize
   useEffect(() => {
     const updateSize = () => {
       if (containerRef.current) {
         const rect = containerRef.current.getBoundingClientRect();
         setContainerSize({ width: rect.width, height: rect.height });
         
-        // Update screen size for responsive behavior
+        // Update screen size and responsive size
         const width = window.innerWidth;
+        let newScreenSize = 'desktop';
+        let newResponsiveSize = size;
+        
         if (width < 480) {
-          setScreenSize('mobile');
+          newScreenSize = 'mobile';
+          newResponsiveSize = size * 0.5; // 50% of base size
         } else if (width < 768) {
-          setScreenSize('tablet-small');
+          newScreenSize = 'tablet-small';
+          newResponsiveSize = size * 0.7; // 70% of base size
         } else if (width < 1200) {
-          setScreenSize('tablet');
+          newScreenSize = 'tablet';
+          newResponsiveSize = size * 0.85; // 85% of base size
         } else {
-          setScreenSize('desktop');
+          newScreenSize = 'desktop';
+          newResponsiveSize = size; // Full size
         }
+        
+        setScreenSize(newScreenSize);
+        setResponsiveSize(newResponsiveSize);
       }
     };
 
     updateSize();
     window.addEventListener('resize', updateSize);
     return () => window.removeEventListener('resize', updateSize);
-  }, []);
+  }, [size]);
 
   // Handle keyboard navigation
   useEffect(() => {
@@ -180,7 +163,7 @@ const HexGrid: React.FC<HexGridProps> = ({
   return (
     <div
       ref={containerRef}
-      className={`hex-grid-container relative w-full h-full overflow-hidden transition-all duration-300 p-2 sm:p-4 md:p-6 lg:p-8 ${className}`}
+      className={`hex-grid-container relative w-full h-full overflow-visible transition-all duration-300 p-2 sm:p-4 md:p-6 lg:p-8 ${className}`}
       style={{ 
         minHeight: screenSize === 'mobile' ? '400px' : 
                    screenSize === 'tablet-small' ? '450px' :
@@ -189,10 +172,6 @@ const HexGrid: React.FC<HexGridProps> = ({
     >
       <div 
         className="w-full h-full flex items-center justify-center"
-        style={{
-          transform: `scale(${getResponsiveScale()})`,
-          transformOrigin: 'center'
-        }}
       >
         {filteredHexes.map((hex) => {
           const position = getHexPosition(hex.q, hex.r);
@@ -209,7 +188,7 @@ const HexGrid: React.FC<HexGridProps> = ({
               r={hex.r}
               icon={hex.icon}
               label={hex.label}
-              size={size}
+              size={responsiveSize}
               x={position.x + centerOffset.x}
               y={position.y + centerOffset.y}
               isSelected={isSelected}

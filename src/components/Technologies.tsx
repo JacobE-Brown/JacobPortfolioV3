@@ -52,29 +52,31 @@ const technologies = [
   { id: 'vite', label: 'Vite JS', icon: <img className="relative w-full h-full object-contain" alt="Vite" src={vitejsIcon} />, q: 0, r: -1 },
   { id: 'tailwind', label: 'Tailwinds CSS', icon: <img className="relative w-full h-full object-contain" alt="Tailwind" src={tailwindIcon} />, q: 1, r: -1 },
   
-  // Row 3: 5 items (aligned row) - C#, ASP.NET Core, BootStrap, CSS 3, HTML 5
+  // Row 3: 3 items (aligned row) - C#, ASP.NET Core, BootStrap
   { id: 'csharp', label: 'C#', icon: <img className="relative w-full h-full object-contain" alt="C#" src={csharpIcon} />, q: -2, r: 0 },
   { id: 'netcore', label: 'ASP.NET Core', icon: <img className="relative w-full h-full object-contain" alt=".NET" src={netcoreIcon} />, q: -1, r: 0 },
   { id: 'bootstrap', label: 'BootStrap', icon: <img className="relative w-full h-full object-contain" alt="Bootstrap" src={bootstrapIcon} />, q: 0, r: 0 },
-  { id: 'css', label: 'CSS 3', icon: <img className="relative w-full h-full object-contain" alt="CSS" src={cssIcon} />, q: 1, r: 0 },
-  { id: 'html', label: 'HTML 5', icon: <img className="relative w-full h-full object-contain" alt="HTML" src={htmlIcon} />, q: 2, r: 0 },
   
-  // Row 4: 4 items (offset row) - Java Script, Type Script, Kotlin, Jetpack Compose
+  // Row 4: 4 items (offset row) - CSS 3, HTML 5, Java Script, Type Script (shifted left 2)
+  { id: 'css', label: 'CSS 3', icon: <img className="relative w-full h-full object-contain" alt="CSS" src={cssIcon} />, q: -3, r: 1 },
+  { id: 'html', label: 'HTML 5', icon: <img className="relative w-full h-full object-contain" alt="HTML" src={htmlIcon} />, q: -2, r: 1 },
   { id: 'javascript', label: 'Java Script', icon: <img className="relative w-full h-full object-contain" alt="JavaScript" src={jsIcon} />, q: -1, r: 1 },
   { id: 'typescript', label: 'Type Script', icon: <img className="relative w-full h-full object-contain" alt="TypeScript" src={tsIcon} />, q: 0, r: 1 },
-  { id: 'kotlin', label: 'Kotlin', icon: <img className="relative w-full h-full object-contain" alt="Kotlin" src={kotlinIcon} />, q: 1, r: 1 },
-  { id: 'jetpack', label: 'Jetpack Compose', icon: <img className="relative w-full h-full object-contain" alt="Jetpack" src={jetpackIcon} />, q: 2, r: 1 },
   
-  // Row 5: 5 items (aligned row) - Python, Android, Linux, Arch Linux, SQL / Databases
-  { id: 'python', label: 'Python', icon: <img className="relative w-full h-full object-contain" alt="Python" src={pythonIcon} />, q: -2, r: 2 },
+  // Row 5: 3 items (aligned row) - Kotlin, Jetpack Compose, Android (shifted left 1)
+  { id: 'kotlin', label: 'Kotlin', icon: <img className="relative w-full h-full object-contain" alt="Kotlin" src={kotlinIcon} />, q: -3, r: 2 },
+  { id: 'jetpack', label: 'Jetpack Compose', icon: <img className="relative w-full h-full object-contain" alt="Jetpack" src={jetpackIcon} />, q: -2, r: 2 },
   { id: 'android', label: 'Android', icon: <img className="relative w-full h-full object-contain" alt="Android" src={androidIcon} />, q: -1, r: 2 },
-  { id: 'linux', label: 'Linux', icon: <img className="relative w-full h-full object-contain" alt="Linux" src={linuxIcon} />, q: 0, r: 2 },
-  { id: 'arch', label: 'Arch Linux', icon: <img className="relative w-full h-full object-contain" alt="Arch" src={archIcon} />, q: 1, r: 2 },
-  { id: 'sql', label: 'SQL / Databases', icon: <img className="relative w-full h-full object-contain" alt="SQL" src={sqlIcon} />, q: 2, r: 2 },
   
-  // Row 6: 2 items (offset row) - Django, Git and Github
+  // Row 6: 4 items (offset row) - Linux, Arch Linux, Python, Django (shifted left 3)
+  { id: 'linux', label: 'Linux', icon: <img className="relative w-full h-full object-contain" alt="Linux" src={linuxIcon} />, q: -4, r: 3 },
+  { id: 'arch', label: 'Arch Linux', icon: <img className="relative w-full h-full object-contain" alt="Arch" src={archIcon} />, q: -3, r: 3 },
+  { id: 'python', label: 'Python', icon: <img className="relative w-full h-full object-contain" alt="Python" src={pythonIcon} />, q: -2, r: 3 },
   { id: 'django', label: 'Django', icon: <img className="relative w-full h-full object-contain" alt="Django" src={djangoIcon} />, q: -1, r: 3 },
-  { id: 'github', label: 'Git and Github', icon: <img className="relative w-full h-full object-contain" alt="GitHub" src={githubIcon} />, q: 0, r: 3 },
+  
+  // Row 7: 2 items (aligned row) - SQL / Databases, Git and Github (shifted left 4)
+  { id: 'sql', label: 'SQL / Databases', icon: <img className="relative w-full h-full object-contain" alt="SQL" src={sqlIcon} />, q: -4, r: 4 },
+  { id: 'github', label: 'Git and Github', icon: <img className="relative w-full h-full object-contain" alt="GitHub" src={githubIcon} />, q: -3, r: 4 },
 ]
 
 export function Technologies(): React.JSX.Element {
@@ -96,10 +98,10 @@ export function Technologies(): React.JSX.Element {
 
       {/* Custom HexGrid */}
       <div className="w-full max-w-6xl mx-auto">
-        <div className="relative w-full aspect-[16/9] sm:aspect-[21/9] md:aspect-[16/9] lg:aspect-[21/9] border-2 border-blue-medium-2 rounded-lg overflow-hidden">
+        <div className="relative w-full aspect-[16/9] sm:aspect-[21/9] md:aspect-[16/9] lg:aspect-[21/9] border border-gray-300 rounded-lg overflow-visible">
           <HexGrid 
             hexes={technologies} 
-            size={45}
+            size={70}
             onSelect={(id) => {
               console.log('Selected technology:', id);
               // You can add more sophisticated selection logic here

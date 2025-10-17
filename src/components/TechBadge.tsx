@@ -24,6 +24,7 @@ const TechBadge = ({ icon, name, className = "", zoomLevel = 1, hexSize = { x: 5
   return (
     <HexBase 
       className={`${className} tech-badge-responsive`}
+      hexSize={hexSize}
       style={{ 
         '--zoom-level': zoomLevel,
         '--scale-factor': scaleFactor,
