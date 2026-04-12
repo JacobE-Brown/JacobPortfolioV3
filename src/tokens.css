@@ -20,9 +20,9 @@
   --color-text-1: rgb(var(--text-1) / <alpha-value>);
   --color-text-2: rgb(var(--text-2) / <alpha-value>);
 
-  /* Fonts: user asked for good serif defaults */
-  --font-sans: ui-sans-serif, system-ui, sans-serif;
-  --font-serif: "Merriweather", "Georgia", ui-serif, serif;
+  /* Fonts */
+  --font-sans: "Roboto", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Playfair Display", "Merriweather", "Georgia", ui-serif, serif;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
@@ -65,11 +65,6 @@
   will-change: transform;
 }
 
-.tech-badge-responsive {
-  transform-origin: center;
-  will-change: transform;
-}
-
 /* Base resets aligning with snippet intent */
 @layer base {
   button, input, select, textarea { appearance: none; background: transparent; border: 0; outline: 0; }
@@ -77,239 +72,35 @@
 
 @layer components {
   .all-\[unset\] { all: unset; }
-  
-  /* True Honeycomb Grid System */
-  .honeycomb-grid {
-    position: relative;
-    width: fit-content;
-    margin: 0 auto;
-    padding: 20px;
-  }
-  
-  .honeycomb-item {
-    position: absolute;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    animation: fadeInUp 0.6s ease-out forwards;
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  
-  /* Row 1: 3 items - centered */
-  .honeycomb-item:nth-child(1) { left: 0px; top: 0px; animation-delay: 0.1s; }
-  .honeycomb-item:nth-child(2) { left: 86px; top: 0px; animation-delay: 0.2s; }
-  .honeycomb-item:nth-child(3) { left: 172px; top: 0px; animation-delay: 0.3s; }
-  
-  /* Row 2: 4 items - offset by half hex width (43px) */
-  .honeycomb-item:nth-child(4) { left: 43px; top: 44px; animation-delay: 0.4s; }
-  .honeycomb-item:nth-child(5) { left: 129px; top: 44px; animation-delay: 0.5s; }
-  .honeycomb-item:nth-child(6) { left: 215px; top: 44px; animation-delay: 0.6s; }
-  .honeycomb-item:nth-child(7) { left: 301px; top: 44px; animation-delay: 0.7s; }
-  
-  /* Row 3: 3 items - back to centered */
-  .honeycomb-item:nth-child(8) { left: 0px; top: 88px; animation-delay: 0.8s; }
-  .honeycomb-item:nth-child(9) { left: 86px; top: 88px; animation-delay: 0.9s; }
-  .honeycomb-item:nth-child(10) { left: 172px; top: 88px; animation-delay: 1.0s; }
-  
-  /* Row 4: 4 items - offset again */
-  .honeycomb-item:nth-child(11) { left: 43px; top: 132px; animation-delay: 1.1s; }
-  .honeycomb-item:nth-child(12) { left: 129px; top: 132px; animation-delay: 1.2s; }
-  .honeycomb-item:nth-child(13) { left: 215px; top: 132px; animation-delay: 1.3s; }
-  .honeycomb-item:nth-child(14) { left: 301px; top: 132px; animation-delay: 1.4s; }
-  
-  /* Row 5: 3 items - centered */
-  .honeycomb-item:nth-child(15) { left: 0px; top: 176px; animation-delay: 1.5s; }
-  .honeycomb-item:nth-child(16) { left: 86px; top: 176px; animation-delay: 1.6s; }
-  .honeycomb-item:nth-child(17) { left: 172px; top: 176px; animation-delay: 1.7s; }
-  
-  /* Row 6: 4 items - offset */
-  .honeycomb-item:nth-child(18) { left: 43px; top: 220px; animation-delay: 1.8s; }
-  .honeycomb-item:nth-child(19) { left: 129px; top: 220px; animation-delay: 1.9s; }
-  .honeycomb-item:nth-child(20) { left: 215px; top: 220px; animation-delay: 2.0s; }
-  .honeycomb-item:nth-child(21) { left: 301px; top: 220px; animation-delay: 2.1s; }
-  
-  /* Row 7: 3 items - centered */
-  .honeycomb-item:nth-child(22) { left: 0px; top: 264px; animation-delay: 2.2s; }
-  .honeycomb-item:nth-child(23) { left: 86px; top: 264px; animation-delay: 2.3s; }
-  .honeycomb-item:nth-child(24) { left: 172px; top: 264px; animation-delay: 2.4s; }
-  
-  /* Removed honeycomb hover effects */
-  
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  
-  /* Category filter animations */
-  .category-filter {
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    animation: fadeInScale 0.5s ease-out forwards;
-    opacity: 0;
-    transform: scale(0.9);
-  }
-  
-  .category-filter:nth-child(1) { animation-delay: 0.1s; }
-  .category-filter:nth-child(2) { animation-delay: 0.15s; }
-  .category-filter:nth-child(3) { animation-delay: 0.2s; }
-  .category-filter:nth-child(4) { animation-delay: 0.25s; }
-  .category-filter:nth-child(5) { animation-delay: 0.3s; }
-  .category-filter:nth-child(6) { animation-delay: 0.35s; }
-  .category-filter:nth-child(7) { animation-delay: 0.4s; }
-  
-  /* Removed category filter hover effects */
-  
-  @keyframes fadeInScale {
-    from {
-      opacity: 0;
-      transform: scale(0.9);
-    }
-    to {
-      opacity: 1;
-      transform: scale(1);
-    }
-  }
-  
-  /* Custom HexGrid Styling */
-  .hex-grid-container {
-    background: transparent;
-    position: relative;
-  }
-  
-  /* Responsive HexGrid Patterns */
-  .responsive-hexgrid {
-    transition: all 0.3s ease;
-  }
-  
-  /* SVG Icon Animations */
-  .tech-icon {
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-  
-  /* Removed tech-icon hover effects */
-  
-  /* Tech Badge Responsive Scaling */
-  .tech-badge-responsive {
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-  
-  /* Removed tech-badge-responsive hover effects */
-  
-  /* Hexagon Content Animations */
-  .hexagon-content {
-    transition: all 0.3s ease;
-  }
-  
-  .hexagon-foreign-object {
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-  
-  /* HexTile styling for custom hex grid */
+
+  /* HexTile styling */
   .hex-tile {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     transform-origin: center;
     will-change: transform;
   }
-  
+
   .hex-tile:hover {
     z-index: 5;
   }
-  
+
   .hex-tile.selected {
     z-index: 10;
   }
 
-  /* Responsive hex grid container */
+  /* Hex grid container */
   .hex-grid-container {
     position: relative;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    /* Ensure container maintains aspect ratio */
-    aspect-ratio: 16/9;
-    min-height: 300px;
+    background: transparent;
+    overflow: visible;
   }
 
-  /* Override aspect ratio on very small screens */
-  @media (max-width: 480px) {
-    .hex-grid-container {
-      aspect-ratio: 4/3;
-      min-height: 250px;
-    }
-  }
-
-  @media (min-width: 1200px) {
-    .hex-grid-container {
-      aspect-ratio: 21/9;
-    }
-  }
-
-  /* Ensure proper spacing on mobile */
-  @media (max-width: 480px) {
-    .hex-grid-container {
-      padding: 0.5rem;
-    }
-    
-    .hex-tile {
-      min-width: 60px;
-      min-height: 60px;
-    }
-  }
-
-  @media (max-width: 768px) {
-    .hex-grid-container {
-      padding: 1rem;
-    }
-    
-    .hex-tile {
-      min-width: 70px;
-      min-height: 70px;
-    }
-  }
-
+  /* Tech badge transitions */
   .tech-badge-responsive {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     transform-origin: center;
   }
 
-  /* Ensure icons inside TechBadge scale properly */
-  .tech-badge-responsive .tech-icon img {
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: contain;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    max-width: none !important;
-    max-height: none !important;
-  }
-
-  /* Enhanced scaling for tech icon content */
-  .tech-badge-responsive .tech-icon-content {
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    transform-origin: center;
-  }
-
-  .tech-badge-responsive .tech-icon-content img {
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: contain;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    max-width: none !important;
-    max-height: none !important;
-  }
-
-  /* Override any Tailwind fixed sizes */
-  .tech-badge-responsive img[class*="w-["],
-  .tech-badge-responsive img[class*="h-["] {
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: contain !important;
-  }
-
-  /* Ensure all images in tech badges scale properly */
   .tech-badge-responsive img {
     width: 100% !important;
     height: 100% !important;
@@ -320,64 +111,12 @@
     min-height: 0 !important;
   }
 
-  /* Enhanced scaling for tech label */
-  .tech-badge-responsive .tech-label {
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    transform-origin: center;
-  }
-
+  .tech-badge-responsive .tech-icon,
+  .tech-badge-responsive .tech-icon-content,
+  .tech-badge-responsive .tech-label,
   .tech-badge-responsive .tech-label-text {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     transform-origin: center;
-  }
-
-  /* Responsive scaling for different screen sizes */
-  @media (max-width: 1200px) {
-    .hexagon-foreign-object {
-      --scale-factor: 0.9;
-    }
-    
-    .tech-badge-responsive {
-      --scale-factor: 0.9;
-    }
-  }
-
-  @media (max-width: 768px) {
-    .hexagon-foreign-object {
-      --scale-factor: 0.8;
-    }
-    
-    .tech-badge-responsive {
-      --scale-factor: 0.8;
-    }
-  }
-
-  @media (max-width: 480px) {
-    .hexagon-foreign-object {
-      --scale-factor: 0.7;
-    }
-    
-    .tech-badge-responsive {
-      --scale-factor: 0.7;
-    }
-  }
-
-  /* Ensure proper clipping for foreign objects */
-  .hexagon-foreign-object {
-    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-  }
-
-  /* Responsive hexgrid */
-  @media (max-width: 768px) {
-    .hex-grid-container {
-      transform: scale(0.9);
-    }
-  }
-
-  @media (max-width: 480px) {
-    .hex-grid-container {
-      transform: scale(0.8);
-    }
   }
 }
 

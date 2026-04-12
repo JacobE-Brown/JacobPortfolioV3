@@ -155,25 +155,21 @@ const HexGrid: React.FC<HexGridProps> = ({
       adjacentHexes.forEach((hex) => {
         const adjacentElement = document.getElementById(`hex-${hex.id}`);
         if (adjacentElement) {
-          // Calculate the direction vector from target to adjacent hex
-          const dx = hex.q - targetHex.q;
-          const dy = hex.r - targetHex.r;
-          
-          // Normalize the direction and apply fixed distance
-          const magnitude = Math.sqrt(dx * dx + dy * dy);
-          const pushDistance = 10; // Fixed pixel distance to push away
-          
+          // Convert axial direction to screen direction (pointy-top hex)
+          const dq = hex.q - targetHex.q;
+          const dr = hex.r - targetHex.r;
+          const screenDx = Math.sqrt(3) * dq + (Math.sqrt(3) / 2) * dr;
+          const screenDy = (3 / 2) * dr;
+
+          const magnitude = Math.sqrt(screenDx * screenDx + screenDy * screenDy);
+          const pushDistance = 10;
+
           let finalX = 0;
           let finalY = 0;
-          
+
           if (magnitude > 0) {
-            // Normalize the direction vector
-            const normalizedDx = dx / magnitude;
-            const normalizedDy = dy / magnitude;
-            
-            // Apply the push distance along the hexagonal axis
-            finalX = normalizedDx * pushDistance;
-            finalY = normalizedDy * pushDistance;
+            finalX = (screenDx / magnitude) * pushDistance;
+            finalY = (screenDy / magnitude) * pushDistance;
           }
           
           gsap.to(adjacentElement, {
