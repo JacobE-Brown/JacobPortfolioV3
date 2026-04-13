@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import HexGrid from './HexGrid'
 import TechBadge from './TechBadge'
 
@@ -6,16 +6,6 @@ import TechBadge from './TechBadge'
 import vector3 from '@/assets/images/TechLogos/vector-3.svg'
 import vector4 from '@/assets/images/TechLogos/vector-4.svg'
 import vector5 from '@/assets/images/TechLogos/vector-5.svg'
-
-const categories = [
-  { name: 'Front-End Development', active: true, icon: vector3 },
-  { name: 'Back-End Development', active: false, icon: null },
-  { name: 'Cloud & DevOps', active: false, icon: null },
-  { name: 'Mobile Development', active: true, icon: vector4 },
-  { name: 'Design & UX', active: true, icon: vector5 },
-  { name: 'Education', active: true, icon: vector5 },
-  { name: 'Miscellaneous', active: false, icon: null },
-]
 
 // Tech icon imports
 import figmaIcon from '@/assets/images/TechLogos/figma.svg'
@@ -42,6 +32,22 @@ import githubIcon from '@/assets/images/TechLogos/github-1-1.svg'
 import sqlIcon from '@/assets/images/TechLogos/sql.svg'
 import vueIcon from '@/assets/images/TechLogos/react.svg'
 
+// --- Types ---
+
+type CategoryName =
+  | 'Front-End Development'
+  | 'Back-End Development'
+  | 'Cloud & DevOps'
+  | 'Mobile Development'
+  | 'Design & UX'
+  | 'Education'
+  | 'Miscellaneous'
+
+interface CategoryDef {
+  name: CategoryName
+  icon: string | null
+}
+
 interface TechItem {
   id: string
   label: string
@@ -50,9 +56,33 @@ interface TechItem {
   q: number
   r: number
   description: string
+  categories: CategoryName[]
 }
 
-function makeTech(id: string, label: string, iconSrc: string, alt: string, q: number, r: number, description?: string): TechItem {
+// --- Categories ---
+
+const categoryDefs: CategoryDef[] = [
+  { name: 'Front-End Development', icon: vector3 },
+  { name: 'Back-End Development', icon: null },
+  { name: 'Cloud & DevOps', icon: null },
+  { name: 'Mobile Development', icon: vector4 },
+  { name: 'Design & UX', icon: vector5 },
+  { name: 'Education', icon: vector5 },
+  { name: 'Miscellaneous', icon: null },
+]
+
+// --- Tech data ---
+
+function makeTech(
+  id: string,
+  label: string,
+  iconSrc: string,
+  alt: string,
+  q: number,
+  r: number,
+  cats: CategoryName[],
+  description: string,
+): TechItem {
   return {
     id,
     label,
@@ -60,53 +90,98 @@ function makeTech(id: string, label: string, iconSrc: string, alt: string, q: nu
     icon: <img className="relative w-full h-full object-contain" alt={alt} src={iconSrc} />,
     q,
     r,
-    description: description ?? `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.`,
+    categories: cats,
+    description,
   }
 }
 
 const technologies: TechItem[] = [
-  // Row 0 (4 tiles)
-  makeTech('sql', 'SQL / Databases', sqlIcon, 'SQL', -1, -2),
-  makeTech('figma', 'Figma', figmaIcon, 'Figma', 0, -2),
-  makeTech('education', 'My Education', educationIcon, 'Education', 1, -2),
-  makeTech('aws', 'AWS', awsIcon, 'AWS', 2, -2),
-  // Row 1 (5 tiles)
-  makeTech('python', 'Python', pythonIcon, 'Python', -2, -1),
-  makeTech('vue', 'Vue', vueIcon, 'Vue', -1, -1),
-  makeTech('react', 'React', reactIcon, 'React', 0, -1),
-  makeTech('vite', 'Vite JS', vitejsIcon, 'Vite', 1, -1),
-  makeTech('tailwind', 'Tailwinds CSS', tailwindIcon, 'Tailwind', 2, -1),
-  // Row 2 (6 tiles)
-  makeTech('linux', 'Linux', linuxIcon, 'Linux', -3, 0),
-  makeTech('github', 'Github', githubIcon, 'GitHub', -2, 0),
-  makeTech('csharp', 'C#', csharpIcon, 'C#', -1, 0),
-  makeTech('netcore', 'ASP.NET Core', netcoreIcon, '.NET', 0, 0),
-  makeTech('bootstrap', 'BootStrap', bootstrapIcon, 'Bootstrap', 1, 0),
-  makeTech('arch', 'Arch Linux', archIcon, 'Arch', 2, 0),
-  // Row 3 (5 tiles)
-  makeTech('django', 'Django', djangoIcon, 'Django', -3, 1),
-  makeTech('css', 'CSS 3', cssIcon, 'CSS', -2, 1),
-  makeTech('html', 'HTML 5', htmlIcon, 'HTML', -1, 1),
-  makeTech('javascript', 'Java Script', jsIcon, 'JavaScript', 0, 1),
-  makeTech('typescript', 'Type Script', tsIcon, 'TypeScript', 1, 1),
-  // Row 4 (4 tiles)
-  makeTech('git', 'Git', githubIcon, 'Git', -3, 2),
-  makeTech('kotlin', 'Kotlin', kotlinIcon, 'Kotlin', -2, 2),
-  makeTech('jetpack', 'Jetpack Compose', jetpackIcon, 'Jetpack', -1, 2),
-  makeTech('android', 'Android', androidIcon, 'Android', 0, 2),
+  // Row 0
+  makeTech('sql', 'SQL / Databases', sqlIcon, 'SQL', -1, -2,
+    ['Back-End Development'],
+    'Experienced with relational databases including PostgreSQL, MySQL, and SQLite. Comfortable writing complex queries, designing schemas, and working with ORMs.'),
+  makeTech('figma', 'Figma', figmaIcon, 'Figma', 0, -2,
+    ['Design & UX'],
+    'Proficient in Figma for UI/UX design, prototyping, and design system creation. Use it daily for wireframing and high-fidelity mockups.'),
+  makeTech('education', 'My Education', educationIcon, 'Education', 1, -2,
+    ['Education'],
+    'Formal education in computer science with a focus on software engineering, data structures, and algorithms.'),
+  makeTech('aws', 'AWS', awsIcon, 'AWS', 2, -2,
+    ['Cloud & DevOps'],
+    'Experience with AWS services including EC2, S3, Lambda, RDS, and CloudFront. Comfortable deploying and managing cloud infrastructure.'),
+
+  // Row 1
+  makeTech('python', 'Python', pythonIcon, 'Python', -2, -1,
+    ['Back-End Development'],
+    'Strong Python skills for backend development, scripting, and automation. Experience with Django, Flask, and data processing libraries.'),
+  makeTech('vue', 'Vue', vueIcon, 'Vue', -1, -1,
+    ['Front-End Development'],
+    'Familiar with Vue.js for building reactive single-page applications. Experience with Vue Router and Vuex state management.'),
+  makeTech('react', 'React', reactIcon, 'React', 0, -1,
+    ['Front-End Development'],
+    'Primary frontend framework. Deep experience with hooks, context, component patterns, and the React ecosystem including Next.js.'),
+  makeTech('vite', 'Vite JS', vitejsIcon, 'Vite', 1, -1,
+    ['Front-End Development'],
+    'Preferred build tool for modern web projects. Fast HMR, ESM-native bundling, and excellent plugin ecosystem.'),
+  makeTech('tailwind', 'Tailwinds CSS', tailwindIcon, 'Tailwind', 2, -1,
+    ['Front-End Development'],
+    'Go-to CSS framework for utility-first styling. Proficient with Tailwind v4, custom themes, and responsive design patterns.'),
+
+  // Row 2
+  makeTech('linux', 'Linux', linuxIcon, 'Linux', -3, 0,
+    ['Cloud & DevOps', 'Miscellaneous'],
+    'Daily driver OS. Comfortable with system administration, shell scripting, package management, and server configuration.'),
+  makeTech('github', 'Github', githubIcon, 'GitHub', -2, 0,
+    ['Miscellaneous'],
+    'Version control with Git and GitHub for collaboration, code review, CI/CD pipelines, and project management.'),
+  makeTech('csharp', 'C#', csharpIcon, 'C#', -1, 0,
+    ['Back-End Development'],
+    'Proficient in C# for backend development with ASP.NET Core. Experience with Entity Framework, LINQ, and .NET ecosystem.'),
+  makeTech('netcore', 'ASP.NET Core', netcoreIcon, '.NET', 0, 0,
+    ['Back-End Development'],
+    'Backend framework for building REST APIs and web applications. Experience with middleware, dependency injection, and Entity Framework Core.'),
+  makeTech('bootstrap', 'BootStrap', bootstrapIcon, 'Bootstrap', 1, 0,
+    ['Front-End Development'],
+    'Experienced with Bootstrap for rapid UI development. Familiar with the grid system, components, and customization via Sass variables.'),
+  makeTech('arch', 'Arch Linux', archIcon, 'Arch', 2, 0,
+    ['Cloud & DevOps', 'Miscellaneous'],
+    'Running Arch Linux as primary development environment. Deep understanding of system configuration, AUR, and rolling release management.'),
+
+  // Row 3
+  makeTech('django', 'Django', djangoIcon, 'Django', -3, 1,
+    ['Back-End Development'],
+    'Full-stack Python framework experience. Built projects with Django REST Framework, template system, ORM, and admin interface.'),
+  makeTech('css', 'CSS 3', cssIcon, 'CSS', -2, 1,
+    ['Front-End Development'],
+    'Strong CSS fundamentals including Flexbox, Grid, animations, custom properties, and modern layout techniques.'),
+  makeTech('html', 'HTML 5', htmlIcon, 'HTML', -1, 1,
+    ['Front-End Development'],
+    'Semantic HTML5 markup with focus on accessibility, SEO best practices, and modern web standards.'),
+  makeTech('javascript', 'Java Script', jsIcon, 'JavaScript', 0, 1,
+    ['Front-End Development', 'Back-End Development'],
+    'Core language for web development. Proficient with ES6+, async patterns, DOM manipulation, and Node.js runtime.'),
+  makeTech('typescript', 'Type Script', tsIcon, 'TypeScript', 1, 1,
+    ['Front-End Development', 'Back-End Development'],
+    'Preferred over plain JavaScript. Strong typing, interfaces, generics, and type-safe API design across full-stack projects.'),
+
+  // Row 4
+  makeTech('git', 'Git', githubIcon, 'Git', -3, 2,
+    ['Miscellaneous'],
+    'Proficient with Git version control including branching strategies, rebasing, cherry-picking, and resolving complex merge conflicts.'),
+  makeTech('kotlin', 'Kotlin', kotlinIcon, 'Kotlin', -2, 2,
+    ['Mobile Development'],
+    'Primary language for Android development. Experience with coroutines, Kotlin DSLs, and modern Kotlin idioms.'),
+  makeTech('jetpack', 'Jetpack Compose', jetpackIcon, 'Jetpack', -1, 2,
+    ['Mobile Development'],
+    'Modern Android UI toolkit. Building declarative UIs with composables, state management, navigation, and Material Design 3.'),
+  makeTech('android', 'Android', androidIcon, 'Android', 0, 2,
+    ['Mobile Development'],
+    'Native Android development with Kotlin and Jetpack libraries. Experience with MVVM architecture, Room, Retrofit, and Play Store deployment.'),
 ]
 
-// Default detail content (education)
-const defaultDetail = {
-  id: 'education',
-  label: 'My Education',
-  iconSrc: educationIcon,
-  description: '',
-}
-
 // --- Desktop detail panel ---
+
 function DetailPanel({ tech }: { tech: TechItem | null }) {
-  const active = tech ?? defaultDetail
   const isDefault = !tech
 
   return (
@@ -114,15 +189,20 @@ function DetailPanel({ tech }: { tech: TechItem | null }) {
       {/* Large hex badge */}
       <div className="w-48 h-52">
         <TechBadge
-          icon={<img className="relative w-full h-full object-contain" alt={active.label} src={active.iconSrc} />}
-          name={active.label}
+          icon={
+            <img
+              className="relative w-full h-full object-contain"
+              alt={tech?.label ?? 'My Education'}
+              src={tech?.iconSrc ?? educationIcon}
+            />
+          }
+          name={tech?.label ?? 'My Education'}
           hexSize={{ x: 100, y: 100 }}
         />
       </div>
 
       {isDefault ? (
         <>
-          {/* Resume link */}
           <div className="flex items-center gap-2">
             <span className="font-serif text-text-1 text-xl md:text-2xl" style={{ fontFamily: "'Lora', serif" }}>
               See My Resume:
@@ -135,13 +215,9 @@ function DetailPanel({ tech }: { tech: TechItem | null }) {
               My Resume
             </a>
           </div>
-
-          {/* Education entries */}
           <div className="flex flex-col gap-6 w-full">
             <div>
-              <h3 className="font-sans font-extrabold text-text-1 text-lg md:text-xl mb-2">
-                Magdalen College
-              </h3>
+              <h3 className="font-sans font-extrabold text-text-1 text-lg md:text-xl mb-2">Magdalen College</h3>
               <p className="font-sans text-text-1 text-base md:text-lg leading-relaxed">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
                 incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
@@ -149,9 +225,7 @@ function DetailPanel({ tech }: { tech: TechItem | null }) {
               </p>
             </div>
             <div>
-              <h3 className="font-sans font-extrabold text-text-1 text-lg md:text-xl mb-2">
-                College of Western Idaho
-              </h3>
+              <h3 className="font-sans font-extrabold text-text-1 text-lg md:text-xl mb-2">College of Western Idaho</h3>
               <p className="font-sans text-text-1 text-base md:text-lg leading-relaxed">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent
                 libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum
@@ -163,17 +237,24 @@ function DetailPanel({ tech }: { tech: TechItem | null }) {
       ) : (
         <div className="flex flex-col gap-4 w-full">
           <p className="font-sans text-text-1 text-base md:text-lg leading-relaxed">
-            {active.description}
+            {tech!.description}
           </p>
+          <div className="flex flex-wrap gap-1.5 mt-2">
+            {tech!.categories.map((cat) => (
+              <span key={cat} className="bg-blue-medium-1/20 text-text-1 text-xs font-sans px-2 py-0.5 rounded-full">
+                {cat}
+              </span>
+            ))}
+          </div>
         </div>
       )}
     </div>
   )
 }
 
-// --- Mobile modal overlay ---
+// --- Mobile modal ---
+
 function MobileModal({ tech, onClose }: { tech: TechItem; onClose: () => void }) {
-  // Prevent body scroll while open
   useEffect(() => {
     document.body.style.overflow = 'hidden'
     return () => { document.body.style.overflow = '' }
@@ -184,11 +265,7 @@ function MobileModal({ tech, onClose }: { tech: TechItem; onClose: () => void })
       className="fixed inset-0 z-50 flex flex-col items-center backdrop-blur-md bg-white/70 p-6 overflow-y-auto"
       onClick={onClose}
     >
-      <div
-        className="flex flex-col items-center gap-6 w-full max-w-sm pt-8"
-        onClick={(e) => e.stopPropagation()}
-      >
-        {/* Large hex badge */}
+      <div className="flex flex-col items-center gap-6 w-full max-w-sm pt-8" onClick={(e) => e.stopPropagation()}>
         <div className="w-56 h-60">
           <TechBadge
             icon={<img className="relative w-full h-full object-contain" alt={tech.label} src={tech.iconSrc} />}
@@ -196,22 +273,20 @@ function MobileModal({ tech, onClose }: { tech: TechItem; onClose: () => void })
             hexSize={{ x: 120, y: 120 }}
           />
         </div>
-
-        {/* Description */}
         <div className="flex flex-col gap-4 w-full">
-          <h3 className="font-sans font-extrabold text-text-1 text-xl">
-            {tech.label}
-          </h3>
-          <p className="font-sans text-text-1 text-base leading-relaxed">
-            {tech.description}
-          </p>
+          <h3 className="font-sans font-extrabold text-text-1 text-xl">{tech.label}</h3>
+          <p className="font-sans text-text-1 text-base leading-relaxed">{tech.description}</p>
+          <div className="flex flex-wrap gap-1.5">
+            {tech.categories.map((cat) => (
+              <span key={cat} className="bg-blue-medium-1/20 text-text-1 text-xs font-sans px-2 py-0.5 rounded-full">
+                {cat}
+              </span>
+            ))}
+          </div>
         </div>
-
-        {/* Back button */}
         <button
           onClick={onClose}
-          className="self-start bg-gray-300 px-5 py-2 text-text-1 font-sans text-lg
-                     hover:bg-gray-400 transition-colors mt-4"
+          className="self-start bg-gray-300 px-5 py-2 text-text-1 font-sans text-lg hover:bg-gray-400 transition-colors mt-4"
         >
           Back
         </button>
@@ -220,8 +295,11 @@ function MobileModal({ tech, onClose }: { tech: TechItem; onClose: () => void })
   )
 }
 
+// --- Main component ---
+
 export function Technologies(): React.JSX.Element {
   const [selectedId, setSelectedId] = useState<string | null>(null)
+  const [activeFilters, setActiveFilters] = useState<Set<CategoryName>>(new Set())
   const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
@@ -231,49 +309,71 @@ export function Technologies(): React.JSX.Element {
     return () => window.removeEventListener('resize', check)
   }, [])
 
-  const selectedTech = selectedId
-    ? technologies.find((t) => t.id === selectedId) ?? null
-    : null
+  // Compute which hex IDs should be faded
+  const fadedIds = useMemo(() => {
+    if (activeFilters.size === 0) return new Set<string>()
+    const faded = new Set<string>()
+    for (const tech of technologies) {
+      const matchesAny = tech.categories.some((cat) => activeFilters.has(cat))
+      if (!matchesAny) faded.add(tech.id)
+    }
+    return faded
+  }, [activeFilters])
+
+  const selectedTech = selectedId ? technologies.find((t) => t.id === selectedId) ?? null : null
 
   const handleSelect = (id: string) => {
-    // Toggle: clicking the same hex again deselects
     setSelectedId((prev) => (prev === id ? null : id))
   }
 
-  const handleReturn = () => {
+  const handleReturn = () => setSelectedId(null)
+
+  const toggleFilter = (name: CategoryName) => {
+    setActiveFilters((prev) => {
+      const next = new Set(prev)
+      if (next.has(name)) {
+        next.delete(name)
+      } else {
+        next.add(name)
+      }
+      return next
+    })
+    // Clear selection when filters change
     setSelectedId(null)
   }
 
   return (
     <section id="skills" className="bg-blue-neutral flex flex-col items-center justify-center overflow-hidden px-4 py-12 md:py-20">
-      {/* Section title */}
       <h2 className="font-sans font-extrabold text-text-1 text-4xl md:text-5xl lg:text-6xl mb-8">
         My Skills
       </h2>
 
-      {/* Two-column layout */}
       <div className="flex flex-col lg:flex-row items-start justify-center gap-8 w-full max-w-7xl">
         {/* Left: Filters + Hex Grid */}
         <div className="flex flex-col items-center gap-4 flex-1">
-          {/* Category filters */}
+          {/* Category pill filters */}
           <div className="flex flex-wrap items-center justify-center gap-2 max-w-2xl px-4">
-            {categories.map((category, index) => (
-              <div
-                key={index}
-                className={`flex items-center justify-center gap-1.5 px-3 py-1.5
-                  ${category.active
-                    ? 'bg-blue-medium-1 border-blue-medium-2'
-                    : 'bg-cream-neutral border-blue-medium-1'
-                  }
-                  rounded-full border-2 shadow-sm hover:shadow-md transition-shadow
-                  cursor-pointer`}
-              >
-                <span className="font-sans font-medium text-text-1 text-sm tracking-wide whitespace-nowrap">
-                  {category.name}
-                </span>
-                {category.icon && <img className="w-5 h-4" alt="" src={category.icon} />}
-              </div>
-            ))}
+            {categoryDefs.map((cat) => {
+              const isActive = activeFilters.has(cat.name)
+              return (
+                <button
+                  key={cat.name}
+                  onClick={() => toggleFilter(cat.name)}
+                  className={`flex items-center justify-center gap-1.5 px-3 py-1.5
+                    ${isActive
+                      ? 'bg-blue-medium-1 border-blue-medium-2'
+                      : 'bg-cream-neutral border-blue-medium-1'
+                    }
+                    rounded-full border-2 shadow-sm hover:shadow-md transition-all
+                    cursor-pointer`}
+                >
+                  <span className="font-sans font-medium text-text-1 text-sm tracking-wide whitespace-nowrap">
+                    {cat.name}
+                  </span>
+                  {isActive && cat.icon && <img className="w-5 h-4" alt="" src={cat.icon} />}
+                </button>
+              )
+            })}
           </div>
 
           {/* Hex Grid */}
@@ -281,6 +381,7 @@ export function Technologies(): React.JSX.Element {
             <HexGrid
               hexes={technologies}
               size={75}
+              fadedIds={fadedIds}
               onSelect={handleSelect}
               onReturn={handleReturn}
             />

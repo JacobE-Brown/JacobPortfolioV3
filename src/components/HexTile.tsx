@@ -11,6 +11,7 @@ interface HexTileProps {
   x: number;
   y: number;
   isSelected?: boolean;
+  faded?: boolean;
   onClick?: (id: string) => void;
   onHover?: (id: string, isHovering: boolean) => void;
   className?: string;
@@ -24,6 +25,7 @@ const HexTile: React.FC<HexTileProps> = ({
   x,
   y,
   isSelected = false,
+  faded = false,
   onClick,
   onHover,
   className = ""
@@ -55,7 +57,10 @@ const HexTile: React.FC<HexTileProps> = ({
         width: `${size * 2}px`,
         height: `${size * Math.sqrt(3)}px`,
         zIndex: isSelected ? 10 : 1,
-        opacity: 1,
+        opacity: faded ? 0.2 : 1,
+        pointerEvents: faded ? 'none' as const : 'auto' as const,
+        filter: faded ? 'grayscale(80%)' : 'none',
+        transition: 'opacity 0.4s ease, filter 0.4s ease',
         transformOrigin: 'center center'
       }}
       onClick={handleClick}

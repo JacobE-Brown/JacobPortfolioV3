@@ -13,6 +13,7 @@ interface HexData {
 interface HexGridProps {
   hexes: HexData[];
   size?: number;
+  fadedIds?: Set<string>;
   onSelect?: (id: string) => void;
   onReturn?: () => void;
   className?: string;
@@ -21,6 +22,7 @@ interface HexGridProps {
 const HexGrid: React.FC<HexGridProps> = ({
   hexes,
   size = 50,
+  fadedIds,
   onSelect,
   onReturn,
   className = ""
@@ -228,6 +230,7 @@ const HexGrid: React.FC<HexGridProps> = ({
         {hexes.map((hex) => {
           const position = getHexPosition(hex.q, hex.r);
           const isSelected = selectedHex === hex.id;
+          const isFaded = fadedIds?.has(hex.id) ?? false;
           return (
             <HexTile
               key={hex.id}
@@ -240,6 +243,7 @@ const HexGrid: React.FC<HexGridProps> = ({
               x={position.x + centerOffset.x}
               y={position.y + centerOffset.y}
               isSelected={isSelected}
+              faded={isFaded}
               onClick={handleSelect}
               onHover={handleHover}
             />
