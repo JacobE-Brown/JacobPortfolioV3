@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import HexGrid from './HexGrid'
 import TechBadge from './TechBadge'
 
@@ -42,45 +42,210 @@ import githubIcon from '@/assets/images/TechLogos/github-1-1.svg'
 import sqlIcon from '@/assets/images/TechLogos/sql.svg'
 import vueIcon from '@/assets/images/TechLogos/react.svg'
 
-const technologies = [
-  // Diamond layout — Row 0 (top, 4 tiles)
-  { id: 'sql', label: 'SQL / Databases', icon: <img className="relative w-full h-full object-contain" alt="SQL" src={sqlIcon} />, q: -1, r: -2 },
-  { id: 'figma', label: 'Figma', icon: <img className="relative w-full h-full object-contain" alt="Figma" src={figmaIcon} />, q: 0, r: -2 },
-  { id: 'education', label: 'My Education', icon: <img className="relative w-full h-full object-contain" alt="Education" src={educationIcon} />, q: 1, r: -2 },
-  { id: 'aws', label: 'AWS', icon: <img className="relative w-full h-full object-contain" alt="AWS" src={awsIcon} />, q: 2, r: -2 },
+interface TechItem {
+  id: string
+  label: string
+  iconSrc: string
+  icon: React.ReactNode
+  q: number
+  r: number
+  description: string
+}
 
+function makeTech(id: string, label: string, iconSrc: string, alt: string, q: number, r: number, description?: string): TechItem {
+  return {
+    id,
+    label,
+    iconSrc,
+    icon: <img className="relative w-full h-full object-contain" alt={alt} src={iconSrc} />,
+    q,
+    r,
+    description: description ?? `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.`,
+  }
+}
+
+const technologies: TechItem[] = [
+  // Row 0 (4 tiles)
+  makeTech('sql', 'SQL / Databases', sqlIcon, 'SQL', -1, -2),
+  makeTech('figma', 'Figma', figmaIcon, 'Figma', 0, -2),
+  makeTech('education', 'My Education', educationIcon, 'Education', 1, -2),
+  makeTech('aws', 'AWS', awsIcon, 'AWS', 2, -2),
   // Row 1 (5 tiles)
-  { id: 'python', label: 'Python', icon: <img className="relative w-full h-full object-contain" alt="Python" src={pythonIcon} />, q: -2, r: -1 },
-  { id: 'vue', label: 'Vue', icon: <img className="relative w-full h-full object-contain" alt="Vue" src={vueIcon} />, q: -1, r: -1 },
-  { id: 'react', label: 'React', icon: <img className="relative w-full h-full object-contain" alt="React" src={reactIcon} />, q: 0, r: -1 },
-  { id: 'vite', label: 'Vite JS', icon: <img className="relative w-full h-full object-contain" alt="Vite" src={vitejsIcon} />, q: 1, r: -1 },
-  { id: 'tailwind', label: 'Tailwinds CSS', icon: <img className="relative w-full h-full object-contain" alt="Tailwind" src={tailwindIcon} />, q: 2, r: -1 },
-
-  // Row 2 (center, 6 tiles — widest)
-  { id: 'linux', label: 'Linux', icon: <img className="relative w-full h-full object-contain" alt="Linux" src={linuxIcon} />, q: -3, r: 0 },
-  { id: 'github', label: 'Github', icon: <img className="relative w-full h-full object-contain" alt="GitHub" src={githubIcon} />, q: -2, r: 0 },
-  { id: 'csharp', label: 'C#', icon: <img className="relative w-full h-full object-contain" alt="C#" src={csharpIcon} />, q: -1, r: 0 },
-  { id: 'netcore', label: 'ASP.NET Core', icon: <img className="relative w-full h-full object-contain" alt=".NET" src={netcoreIcon} />, q: 0, r: 0 },
-  { id: 'bootstrap', label: 'BootStrap', icon: <img className="relative w-full h-full object-contain" alt="Bootstrap" src={bootstrapIcon} />, q: 1, r: 0 },
-  { id: 'arch', label: 'Arch Linux', icon: <img className="relative w-full h-full object-contain" alt="Arch" src={archIcon} />, q: 2, r: 0 },
-
+  makeTech('python', 'Python', pythonIcon, 'Python', -2, -1),
+  makeTech('vue', 'Vue', vueIcon, 'Vue', -1, -1),
+  makeTech('react', 'React', reactIcon, 'React', 0, -1),
+  makeTech('vite', 'Vite JS', vitejsIcon, 'Vite', 1, -1),
+  makeTech('tailwind', 'Tailwinds CSS', tailwindIcon, 'Tailwind', 2, -1),
+  // Row 2 (6 tiles)
+  makeTech('linux', 'Linux', linuxIcon, 'Linux', -3, 0),
+  makeTech('github', 'Github', githubIcon, 'GitHub', -2, 0),
+  makeTech('csharp', 'C#', csharpIcon, 'C#', -1, 0),
+  makeTech('netcore', 'ASP.NET Core', netcoreIcon, '.NET', 0, 0),
+  makeTech('bootstrap', 'BootStrap', bootstrapIcon, 'Bootstrap', 1, 0),
+  makeTech('arch', 'Arch Linux', archIcon, 'Arch', 2, 0),
   // Row 3 (5 tiles)
-  { id: 'django', label: 'Django', icon: <img className="relative w-full h-full object-contain" alt="Django" src={djangoIcon} />, q: -3, r: 1 },
-  { id: 'css', label: 'CSS 3', icon: <img className="relative w-full h-full object-contain" alt="CSS" src={cssIcon} />, q: -2, r: 1 },
-  { id: 'html', label: 'HTML 5', icon: <img className="relative w-full h-full object-contain" alt="HTML" src={htmlIcon} />, q: -1, r: 1 },
-  { id: 'javascript', label: 'Java Script', icon: <img className="relative w-full h-full object-contain" alt="JavaScript" src={jsIcon} />, q: 0, r: 1 },
-  { id: 'typescript', label: 'Type Script', icon: <img className="relative w-full h-full object-contain" alt="TypeScript" src={tsIcon} />, q: 1, r: 1 },
-
-  // Row 4 (bottom, 4 tiles)
-  { id: 'git', label: 'Git', icon: <img className="relative w-full h-full object-contain" alt="Git" src={githubIcon} />, q: -3, r: 2 },
-  { id: 'kotlin', label: 'Kotlin', icon: <img className="relative w-full h-full object-contain" alt="Kotlin" src={kotlinIcon} />, q: -2, r: 2 },
-  { id: 'jetpack', label: 'Jetpack Compose', icon: <img className="relative w-full h-full object-contain" alt="Jetpack" src={jetpackIcon} />, q: -1, r: 2 },
-  { id: 'android', label: 'Android', icon: <img className="relative w-full h-full object-contain" alt="Android" src={androidIcon} />, q: 0, r: 2 },
+  makeTech('django', 'Django', djangoIcon, 'Django', -3, 1),
+  makeTech('css', 'CSS 3', cssIcon, 'CSS', -2, 1),
+  makeTech('html', 'HTML 5', htmlIcon, 'HTML', -1, 1),
+  makeTech('javascript', 'Java Script', jsIcon, 'JavaScript', 0, 1),
+  makeTech('typescript', 'Type Script', tsIcon, 'TypeScript', 1, 1),
+  // Row 4 (4 tiles)
+  makeTech('git', 'Git', githubIcon, 'Git', -3, 2),
+  makeTech('kotlin', 'Kotlin', kotlinIcon, 'Kotlin', -2, 2),
+  makeTech('jetpack', 'Jetpack Compose', jetpackIcon, 'Jetpack', -1, 2),
+  makeTech('android', 'Android', androidIcon, 'Android', 0, 2),
 ]
 
-export function Technologies(): React.JSX.Element {
+// Default detail content (education)
+const defaultDetail = {
+  id: 'education',
+  label: 'My Education',
+  iconSrc: educationIcon,
+  description: '',
+}
+
+// --- Desktop detail panel ---
+function DetailPanel({ tech }: { tech: TechItem | null }) {
+  const active = tech ?? defaultDetail
+  const isDefault = !tech
+
   return (
-    <section className="bg-blue-neutral flex flex-col items-center justify-center overflow-hidden px-4 py-12 md:py-20">
+    <div className="flex flex-col items-center gap-6 flex-1 max-w-xl px-4 lg:pt-8">
+      {/* Large hex badge */}
+      <div className="w-48 h-52">
+        <TechBadge
+          icon={<img className="relative w-full h-full object-contain" alt={active.label} src={active.iconSrc} />}
+          name={active.label}
+          hexSize={{ x: 100, y: 100 }}
+        />
+      </div>
+
+      {isDefault ? (
+        <>
+          {/* Resume link */}
+          <div className="flex items-center gap-2">
+            <span className="font-serif text-text-1 text-xl md:text-2xl" style={{ fontFamily: "'Lora', serif" }}>
+              See My Resume:
+            </span>
+            <a
+              href="#resume"
+              className="text-blue-medium-2 text-xl md:text-2xl underline hover:opacity-80 transition-opacity"
+              style={{ fontFamily: "'Inter', sans-serif" }}
+            >
+              My Resume
+            </a>
+          </div>
+
+          {/* Education entries */}
+          <div className="flex flex-col gap-6 w-full">
+            <div>
+              <h3 className="font-sans font-extrabold text-text-1 text-lg md:text-xl mb-2">
+                Magdalen College
+              </h3>
+              <p className="font-sans text-text-1 text-base md:text-lg leading-relaxed">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
+                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+              </p>
+            </div>
+            <div>
+              <h3 className="font-sans font-extrabold text-text-1 text-lg md:text-xl mb-2">
+                College of Western Idaho
+              </h3>
+              <p className="font-sans text-text-1 text-base md:text-lg leading-relaxed">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent
+                libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum
+                imperdiet. Duis sagittis ipsum. Praesent mauris.
+              </p>
+            </div>
+          </div>
+        </>
+      ) : (
+        <div className="flex flex-col gap-4 w-full">
+          <p className="font-sans text-text-1 text-base md:text-lg leading-relaxed">
+            {active.description}
+          </p>
+        </div>
+      )}
+    </div>
+  )
+}
+
+// --- Mobile modal overlay ---
+function MobileModal({ tech, onClose }: { tech: TechItem; onClose: () => void }) {
+  // Prevent body scroll while open
+  useEffect(() => {
+    document.body.style.overflow = 'hidden'
+    return () => { document.body.style.overflow = '' }
+  }, [])
+
+  return (
+    <div
+      className="fixed inset-0 z-50 flex flex-col items-center backdrop-blur-md bg-white/70 p-6 overflow-y-auto"
+      onClick={onClose}
+    >
+      <div
+        className="flex flex-col items-center gap-6 w-full max-w-sm pt-8"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Large hex badge */}
+        <div className="w-56 h-60">
+          <TechBadge
+            icon={<img className="relative w-full h-full object-contain" alt={tech.label} src={tech.iconSrc} />}
+            name={tech.label}
+            hexSize={{ x: 120, y: 120 }}
+          />
+        </div>
+
+        {/* Description */}
+        <div className="flex flex-col gap-4 w-full">
+          <h3 className="font-sans font-extrabold text-text-1 text-xl">
+            {tech.label}
+          </h3>
+          <p className="font-sans text-text-1 text-base leading-relaxed">
+            {tech.description}
+          </p>
+        </div>
+
+        {/* Back button */}
+        <button
+          onClick={onClose}
+          className="self-start bg-gray-300 px-5 py-2 text-text-1 font-sans text-lg
+                     hover:bg-gray-400 transition-colors mt-4"
+        >
+          Back
+        </button>
+      </div>
+    </div>
+  )
+}
+
+export function Technologies(): React.JSX.Element {
+  const [selectedId, setSelectedId] = useState<string | null>(null)
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 1024)
+    check()
+    window.addEventListener('resize', check)
+    return () => window.removeEventListener('resize', check)
+  }, [])
+
+  const selectedTech = selectedId
+    ? technologies.find((t) => t.id === selectedId) ?? null
+    : null
+
+  const handleSelect = (id: string) => {
+    // Toggle: clicking the same hex again deselects
+    setSelectedId((prev) => (prev === id ? null : id))
+  }
+
+  const handleReturn = () => {
+    setSelectedId(null)
+  }
+
+  return (
+    <section id="skills" className="bg-blue-neutral flex flex-col items-center justify-center overflow-hidden px-4 py-12 md:py-20">
       {/* Section title */}
       <h2 className="font-sans font-extrabold text-text-1 text-4xl md:text-5xl lg:text-6xl mb-8">
         My Skills
@@ -116,63 +281,22 @@ export function Technologies(): React.JSX.Element {
             <HexGrid
               hexes={technologies}
               size={75}
-              onSelect={(id) => console.log('Selected:', id)}
-              onReturn={() => console.log('Returned to grid')}
+              onSelect={handleSelect}
+              onReturn={handleReturn}
             />
           </div>
         </div>
 
-        {/* Right: Education description */}
-        <div className="flex flex-col items-center gap-6 flex-1 max-w-xl px-4 lg:pt-8">
-          {/* Large education hex badge */}
-          <div className="w-48 h-52">
-            <TechBadge
-              icon={<img className="relative w-full h-full object-contain" alt="Education" src={educationIcon} />}
-              name="My Education"
-              hexSize={{ x: 100, y: 100 }}
-            />
-          </div>
-
-          {/* Resume link */}
-          <div className="flex items-center gap-2">
-            <span className="font-serif text-text-1 text-xl md:text-2xl" style={{ fontFamily: "'Lora', serif" }}>
-              See My Resume:
-            </span>
-            <a
-              href="#resume"
-              className="text-blue-medium-2 text-xl md:text-2xl underline hover:opacity-80 transition-opacity"
-              style={{ fontFamily: "'Inter', sans-serif" }}
-            >
-              My Resume
-            </a>
-          </div>
-
-          {/* Education entries */}
-          <div className="flex flex-col gap-6 w-full">
-            <div>
-              <h3 className="font-sans font-extrabold text-text-1 text-lg md:text-xl mb-2">
-                Magdalen College
-              </h3>
-              <p className="font-sans text-text-1 text-base md:text-lg leading-relaxed">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
-                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-                dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-sans font-extrabold text-text-1 text-lg md:text-xl mb-2">
-                College of Western Idaho
-              </h3>
-              <p className="font-sans text-text-1 text-base md:text-lg leading-relaxed">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent
-                libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum
-                imperdiet. Duis sagittis ipsum. Praesent mauris.
-              </p>
-            </div>
-          </div>
+        {/* Right: Detail panel (desktop only) */}
+        <div className="hidden lg:flex">
+          <DetailPanel tech={selectedTech} />
         </div>
       </div>
+
+      {/* Mobile modal */}
+      {isMobile && selectedTech && (
+        <MobileModal tech={selectedTech} onClose={handleReturn} />
+      )}
     </section>
   )
 }

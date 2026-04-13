@@ -2,42 +2,47 @@ import hexBase from '@/assets/images/TechLogos/hex-base.svg'
 
 interface ProjectCardProps {
   title: string
-  projectName: string
+  projectName?: string
   description: string[]
   reversed?: boolean
 }
 
+// Flat-top hexagon clip path
 const HEX_CLIP = 'polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)'
 
 function HexGallery({ reversed, projectName }: { reversed: boolean; projectName: string }) {
-  // Rounded on the inward-facing side, flush on the outer edge
-  const roundedClass = reversed
-    ? 'rounded-r-[3rem] lg:rounded-r-[4.5rem]'
-    : 'rounded-l-[3rem] lg:rounded-l-[4.5rem]'
+  // Rounded on the inward-facing side only; flush on outer edge
+  const roundedStyle = reversed
+    ? { borderRadius: '0 4.5rem 4.5rem 0' }
+    : { borderRadius: '4.5rem 0 0 4.5rem' }
 
-  // Border on 3 sides (not the edge flush with the container)
+  // 3-sided border: top + bottom + inward side (no border on flush edge)
   const borderClass = reversed
-    ? 'border-t-[6px] border-b-[6px] border-r-[6px] lg:border-t-[9px] lg:border-b-[9px] lg:border-r-[9px]'
-    : 'border-t-[6px] border-b-[6px] border-l-[6px] lg:border-t-[9px] lg:border-b-[9px] lg:border-l-[9px]'
+    ? 'border-t-[9px] border-b-[9px] border-r-[9px]'
+    : 'border-t-[9px] border-b-[9px] border-l-[9px]'
 
   return (
-    <div
-      className={`bg-text-1 border-blue-medium-1 ${borderClass} ${roundedClass}
-                  flex items-center justify-center
-                  p-6 md:p-10 lg:p-12
-                  w-full lg:w-1/2
-                  min-h-[18rem] md:min-h-[24rem] lg:min-h-[28rem]
-                  self-center lg:self-auto`}
-    >
-      <div className="flex flex-col items-center gap-6 md:gap-8">
-        <h3 className="font-serif font-semibold text-cream-neutral text-2xl md:text-4xl lg:text-5xl tracking-[0.13em]">
+    <div className="flex-1 flex items-center justify-center py-10 lg:py-16">
+      <div
+        className={`bg-text-1 border-blue-medium-1 ${borderClass}
+                    flex flex-col items-center justify-center
+                    px-8 md:px-12 lg:px-16 py-10 md:py-14
+                    w-full h-full`}
+        style={roundedStyle}
+      >
+        {/* Project name */}
+        <h3 className="font-serif font-semibold text-cream-neutral
+                       text-2xl md:text-4xl lg:text-5xl xl:text-[4.4rem]
+                       tracking-[0.13em] mb-8 md:mb-12 lg:mb-14">
           {projectName}
         </h3>
+
+        {/* Hex image gallery: 1 large + 2 small stacked */}
         <div className="flex items-center gap-2 md:gap-3">
-          {/* Large hex image */}
+          {/* Large hex */}
           <div
-            className="w-32 h-36 md:w-48 md:h-52 lg:w-60 lg:h-64"
-            style={{ clipPath: HEX_CLIP }}
+            className="w-36 md:w-52 lg:w-64 xl:w-[19rem]"
+            style={{ aspectRatio: '1 / 0.866', clipPath: HEX_CLIP }}
           >
             <img
               src={hexBase}
@@ -45,13 +50,14 @@ function HexGallery({ reversed, projectName }: { reversed: boolean; projectName:
               className="w-full h-full object-cover bg-blue-medium-1/30"
             />
           </div>
-          {/* Two small hex images stacked */}
-          <div className="flex flex-col gap-4 md:gap-6 lg:gap-8">
+
+          {/* Two small hexes */}
+          <div className="flex flex-col gap-5 md:gap-8 lg:gap-10 xl:gap-14">
             {[0, 1].map((i) => (
               <div
                 key={i}
-                className="w-16 h-18 md:w-24 md:h-26 lg:w-28 lg:h-32"
-                style={{ clipPath: HEX_CLIP }}
+                className="w-16 md:w-24 lg:w-28 xl:w-[10rem]"
+                style={{ aspectRatio: '1 / 0.866', clipPath: HEX_CLIP }}
               >
                 <img
                   src={hexBase}
@@ -67,42 +73,46 @@ function HexGallery({ reversed, projectName }: { reversed: boolean; projectName:
   )
 }
 
+function TextContent({ title, description }: { title: string; description: string[] }) {
+  return (
+    <div className="flex-1 flex items-center justify-center px-6 md:px-10 lg:px-16 py-10 md:py-16">
+      <div className="flex flex-col gap-4 md:gap-6 max-w-xl">
+        <h3 className="font-sans font-extrabold text-text-1
+                       text-2xl md:text-3xl lg:text-4xl xl:text-[3.75rem]
+                       leading-tight">
+          {title}
+        </h3>
+        {description.map((paragraph, i) => (
+          <p
+            key={i}
+            className="font-sans text-text-1 text-sm md:text-base lg:text-lg xl:text-xl
+                       leading-relaxed indent-8"
+          >
+            {paragraph}
+          </p>
+        ))}
+      </div>
+    </div>
+  )
+}
+
 export default function ProjectCard({
   title,
   projectName = 'Hello World',
   description,
   reversed = false,
 }: ProjectCardProps) {
-  const textContent = (
-    <div className="flex flex-col items-center lg:items-start justify-center gap-4 md:gap-6
-                    flex-1 px-6 md:px-10 lg:px-16 py-8 md:py-12">
-      <h3 className="font-sans font-extrabold text-text-1 text-2xl md:text-4xl lg:text-[3.5rem] leading-tight text-center lg:text-left">
-        {title}
-      </h3>
-      {description.map((paragraph, i) => (
-        <p
-          key={i}
-          className="font-sans text-text-1 text-base md:text-lg lg:text-xl leading-relaxed max-w-xl indent-8"
-        >
-          {paragraph}
-        </p>
-      ))}
-    </div>
-  )
-
-  const hexGallery = <HexGallery reversed={reversed} projectName={projectName} />
-
   return (
-    <div className="bg-blue-neutral flex flex-col lg:flex-row items-stretch overflow-hidden w-full">
+    <div className="bg-blue-neutral flex flex-col lg:flex-row items-stretch w-full min-h-[20rem] md:min-h-[28rem] lg:min-h-[36rem]">
       {reversed ? (
         <>
-          {hexGallery}
-          {textContent}
+          <HexGallery reversed={reversed} projectName={projectName} />
+          <TextContent title={title} description={description} />
         </>
       ) : (
         <>
-          {textContent}
-          {hexGallery}
+          <TextContent title={title} description={description} />
+          <HexGallery reversed={reversed} projectName={projectName} />
         </>
       )}
     </div>
