@@ -1,49 +1,32 @@
-/* CSS variables and Tailwind v4 @theme mappings for Anima import */
-
-:root {
-  --blue-medium-1: 112 207 251; /* rgb tuple for tailwind rgb(var(...)/<alpha-value>) */
-  --blue-medium-2: 84 186 185;
-  --blue-neutral: 247 251 252;
-  --cream-neutral: 251 248 241;
-  --tan-neutral: 255 240 221;
-  --text-1: 0 42 88;
-  --text-2: 125 110 79;
-}
+/* Design tokens — Tailwind v4 @theme config
+   Source of truth: Figma "Jacob Portfolio Creation" */
 
 @theme {
-  /* Map colors to CSS variables; Tailwind v4 style */
-  --color-blue-medium-1: rgb(var(--blue-medium-1) / <alpha-value>);
-  --color-blue-medium-2: rgb(var(--blue-medium-2) / <alpha-value>);
-  --color-blue-neutral: rgb(var(--blue-neutral) / <alpha-value>);
-  --color-cream-neutral: rgb(var(--cream-neutral) / <alpha-value>);
-  --color-tan-neutral: rgb(var(--tan-neutral) / <alpha-value>);
-  --color-text-1: rgb(var(--text-1) / <alpha-value>);
-  --color-text-2: rgb(var(--text-2) / <alpha-value>);
+  /* Colors from Figma */
+  --color-text-1: #002A58;
+  --color-text-2: #7D6E4F;
+  --color-blue-medium-1: #70CFFB;
+  --color-blue-medium-2: #54BAB9;
+  --color-blue-neutral: #F7FBFC;
+  --color-cream-neutral: #FBF8F1;
+  --color-tan-neutral: #FFF0DD;
 
-  /* Fonts */
+  /* Fonts — matches Google Fonts loaded in index.html */
   --font-sans: "Roboto", ui-sans-serif, system-ui, sans-serif;
   --font-serif: "Playfair Display", "Merriweather", "Georgia", ui-serif, serif;
+  --font-heading: "Lora", "Playfair Display", ui-serif, serif;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
-/* Utilities for animations from the snippet */
-:root {
-  --animate-spin: spin 1s linear infinite;
-}
-
+/* Animation utilities */
 .animate-fade-in { animation: fade-in 1s var(--animation-delay, 0s) ease forwards; }
 .animate-fade-up { animation: fade-up 1s var(--animation-delay, 0s) ease forwards; }
 .animate-marquee { animation: marquee var(--duration) infinite linear; }
 .animate-marquee-vertical { animation: marquee-vertical var(--duration) linear infinite; }
 .animate-shimmer { animation: shimmer 8s infinite; }
-.animate-spin { animation: var(--animate-spin); }
+.animate-spin { animation: spin 1s linear infinite; }
 
 @keyframes spin { to { transform: rotate(1turn); } }
-@keyframes image-glow {
-  0% { opacity: 0; animation-timing-function: cubic-bezier(0.74, 0.25, 0.76, 1); }
-  10% { opacity: 0.7; animation-timing-function: cubic-bezier(0.12, 0.01, 0.08, 0.99); }
-  100% { opacity: 0.4; }
-}
 @keyframes fade-in {
   0% { opacity: 0; transform: translateY(-10px); }
   100% { opacity: 1; transform: none; }
@@ -56,46 +39,41 @@
   0%, 90%, 100% { background-position: calc(-100% - var(--shimmer-width)) 0; }
   30%, 60% { background-position: calc(100% + var(--shimmer-width)) 0; }
 }
-@keyframes marquee { 0% { transform: translate(0); } 100% { transform: translateX(calc(-100% - var(--gap))); } }
-@keyframes marquee-vertical { 0% { transform: translateY(0); } 100% { transform: translateY(calc(-100% - var(--gap))); } }
+@keyframes marquee {
+  0% { transform: translate(0); }
+  100% { transform: translateX(calc(-100% - var(--gap))); }
+}
+@keyframes marquee-vertical {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(calc(-100% - var(--gap))); }
+}
 
-/* GSAP Animation Support */
+/* GSAP animation support */
 .hexagon-content {
   transform-origin: center;
   will-change: transform;
 }
 
-/* Base resets aligning with snippet intent */
 @layer base {
   button, input, select, textarea { appearance: none; background: transparent; border: 0; outline: 0; }
 }
 
 @layer components {
-  .all-\[unset\] { all: unset; }
-
-  /* HexTile styling */
   .hex-tile {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     transform-origin: center;
     will-change: transform;
   }
 
-  .hex-tile:hover {
-    z-index: 5;
-  }
+  .hex-tile:hover { z-index: 5; }
+  .hex-tile.selected { z-index: 10; }
 
-  .hex-tile.selected {
-    z-index: 10;
-  }
-
-  /* Hex grid container */
   .hex-grid-container {
     position: relative;
     background: transparent;
     overflow: visible;
   }
 
-  /* Tech badge transitions */
   .tech-badge-responsive {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     transform-origin: center;
@@ -119,5 +97,3 @@
     transform-origin: center;
   }
 }
-
-

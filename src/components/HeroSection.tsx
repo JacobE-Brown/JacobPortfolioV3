@@ -2,7 +2,7 @@ import hexBase from '@/assets/images/TechLogos/hex-base.svg'
 
 export default function HeroSection() {
   return (
-    <section className="bg-blue-neutral relative overflow-hidden">
+    <section id="home" className="relative overflow-hidden">
       <div className="flex items-center justify-center min-h-screen px-8 py-24">
         <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-24 max-w-7xl">
           {/* Text content */}

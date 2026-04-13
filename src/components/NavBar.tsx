@@ -1,25 +1,78 @@
+import { useState, useEffect, useRef } from 'react'
+
 const navLinks = [
-  { label: 'About', href: '#about' },
-  { label: 'Skills', href: '#skills' },
+  { label: 'Home', href: '#home' },
+  { label: 'About Me', href: '#about' },
   { label: 'Projects', href: '#projects' },
   { label: 'Contact', href: '#contact' },
 ]
 
 export default function NavBar() {
+  const [activeLink, setActiveLink] = useState('#home')
+  const [isStuck, setIsStuck] = useState(false)
+  const sentinelRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const sectionIds = navLinks.map(l => l.href.slice(1))
+
+    const sectionObserver = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            setActiveLink(`#${entry.target.id}`)
+          }
+        }
+      },
+      { rootMargin: '-40% 0px -55% 0px' }
+    )
+
+    for (const id of sectionIds) {
+      const el = document.getElementById(id)
+      if (el) sectionObserver.observe(el)
+    }
+
+    // Sentinel sits right above nav — when it scrolls out of view, nav is stuck
+    const sentinel = sentinelRef.current
+    let stuckObserver: IntersectionObserver | undefined
+    if (sentinel) {
+      stuckObserver = new IntersectionObserver(
+        ([entry]) => setIsStuck(!entry.isIntersecting),
+        { threshold: 0 }
+      )
+      stuckObserver.observe(sentinel)
+    }
+
+    return () => {
+      sectionObserver.disconnect()
+      stuckObserver?.disconnect()
+    }
+  }, [])
+
   return (
-    <nav className="bg-blue-neutral sticky top-0 z-20 border-b border-blue-medium-1/20">
-      <div className="flex items-center justify-center gap-6 md:gap-10 px-6 py-4">
-        {navLinks.map((link) => (
-          <a
-            key={link.href}
-            href={link.href}
-            className="font-sans font-medium text-text-1 text-sm md:text-base tracking-wide
-                       hover:text-blue-medium-2 transition-colors"
-          >
-            {link.label}
-          </a>
-        ))}
-      </div>
-    </nav>
+    <>
+      <div ref={sentinelRef} className="h-0 w-full" aria-hidden="true" />
+      <nav className={`bg-text-1 sticky top-0 z-20 transition-[border-radius] duration-300
+        ${isStuck ? 'rounded-t-none' : 'rounded-t-3xl'}`}>
+        <div className="flex items-center justify-end gap-7 md:gap-11 px-8 md:px-12 lg:px-[72px] py-5">
+          {navLinks.map((link) => {
+            const isActive = activeLink === link.href
+            return (
+              <a
+                key={link.href}
+                href={link.href}
+                onClick={() => setActiveLink(link.href)}
+                className={`font-serif text-lg md:text-2xl lg:text-4xl tracking-wide transition-colors
+                  ${isActive
+                    ? 'text-blue-medium-2 font-bold'
+                    : 'text-tan-neutral font-normal hover:text-blue-medium-1'
+                  }`}
+              >
+                {link.label}
+              </a>
+            )
+          })}
+        </div>
+      </nav>
+    </>
   )
 }
