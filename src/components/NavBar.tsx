@@ -60,11 +60,19 @@ export default function NavBar() {
               <a
                 key={link.href}
                 href={link.href}
-                onClick={() => setActiveLink(link.href)}
-                className={`font-serif text-lg md:text-2xl lg:text-4xl tracking-wide transition-colors
+                onClick={(e) => {
+                  e.preventDefault()
+                  setActiveLink(link.href)
+                  document.querySelector(link.href)?.scrollIntoView({ behavior: 'smooth' })
+                }}
+                className={`relative font-serif text-lg md:text-2xl lg:text-4xl tracking-wide
+                  transition-all duration-300 ease-out
+                  hover:scale-105
+                  after:absolute after:bottom-0 after:left-0 after:h-0.5
+                  after:bg-blue-medium-2 after:transition-all after:duration-300
                   ${isActive
-                    ? 'text-blue-medium-2 font-bold'
-                    : 'text-tan-neutral font-normal hover:text-blue-medium-1'
+                    ? 'text-blue-medium-2 font-bold after:w-full'
+                    : 'text-tan-neutral font-normal hover:text-blue-medium-1 after:w-0 hover:after:w-full hover:after:bg-blue-medium-1'
                   }`}
               >
                 {link.label}
