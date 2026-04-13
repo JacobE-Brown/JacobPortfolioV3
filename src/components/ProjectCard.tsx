@@ -18,8 +18,8 @@ function HexGallery({ reversed, projectName }: { reversed: boolean; projectName:
 
   // 3-sided border: top + bottom + inward side (no border on flush edge)
   const borderClass = reversed
-    ? 'border-t-[9px] border-b-[9px] border-r-[9px]'
-    : 'border-t-[9px] border-b-[9px] border-l-[9px]'
+    ? 'border-t-8 border-b-8 border-r-8'
+    : 'border-t-8 border-b-8 border-l-8'
 
   return (
     <div className="flex-1 flex items-center justify-center py-10 lg:py-16">
@@ -32,8 +32,8 @@ function HexGallery({ reversed, projectName }: { reversed: boolean; projectName:
       >
         {/* Project name */}
         <h3 className="font-serif font-semibold text-cream-neutral
-                       text-2xl md:text-4xl lg:text-5xl xl:text-[4.4rem]
-                       tracking-[0.13em] mb-8 md:mb-12 lg:mb-14">
+                       text-2xl md:text-4xl lg:text-5xl xl:text-7xl
+                       tracking-widest mb-8 md:mb-12 lg:mb-14">
           {projectName}
         </h3>
 
@@ -41,7 +41,7 @@ function HexGallery({ reversed, projectName }: { reversed: boolean; projectName:
         <div className="flex items-center gap-2 md:gap-3">
           {/* Large hex */}
           <div
-            className="w-36 md:w-52 lg:w-64 xl:w-[19rem]"
+            className="w-36 md:w-52 lg:w-64 xl:w-76"
             style={{ aspectRatio: '1 / 0.866', clipPath: HEX_CLIP }}
           >
             <img
@@ -56,7 +56,7 @@ function HexGallery({ reversed, projectName }: { reversed: boolean; projectName:
             {[0, 1].map((i) => (
               <div
                 key={i}
-                className="w-16 md:w-24 lg:w-28 xl:w-[10rem]"
+                className="w-16 md:w-24 lg:w-28 xl:w-40"
                 style={{ aspectRatio: '1 / 0.866', clipPath: HEX_CLIP }}
               >
                 <img
@@ -78,7 +78,7 @@ function TextContent({ title, description }: { title: string; description: strin
     <div className="flex-1 flex items-center justify-center px-6 md:px-10 lg:px-16 py-10 md:py-16">
       <div className="flex flex-col gap-4 md:gap-6 max-w-xl">
         <h3 className="font-sans font-extrabold text-text-1
-                       text-2xl md:text-3xl lg:text-4xl xl:text-[3.75rem]
+                       text-2xl md:text-3xl lg:text-4xl xl:text-6xl
                        leading-tight">
           {title}
         </h3>
@@ -103,7 +103,7 @@ export default function ProjectCard({
   reversed = false,
 }: ProjectCardProps) {
   return (
-    <div className="bg-blue-neutral flex flex-col lg:flex-row items-stretch w-full min-h-[20rem] md:min-h-[28rem] lg:min-h-[36rem]">
+    <div className="bg-blue-neutral flex flex-col lg:flex-row items-stretch w-full min-h-80 md:min-h-112 lg:min-h-144">
       {reversed ? (
         <>
           <HexGallery reversed={reversed} projectName={projectName} />

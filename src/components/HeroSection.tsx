@@ -8,10 +8,10 @@ export default function HeroSection() {
           {/* Text content */}
           <div className="flex flex-col items-start gap-10 text-text-1">
             <div className="flex flex-col gap-2">
-              <h1 className="font-serif font-bold text-5xl md:text-7xl lg:text-[6.8rem] leading-tight">
+              <h1 className="font-serif font-bold text-5xl md:text-7xl lg:text-9xl leading-tight">
                 Jacob Brown
               </h1>
-              <p className="font-serif font-normal text-3xl md:text-4xl lg:text-[4rem] leading-snug">
+              <p className="font-serif font-normal text-3xl md:text-4xl lg:text-7xl leading-snug">
                 Full-Stack Developer
               </p>
             </div>
@@ -28,7 +28,7 @@ export default function HeroSection() {
           </div>
 
           {/* Profile picture hex */}
-          <div className="relative w-72 h-80 md:w-96 md:h-[28rem] lg:w-[28rem] lg:h-[32rem] shrink-0">
+          <div className="relative w-72 h-80 md:w-96 md:h-112 lg:w-112 lg:h-128 shrink-0">
             {/* Outer decorative hex (rotated, behind) */}
             <div className="absolute inset-0 flex items-center justify-center">
               <img

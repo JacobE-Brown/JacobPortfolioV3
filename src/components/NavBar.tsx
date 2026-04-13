@@ -53,7 +53,7 @@ export default function NavBar() {
       <div ref={sentinelRef} className="h-0 w-full" aria-hidden="true" />
       <nav className={`bg-text-1 sticky top-0 z-20 transition-[border-radius] duration-300
         ${isStuck ? 'rounded-t-none' : 'rounded-t-3xl'}`}>
-        <div className="flex items-center justify-end gap-7 md:gap-11 px-8 md:px-12 lg:px-[72px] py-5">
+        <div className="flex items-center justify-end gap-7 md:gap-11 px-8 md:px-12 lg:px-18 py-5">
           {navLinks.map((link) => {
             const isActive = activeLink === link.href
             return (
