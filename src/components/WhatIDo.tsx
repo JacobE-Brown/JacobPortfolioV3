@@ -50,7 +50,7 @@ export default function WhatIDo() {
             <TechBadge
               icon={<img src={item.icon} alt={item.label} className="w-full h-full" />}
               name={item.label}
-              hexSize={{ x: 55, y: 55 }}
+              hexSize={{ x: 75, y: 75 }}
             />
             <p className="font-sans text-xs md:text-sm text-text-1 text-center leading-relaxed">
               {item.description}

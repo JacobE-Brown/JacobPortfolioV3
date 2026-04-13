@@ -18,6 +18,11 @@
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
+/* Parchment radial gradient background */
+.bg-parchment {
+  background: radial-gradient(50% 50% at 50% 50%, #F7FBFC 0%, #FBF8F1 100%);
+}
+
 /* Animation utilities */
 .animate-fade-in { animation: fade-in 1s var(--animation-delay, 0s) ease forwards; }
 .animate-fade-up { animation: fade-up 1s var(--animation-delay, 0s) ease forwards; }
