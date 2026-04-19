@@ -57,7 +57,7 @@ export default function HexProfileFrame({
   const cornerRadius = 12;
 
   const outerPath = roundedHexPath(cx, cy, 100, cornerRadius);
-  const tealPath = roundedHexPath(cx, cy, 94, cornerRadius * 0.94);
+  const tealPath = roundedHexPath(cx, cy, 92, cornerRadius * 0.92);
   const clipPath = roundedHexPath(cx, cy, 89, cornerRadius * 0.89);
 
   return (
@@ -88,10 +88,10 @@ export default function HexProfileFrame({
         {/* Profile image clipped to innermost hex */}
         <image
           href={src}
-          x="27"
-          y="27"
-          width="166"
-          height="166"
+          x="20"
+          y="20"
+          width="180"
+          height="180"
           clipPath="url(#hex-photo-clip)"
           preserveAspectRatio="xMidYMid slice"
         />
