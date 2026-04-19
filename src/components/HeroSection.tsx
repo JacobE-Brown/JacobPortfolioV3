@@ -1,3 +1,6 @@
+import HexProfileFrame from "@/components/HexProfileFrame";
+import profileImg from "@/assets/images/profile.jpg";
+
 export default function HeroSection() {
   return (
     <section id="home" className="relative overflow-hidden">
@@ -6,11 +9,13 @@ export default function HeroSection() {
           {/* Text content */}
           <div className="flex flex-col items-start gap-10 text-text-1">
             <div className="flex flex-col gap-2">
-              <h1 className="font-serif font-bold text-5xl md:text-7xl lg:text-9xl leading-tight">
+              <h1 className="font-heading font-bold text-4xl md:text-5xl lg:text-7xl leading-tight tracking-wide">
                 Jacob Brown
               </h1>
-              <p className="font-serif font-normal text-3xl md:text-4xl lg:text-7xl leading-snug">
-                DevOps Engineer & Full-Stack Developer
+              <p className="font-heading font-medium text-xl md:text-2xl lg:text-4xl leading-snug">
+                DevOps Engineer &
+                <br />
+                Full-Stack Developer
               </p>
             </div>
             <div className="flex justify-center w-full">
@@ -26,48 +31,11 @@ export default function HeroSection() {
           </div>
 
           {/* Profile picture hex frame */}
-          <div className="relative shrink-0 w-72 h-72 md:w-96 md:h-96 lg:w-112 lg:h-112">
-            {/* Outer navy hex ring (behind photo) */}
-            <svg
-              viewBox="0 0 220 220"
-              className="absolute inset-0 w-full h-full"
-              fill="none"
-              aria-hidden="true"
-            >
-              <polygon
-                points="160,23 210,110 160,197 60,197 10,110 60,23"
-                stroke="#002A58"
-                strokeWidth="8"
-              />
-            </svg>
-
-            {/* Profile photo clipped to flat-top hex shape */}
-            <div
-              className="absolute inset-0 bg-blue-neutral overflow-hidden"
-              style={{ clipPath: 'polygon(69% 17%, 88% 50%, 69% 83%, 31% 83%, 12% 50%, 31% 17%)' }}
-            >
-              {/* TODO: Replace src with your profile photo path */}
-              <img
-                src=""
-                alt="Jacob Brown"
-                className="w-full h-full object-cover"
-              />
-            </div>
-
-            {/* Inner teal hex ring (overlaid on photo edge) */}
-            <svg
-              viewBox="0 0 220 220"
-              className="absolute inset-0 w-full h-full pointer-events-none"
-              fill="none"
-              aria-hidden="true"
-            >
-              <polygon
-                points="155,32 200,110 155,188 65,188 20,110 65,32"
-                stroke="#54BAB9"
-                strokeWidth="10"
-              />
-            </svg>
-          </div>
+          <HexProfileFrame
+            src={profileImg}
+            alt="Jacob Brown"
+            className="shrink-0 w-80 h-80 md:w-112 md:h-112 lg:w-144 lg:h-144"
+          />
         </div>
       </div>
     </section>
