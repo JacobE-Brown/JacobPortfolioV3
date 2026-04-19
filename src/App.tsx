@@ -1,4 +1,5 @@
 import './index.css'
+import ParticleBackground from './components/ParticleBackground'
 import HeroSection from './components/HeroSection'
 import NavBar from './components/NavBar'
 import AboutMe from './components/AboutMe'
@@ -37,6 +38,7 @@ const projects = [
 function App() {
   return (
     <div className="min-h-screen bg-parchment text-text-1">
+      <ParticleBackground />
       <HeroSection />
       <NavBar />
 
