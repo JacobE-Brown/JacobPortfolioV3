@@ -1,6 +1,12 @@
 import HexProfileFrame from "@/components/HexProfileFrame";
 import profileImg from "@/assets/images/profile.jpg";
 
+function smoothScroll(e: React.MouseEvent<HTMLAnchorElement>) {
+  e.preventDefault();
+  const href = e.currentTarget.getAttribute("href");
+  if (href) document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
+}
+
 export default function HeroSection() {
   return (
     <section
@@ -25,20 +31,26 @@ export default function HeroSection() {
                 Full-Stack Developer
               </p>
             </div>
-            <div className="flex gap-3">
+            <div className="flex gap-4">
               <a
                 href="#about"
-                className="bg-tan-neutral border-4 border-blue-medium-1 rounded-full px-8 py-3 shadow-md
+                onClick={smoothScroll}
+                className="bg-transparent border-2 border-text-1 rounded-full px-8 py-3 shadow-md
                          font-sans font-semibold text-text-1 text-lg md:text-xl tracking-wider
-                         hover:shadow-lg transition-shadow hover:scale-105 duration-300 ease-out"
+                         hover:bg-text-1 hover:text-cream-neutral hover:shadow-xl hover:scale-105
+                         active:scale-95
+                         transition-all duration-300 ease-out"
               >
                 About Me
               </a>
               <a
                 href="#contact"
-                className="bg-tan-neutral border-4 border-blue-medium-1 rounded-full px-8 py-3 shadow-md
+                onClick={smoothScroll}
+                className="bg-transparent border-2 border-text-1 rounded-full px-8 py-3 shadow-md
                          font-sans font-semibold text-text-1 text-lg md:text-xl tracking-wider
-                         hover:shadow-lg transition-shadow hover:scale-105 duration-300 ease-out"
+                         hover:bg-text-1 hover:text-cream-neutral hover:shadow-xl hover:scale-105
+                         active:scale-95
+                         transition-all duration-300 ease-out"
               >
                 Contact Me
               </a>
