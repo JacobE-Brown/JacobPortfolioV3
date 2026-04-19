@@ -51,8 +51,12 @@ export default function NavBar() {
   return (
     <>
       <div ref={sentinelRef} className="h-0 w-full" aria-hidden="true" />
-      <nav className={`bg-text-1 sticky top-0 z-20 transition-[border-radius] duration-300
-        ${isStuck ? 'rounded-t-none' : 'rounded-t-3xl'}`}>
+      <nav className={`bg-text-1 sticky top-0 z-20 transition-all duration-300
+                       max-w-screen-2xl mx-auto
+                       ${isStuck
+                         ? 'rounded-none shadow-md'
+                         : 'rounded-t-3xl shadow-[0_-2px_4px_rgba(0,0,0,0.04),0_-4px_12px_rgba(0,0,0,0.08),0_-8px_24px_rgba(0,0,0,0.12)] sm:mx-4 md:mx-6 lg:mx-8 xl:mx-auto'
+                       }`}>
         <div className="flex items-center justify-end gap-7 md:gap-11 px-8 md:px-12 lg:px-18 py-5">
           {navLinks.map((link) => {
             const isActive = activeLink === link.href

@@ -3,8 +3,8 @@ import profileImg from "@/assets/images/profile.jpg";
 
 export default function HeroSection() {
   return (
-    <section id="home" className="relative overflow-hidden">
-      <div className="flex items-center justify-center min-h-screen py-16 md:py-24
+    <section id="home" className="relative overflow-hidden min-h-[calc(100svh-5rem)]">
+      <div className="flex items-center justify-center h-full min-h-[inherit] py-16 md:py-24
                       max-w-screen-2xl mx-auto
                       px-8 md:px-16">
         <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-16 w-full justify-center">

@@ -38,13 +38,12 @@ function App() {
   return (
     <div className="min-h-screen bg-parchment text-text-1">
       <HeroSection />
+      <NavBar />
 
-      {/* Content pillar — Fluent-style floating card */}
-      <main className="relative z-10 overflow-x-clip bg-blue-neutral rounded-t-3xl -mt-6
+      {/* Content pillar */}
+      <main className="relative z-10 overflow-x-clip bg-blue-neutral
                        max-w-screen-2xl mx-auto
-                       px-0 sm:mx-4 md:mx-6 lg:mx-8 xl:mx-auto
-                       shadow-[0_-2px_4px_rgba(0,0,0,0.04),0_-4px_12px_rgba(0,0,0,0.08),0_-8px_24px_rgba(0,0,0,0.12)]">
-        <NavBar />
+                       px-0 sm:mx-4 md:mx-6 lg:mx-8 xl:mx-auto">
 
         <AboutMe />
 
