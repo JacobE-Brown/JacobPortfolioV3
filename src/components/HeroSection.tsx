@@ -1,5 +1,3 @@
-import hexBase from '@/assets/images/TechLogos/hex-base.svg'
-
 export default function HeroSection() {
   return (
     <section id="home" className="relative overflow-hidden">
@@ -27,29 +25,48 @@ export default function HeroSection() {
             </div>
           </div>
 
-          {/* Profile picture hex */}
-          <div className="relative w-72 h-80 md:w-96 md:h-112 lg:w-112 lg:h-128 shrink-0">
-            {/* Outer decorative hex (rotated, behind) */}
-            <div className="absolute inset-0 flex items-center justify-center">
+          {/* Profile picture hex frame */}
+          <div className="relative shrink-0 w-72 h-72 md:w-96 md:h-96 lg:w-112 lg:h-112">
+            {/* Outer navy hex ring (behind photo) */}
+            <svg
+              viewBox="0 0 220 220"
+              className="absolute inset-0 w-full h-full"
+              fill="none"
+              aria-hidden="true"
+            >
+              <polygon
+                points="160,23 210,110 160,197 60,197 10,110 60,23"
+                stroke="#002A58"
+                strokeWidth="8"
+              />
+            </svg>
+
+            {/* Profile photo clipped to flat-top hex shape */}
+            <div
+              className="absolute inset-0 bg-blue-neutral overflow-hidden"
+              style={{ clipPath: 'polygon(69% 17%, 88% 50%, 69% 83%, 31% 83%, 12% 50%, 31% 17%)' }}
+            >
+              {/* TODO: Replace src with your profile photo path */}
               <img
-                src={hexBase}
-                alt=""
-                aria-hidden="true"
-                className="w-[110%] h-[110%] object-contain rotate-30 opacity-60"
+                src=""
+                alt="Jacob Brown"
+                className="w-full h-full object-cover"
               />
             </div>
-            {/* Inner hex with profile photo */}
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-full h-full" style={{ clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)' }}>
-                <div className="w-full h-full bg-blue-medium-1/20 flex items-center justify-center">
-                  <img
-                    src={hexBase}
-                    alt="Jacob Brown profile"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-              </div>
-            </div>
+
+            {/* Inner teal hex ring (overlaid on photo edge) */}
+            <svg
+              viewBox="0 0 220 220"
+              className="absolute inset-0 w-full h-full pointer-events-none"
+              fill="none"
+              aria-hidden="true"
+            >
+              <polygon
+                points="155,32 200,110 155,188 65,188 20,110 65,32"
+                stroke="#54BAB9"
+                strokeWidth="10"
+              />
+            </svg>
           </div>
         </div>
       </div>
