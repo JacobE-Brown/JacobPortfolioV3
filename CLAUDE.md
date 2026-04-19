@@ -57,6 +57,17 @@ Adjacency is calculated by checking all 6 axial directions against the `hexes` a
 
 GSAP targets tiles via DOM id `hex-{id}` — set on the root element of each `HexTile`.
 
+### Layout design principles
+
+Apply these when building or modifying sections:
+
+- **Typographic scale proportion** — Maintain a consistent ~1.5:1 ratio between heading and subtitle at each breakpoint. Hero/display text should clearly dominate over body text scale.
+- **Proximity (Gestalt)** — Elements that belong together should be visually grouped with tighter gaps. Don't let large gaps suggest unrelatedness between paired content (e.g., name + profile image).
+- **Visual hierarchy** — CTAs (buttons) should be visually subordinate to headlines. Use smaller font size on buttons but larger padding for comfortable touch targets (minimum 44px tap target).
+- **Symmetry & alignment** — Hero sections use center-aligned text since there's no adjacent content competing for scan direction. Body sections may use left-alignment.
+- **Consistent section padding** — Sections should share the same horizontal padding (`px-8 md:px-16`) and use the same column system (`max-w-screen-2xl mx-auto` for full-width sections).
+- **Composition over separation** — Prefer `justify-center` with moderate gaps over `justify-between`, which pushes content to edges and creates dead space.
+
 ### Tailwind sizing & typography conventions
 
 **Always use Tailwind's standard scale** for spacing, sizing, and font sizes. Avoid arbitrary values (`text-[4rem]`, `px-[72px]`, `min-h-[28rem]`) when a Tailwind class exists.
