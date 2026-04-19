@@ -3,10 +3,15 @@ import profileImg from "@/assets/images/profile.jpg";
 
 export default function HeroSection() {
   return (
-    <section id="home" className="relative overflow-hidden min-h-[calc(100svh-5rem)]">
-      <div className="flex items-center justify-center h-full min-h-[inherit] py-16 md:py-24
+    <section
+      id="home"
+      className="relative overflow-hidden min-h-[calc(100svh-5rem)]"
+    >
+      <div
+        className="flex items-center justify-center h-full min-h-[inherit] py-16 md:py-24
                       max-w-screen-2xl mx-auto
-                      px-8 md:px-16">
+                      px-8 md:px-16"
+      >
         <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-16 w-full justify-center">
           {/* Text content */}
           <div className="flex flex-col items-center text-center gap-8 text-text-1">
@@ -20,14 +25,24 @@ export default function HeroSection() {
                 Full-Stack Developer
               </p>
             </div>
-            <a
-              href="#about"
-              className="bg-tan-neutral border-4 border-blue-medium-1 rounded-full px-8 py-3 shadow-md
+            <div className="flex gap-3">
+              <a
+                href="#about"
+                className="bg-tan-neutral border-4 border-blue-medium-1 rounded-full px-8 py-3 shadow-md
                          font-sans font-semibold text-text-1 text-lg md:text-xl tracking-wider
-                         hover:shadow-lg transition-shadow"
-            >
-              About Me
-            </a>
+                         hover:shadow-lg transition-shadow hover:scale-105 duration-300 ease-out"
+              >
+                About Me
+              </a>
+              <a
+                href="#contact"
+                className="bg-tan-neutral border-4 border-blue-medium-1 rounded-full px-8 py-3 shadow-md
+                         font-sans font-semibold text-text-1 text-lg md:text-xl tracking-wider
+                         hover:shadow-lg transition-shadow hover:scale-105 duration-300 ease-out"
+              >
+                Contact Me
+              </a>
+            </div>
           </div>
 
           {/* Profile picture hex frame */}
@@ -39,5 +54,5 @@ export default function HeroSection() {
         </div>
       </div>
     </section>
-  )
+  );
 }
