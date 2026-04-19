@@ -42,7 +42,7 @@ function App() {
 
       {/* Content pillar */}
       <main className="relative z-10 overflow-x-clip bg-blue-neutral
-                       max-w-screen-2xl mx-auto
+                       max-w-screen-2xl mx-auto shadow-2xl
                        px-0 sm:mx-4 md:mx-6 lg:mx-8 xl:mx-auto">
 
         <AboutMe />
