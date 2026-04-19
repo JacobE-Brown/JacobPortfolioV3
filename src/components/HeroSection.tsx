@@ -12,7 +12,7 @@ export default function HeroSection() {
                 Jacob Brown
               </h1>
               <p className="font-serif font-normal text-3xl md:text-4xl lg:text-7xl leading-snug">
-                Full-Stack Developer
+                DevOps Engineer & Full-Stack Developer
               </p>
             </div>
             <div className="flex justify-center w-full">
