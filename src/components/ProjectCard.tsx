@@ -77,9 +77,10 @@ function TextContent({ title, description }: { title: string; description: strin
   return (
     <div className="flex-1 flex items-center justify-center px-6 md:px-10 lg:px-16 py-10 md:py-16">
       <div className="flex flex-col gap-4 md:gap-6 max-w-xl">
-        <h3 className="font-sans font-extrabold text-text-1
+        <h3 className="flex items-center gap-3 md:gap-4 font-heading font-medium text-text-1
                        text-2xl md:text-3xl lg:text-4xl xl:text-6xl
                        leading-tight">
+          <span className="w-1.5 self-stretch rounded-full bg-blue-medium-1" />
           {title}
         </h3>
         {description.map((paragraph, i) => (

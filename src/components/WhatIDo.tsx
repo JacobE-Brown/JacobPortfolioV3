@@ -37,8 +37,8 @@ const workItems = [
 export default function WhatIDo() {
   return (
     <section className="bg-blue-neutral flex flex-col items-center gap-8 px-8 md:px-16 py-10">
-      <h2 className="font-heading font-medium text-text-1 text-4xl md:text-5xl lg:text-7xl">
-        What I do
+      <h2 className="font-heading font-medium text-text-1 text-4xl md:text-5xl lg:text-7xl mb-8 md:mb-12">
+        <span className="border-b-4 border-blue-medium-1 pb-2">What I Do</span>
       </h2>
 
       <div className="flex flex-wrap items-start justify-center gap-10 md:gap-15 w-full max-w-6xl">

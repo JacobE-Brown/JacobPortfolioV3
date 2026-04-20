@@ -344,8 +344,8 @@ export function Technologies(): React.JSX.Element {
 
   return (
     <section id="skills" className="bg-blue-neutral flex flex-col items-center justify-center overflow-hidden px-4 py-12 md:py-20">
-      <h2 className="font-sans font-extrabold text-text-1 text-4xl md:text-5xl lg:text-6xl mb-8">
-        My Skills
+      <h2 className="font-heading font-medium text-text-1 text-4xl md:text-5xl lg:text-7xl mb-10 md:mb-14">
+        <span className="border-b-4 border-blue-medium-1 pb-2">My Skills</span>
       </h2>
 
       <div className="flex flex-col lg:flex-row items-start justify-center gap-8 w-full max-w-7xl">
