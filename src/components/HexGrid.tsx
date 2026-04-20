@@ -89,14 +89,14 @@ const HexGrid: React.FC<HexGridProps> = ({
       const width = window.innerWidth;
       let newResponsiveSize = size;
       
-      if (width < 480) {
-        newResponsiveSize = size * 0.6; // 60% of base size
+      if (width < 640) {
+        newResponsiveSize = size * 0.6; // 60% — phones (sm)
       } else if (width < 768) {
-        newResponsiveSize = size * 0.8; // 80% of base size
-      } else if (width < 1200) {
-        newResponsiveSize = size * 0.9; // 90% of base size
+        newResponsiveSize = size * 0.8; // 80% — large phones (md)
+      } else if (width < 1280) {
+        newResponsiveSize = size * 0.8; // 80% — diamond without side panel (xl)
       } else {
-        newResponsiveSize = size; // Full size
+        newResponsiveSize = size * 0.9; // 90% — diamond with side detail panel (xl+)
       }
       
       setResponsiveSize(newResponsiveSize);

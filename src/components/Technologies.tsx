@@ -324,7 +324,7 @@ export function Technologies(): React.JSX.Element {
 
   useEffect(() => {
     const check = () => {
-      setIsMobile(window.innerWidth < 1024)
+      setIsMobile(window.innerWidth < 1280)
       setIsCompactGrid(window.innerWidth < 768)
     }
     check()
@@ -421,8 +421,8 @@ export function Technologies(): React.JSX.Element {
           </div>
         </div>
 
-        {/* Right: Detail panel (desktop only) */}
-        <div className="hidden lg:flex">
+        {/* Right: Detail panel (wide desktop only) */}
+        <div className="hidden xl:flex">
           <DetailPanel tech={selectedTech} />
         </div>
       </div>

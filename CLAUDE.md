@@ -45,7 +45,17 @@ App
 
 `HexGrid` uses **axial (q, r) coordinates** following the Red Blob Games formulas for pointy-top hexagons. Each technology in `Technologies.tsx` is assigned a `{ q, r }` coordinate. `HexGrid` converts these to pixel positions and absolutely positions each `HexTile`.
 
-The grid is arranged in a **centered diamond shape** (4-5-6-5-4 rows). The container size is computed dynamically from the bounding box of all hex positions plus padding. A `responsiveSize` multiplier scales tile size at breakpoints (480px → 60%, 768px → 80%, 1200px → 100%).
+The grid is arranged in a **centered diamond shape** (4-5-6-5-4 rows). The container size is computed dynamically from the bounding box of all hex positions plus padding. A `responsiveSize` multiplier scales tile size at Tailwind breakpoints (sm/640px → 60%, md/768px → 80%, xl/1280px → 90%).
+
+### Responsive breakpoint convention
+
+**Always use Tailwind's default breakpoints** for JS media checks (`window.innerWidth`) and CSS classes — no custom pixel values. The standard breakpoints are: `sm` 640px, `md` 768px, `lg` 1024px, `xl` 1280px, `2xl` 1536px.
+
+Current responsive layout for the Skills section:
+- **< sm (640)**: compact 3-4 grid, 60% hex size, modal detail
+- **sm–md (640–768)**: compact 3-4 grid, 80% hex size, modal detail
+- **md–xl (768–1280)**: diamond 4-5-6-5-4, 80% hex size, modal detail
+- **xl+ (1280+)**: diamond 4-5-6-5-4, 90% hex size, side detail panel
 
 The **axial origin** `(q=0, r=0)` is the ASP.NET Core hex, sitting at the center of the 6-hex middle row.
 
