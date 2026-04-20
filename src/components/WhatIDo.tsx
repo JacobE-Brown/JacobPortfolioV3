@@ -36,16 +36,17 @@ const workItems = [
 
 export default function WhatIDo() {
   return (
-    <section className="bg-blue-neutral flex flex-col items-center gap-8 px-8 md:px-16 py-10">
-      <h2 className="font-heading font-medium text-text-1 text-4xl md:text-5xl lg:text-7xl mb-8 md:mb-12">
+    <section className="bg-blue-neutral flex flex-col items-center gap-6 sm:gap-8 px-6 sm:px-8 md:px-16 py-10">
+      <h2 className="font-heading font-medium text-text-1 text-3xl sm:text-4xl md:text-5xl lg:text-7xl mb-6 sm:mb-8 md:mb-12">
         <span className="border-b-4 border-blue-medium-1 pb-2">What I Do</span>
       </h2>
 
-      <div className="flex flex-wrap items-start justify-center gap-10 md:gap-15 w-full max-w-6xl">
-        {workItems.map((item) => (
+      <div className="grid grid-cols-2 lg:grid-cols-5 items-start justify-items-center gap-6 sm:gap-10 md:gap-15 w-full max-w-6xl">
+        {workItems.map((item, i) => (
           <div
             key={item.label}
-            className="flex flex-col items-center gap-2 w-52 md:w-64 lg:w-72"
+            className={`flex flex-col items-center gap-2 w-full max-w-44 sm:max-w-52 md:max-w-64 lg:max-w-72
+                        ${i === workItems.length - 1 && workItems.length % 2 !== 0 ? 'col-span-2 lg:col-span-1' : ''}`}
           >
             <TechBadge
               icon={<img src={item.icon} alt={item.label} className="w-full h-full" />}

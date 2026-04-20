@@ -11,29 +11,34 @@ interface ProjectCardProps {
 const HEX_CLIP = 'polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)'
 
 function HexGallery({ reversed, projectName }: { reversed: boolean; projectName: string }) {
-  // Rounded on the inward-facing side only; flush on outer edge
-  const roundedStyle = reversed
-    ? { borderRadius: '0 4.5rem 4.5rem 0' }
-    : { borderRadius: '4.5rem 0 0 4.5rem' }
+  // Mobile: full-width, top+bottom borders only, no rounding
+  // Desktop: rounded on inward side, 3-sided border
+  const desktopBorderClass = reversed
+    ? 'lg:border-r-8'
+    : 'lg:border-l-8'
 
-  // 3-sided border: top + bottom + inward side (no border on flush edge)
-  const borderClass = reversed
-    ? 'border-t-8 border-b-8 border-r-8'
-    : 'border-t-8 border-b-8 border-l-8'
+  const roundedClass = reversed
+    ? 'rounded-none lg:rounded-r-[4.5rem]'
+    : 'rounded-none lg:rounded-l-[4.5rem]'
+
+  // Mobile: gallery always first. Desktop: follows reversed ordering.
+  const orderClass = reversed
+    ? 'order-first'                        // reversed: gallery first everywhere
+    : 'order-first lg:order-2'             // normal: gallery first on mobile, second on desktop
 
   return (
-    <div className="flex-1 flex items-center justify-center py-10 lg:py-16">
+    <div className={`lg:flex-1 flex items-center justify-center lg:py-16 ${orderClass}`}>
       <div
-        className={`bg-text-1 border-blue-medium-1 ${borderClass}
+        className={`bg-text-1 border-blue-medium-1 ${roundedClass}
+                    border-t-6 border-b-6 lg:border-t-8 lg:border-b-8 ${desktopBorderClass}
                     flex flex-col items-center justify-center
-                    px-8 md:px-12 lg:px-16 py-10 md:py-14
+                    px-6 sm:px-8 md:px-12 lg:px-16 py-8 md:py-14
                     w-full h-full`}
-        style={roundedStyle}
       >
         {/* Project name */}
         <h3 className="font-serif font-semibold text-cream-neutral
-                       text-2xl md:text-4xl lg:text-5xl xl:text-7xl
-                       tracking-widest mb-8 md:mb-12 lg:mb-14">
+                       text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-7xl
+                       tracking-widest mb-5 sm:mb-8 md:mb-12 lg:mb-14">
           {projectName}
         </h3>
 
@@ -73,12 +78,16 @@ function HexGallery({ reversed, projectName }: { reversed: boolean; projectName:
   )
 }
 
-function TextContent({ title, description }: { title: string; description: string[] }) {
+function TextContent({ title, description, reversed = false }: { title: string; description: string[]; reversed?: boolean }) {
+  const orderClass = reversed
+    ? 'order-last'                          // reversed: text second everywhere
+    : 'order-last lg:order-1'               // normal: text second on mobile, first on desktop
+
   return (
-    <div className="flex-1 flex items-center justify-center px-6 md:px-10 lg:px-16 py-10 md:py-16">
-      <div className="flex flex-col gap-4 md:gap-6 max-w-xl">
+    <div className={`lg:flex-1 flex items-center justify-center px-6 md:px-10 lg:px-16 py-6 sm:py-10 md:py-16 ${orderClass}`}>
+      <div className="flex flex-col gap-3 sm:gap-4 md:gap-6 max-w-xl">
         <h3 className="flex items-center gap-3 md:gap-4 font-heading font-medium text-text-1
-                       text-2xl md:text-3xl lg:text-4xl xl:text-6xl
+                       text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-6xl
                        leading-tight">
           <span className="w-1.5 self-stretch rounded-full bg-blue-medium-1" />
           {title}
@@ -105,17 +114,9 @@ export default function ProjectCard({
 }: ProjectCardProps) {
   return (
     <div className="bg-blue-neutral flex flex-col lg:flex-row items-stretch w-full min-h-80 md:min-h-112 lg:min-h-144">
-      {reversed ? (
-        <>
-          <HexGallery reversed={reversed} projectName={projectName} />
-          <TextContent title={title} description={description} />
-        </>
-      ) : (
-        <>
-          <TextContent title={title} description={description} />
-          <HexGallery reversed={reversed} projectName={projectName} />
-        </>
-      )}
+      {/* Mobile: gallery always on top. Desktop: alternates based on reversed */}
+      <HexGallery reversed={reversed} projectName={projectName} />
+      <TextContent title={title} description={description} reversed={reversed} />
     </div>
   )
 }

@@ -1,8 +1,8 @@
 export default function AboutMe() {
   return (
-    <section id="about" className="bg-blue-neutral px-8 md:px-16 py-12 md:py-16">
+    <section id="about" className="bg-blue-neutral px-6 sm:px-8 md:px-16 py-10 sm:py-12 md:py-16">
       <div className="max-w-5xl mx-auto flex flex-col gap-6">
-        <h2 className="font-heading font-medium text-text-1 text-4xl md:text-5xl lg:text-7xl text-center mb-8 md:mb-12">
+        <h2 className="font-heading font-medium text-text-1 text-3xl sm:text-4xl md:text-5xl lg:text-7xl text-center mb-6 sm:mb-8 md:mb-12">
           <span className="border-b-4 border-blue-medium-1 pb-2">About Me</span>
         </h2>
         <p className="font-sans text-lg md:text-xl lg:text-2xl text-text-1 leading-relaxed">

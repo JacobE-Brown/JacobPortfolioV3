@@ -343,8 +343,8 @@ export function Technologies(): React.JSX.Element {
   }
 
   return (
-    <section id="skills" className="bg-blue-neutral flex flex-col items-center justify-center overflow-hidden px-4 py-12 md:py-20">
-      <h2 className="font-heading font-medium text-text-1 text-4xl md:text-5xl lg:text-7xl mb-10 md:mb-14">
+    <section id="skills" className="bg-blue-neutral flex flex-col items-center justify-center overflow-hidden px-4 py-10 sm:py-12 md:py-20">
+      <h2 className="font-heading font-medium text-text-1 text-3xl sm:text-4xl md:text-5xl lg:text-7xl mb-6 sm:mb-10 md:mb-14">
         <span className="border-b-4 border-blue-medium-1 pb-2">My Skills</span>
       </h2>
 
@@ -359,15 +359,15 @@ export function Technologies(): React.JSX.Element {
                 <button
                   key={cat.name}
                   onClick={() => toggleFilter(cat.name)}
-                  className={`flex items-center justify-center gap-1.5 px-3 py-1.5
+                  className={`flex items-center justify-center gap-1.5 px-2.5 py-1 sm:px-3 sm:py-1.5
                     ${isActive
                       ? 'bg-blue-medium-1 border-blue-medium-2'
                       : 'bg-cream-neutral border-blue-medium-1'
                     }
-                    rounded-full border-2 shadow-sm hover:shadow-md transition-all
+                    rounded-full border-1.5 sm:border-2 shadow-sm hover:shadow-md transition-all
                     cursor-pointer`}
                 >
-                  <span className="font-sans font-medium text-text-1 text-sm tracking-wide whitespace-nowrap">
+                  <span className="font-sans font-medium text-text-1 text-xs sm:text-sm tracking-wide whitespace-nowrap">
                     {cat.name}
                   </span>
                   {isActive && cat.icon && <img className="w-5 h-4" alt="" src={cat.icon} />}
