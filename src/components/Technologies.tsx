@@ -295,32 +295,65 @@ function MobileModal({ tech, onClose }: { tech: TechItem; onClose: () => void })
   )
 }
 
+// --- Mobile hex layout (3-4-3-4-3-4-3 pattern) ---
+
+const mobileGridPositions: { q: number; r: number }[] = [
+  // Row r=-3 (3 hexes) — q shifted +1 to compensate axial skew
+  { q: 0, r: -3 }, { q: 1, r: -3 }, { q: 2, r: -3 },
+  // Row r=-2 (4 hexes) — q shifted +1
+  { q: -1, r: -2 }, { q: 0, r: -2 }, { q: 1, r: -2 }, { q: 2, r: -2 },
+  // Row r=-1 (3 hexes) — no shift needed (reference row)
+  { q: -1, r: -1 }, { q: 0, r: -1 }, { q: 1, r: -1 },
+  // Row r=0 (4 hexes) — no shift needed
+  { q: -2, r: 0 }, { q: -1, r: 0 }, { q: 0, r: 0 }, { q: 1, r: 0 },
+  // Row r=1 (3 hexes) — q shifted -1
+  { q: -2, r: 1 }, { q: -1, r: 1 }, { q: 0, r: 1 },
+  // Row r=2 (4 hexes) — q shifted -1
+  { q: -3, r: 2 }, { q: -2, r: 2 }, { q: -1, r: 2 }, { q: 0, r: 2 },
+  // Row r=3 (3 hexes) — q shifted -2
+  { q: -3, r: 3 }, { q: -2, r: 3 }, { q: -1, r: 3 },
+]
+
 // --- Main component ---
 
 export function Technologies(): React.JSX.Element {
   const [selectedId, setSelectedId] = useState<string | null>(null)
   const [activeFilters, setActiveFilters] = useState<Set<CategoryName>>(new Set())
   const [isMobile, setIsMobile] = useState(false)
+  const [isCompactGrid, setIsCompactGrid] = useState(false)
 
   useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < 1024)
+    const check = () => {
+      setIsMobile(window.innerWidth < 1024)
+      setIsCompactGrid(window.innerWidth < 768)
+    }
     check()
     window.addEventListener('resize', check)
     return () => window.removeEventListener('resize', check)
   }, [])
 
+  // Remap hex coordinates to compact 3-4 layout on small screens
+  const displayHexes = useMemo(() => {
+    if (!isCompactGrid) return technologies
+    return technologies.map((tech, i) => ({
+      ...tech,
+      q: mobileGridPositions[i].q,
+      r: mobileGridPositions[i].r,
+    }))
+  }, [isCompactGrid])
+
   // Compute which hex IDs should be faded
   const fadedIds = useMemo(() => {
     if (activeFilters.size === 0) return new Set<string>()
     const faded = new Set<string>()
-    for (const tech of technologies) {
+    for (const tech of displayHexes) {
       const matchesAny = tech.categories.some((cat) => activeFilters.has(cat))
       if (!matchesAny) faded.add(tech.id)
     }
     return faded
-  }, [activeFilters])
+  }, [activeFilters, displayHexes])
 
-  const selectedTech = selectedId ? technologies.find((t) => t.id === selectedId) ?? null : null
+  const selectedTech = selectedId ? displayHexes.find((t) => t.id === selectedId) ?? null : null
 
   const handleSelect = (id: string) => {
     setSelectedId((prev) => (prev === id ? null : id))
@@ -379,7 +412,7 @@ export function Technologies(): React.JSX.Element {
           {/* Hex Grid */}
           <div className="flex justify-center">
             <HexGrid
-              hexes={technologies}
+              hexes={displayHexes}
               size={75}
               fadedIds={fadedIds}
               onSelect={handleSelect}

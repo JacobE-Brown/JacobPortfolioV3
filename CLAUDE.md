@@ -47,6 +47,12 @@ App
 
 The grid is arranged in a **centered diamond shape** (4-5-6-5-4 rows). The container size is computed dynamically from the bounding box of all hex positions plus padding. A `responsiveSize` multiplier scales tile size at breakpoints (480px → 60%, 768px → 80%, 1200px → 100%).
 
+The **axial origin** `(q=0, r=0)` is the ASP.NET Core hex, sitting at the center of the 6-hex middle row.
+
+### Mobile compact hex layout
+
+Below 768px, `Technologies` remaps all hexes onto a **3-4-3-4-3-4-3 column** via `mobileGridPositions`. Because pointy-top axial→pixel conversion adds `√3/2 · r` to x, **q ranges must shift left by 1 for each +1 in r** to keep all rows visually centered. The centering invariant is: `q_left + q_right + r = constant` across every row. Failing to compensate causes lower rows to drift right.
+
 ### GSAP starburst hover effect
 
 On `HexTile` hover, `HexGrid.handleStarburstHover` uses GSAP to:
