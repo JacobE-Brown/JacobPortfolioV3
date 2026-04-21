@@ -12,6 +12,18 @@ export default function NavBar() {
   const [activeLink, setActiveLink] = useState('#home')
   const [isStuck, setIsStuck] = useState(false)
   const sentinelRef = useRef<HTMLDivElement>(null)
+  const navRef = useRef<HTMLElement>(null)
+
+  useEffect(() => {
+    const nav = navRef.current
+    if (!nav) return
+    const ro = new ResizeObserver(() => {
+      document.documentElement.style.setProperty('--nav-h', `${nav.offsetHeight}px`)
+    })
+    ro.observe(nav)
+    document.documentElement.style.setProperty('--nav-h', `${nav.offsetHeight}px`)
+    return () => ro.disconnect()
+  }, [])
 
   useEffect(() => {
     const sectionIds = navLinks.map(l => l.href.slice(1))
@@ -52,7 +64,7 @@ export default function NavBar() {
   return (
     <>
       <div ref={sentinelRef} className="h-0 w-full" aria-hidden="true" />
-      <nav className={`bg-text-1 sticky top-0 z-20 transition-all duration-300
+      <nav ref={navRef} className={`bg-text-1 sticky top-0 z-20 transition-all duration-300
                        max-w-screen-2xl mx-auto
                        sm:mx-4 md:mx-6 lg:mx-8 xl:mx-auto
                        ${isStuck

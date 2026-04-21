@@ -11,10 +11,11 @@ export default function HeroSection() {
   return (
     <section
       id="home"
-      className="relative overflow-hidden min-h-[calc(100svh-5rem)]"
+      className="relative overflow-hidden"
+      style={{ height: 'calc(100svh - var(--nav-h, 80px))' }}
     >
       <div
-        className="flex items-center justify-center h-full min-h-[inherit] py-16 md:py-24
+        className="flex items-center justify-center h-full py-16 md:py-24
                       max-w-screen-2xl mx-auto
                       px-8 md:px-16"
       >

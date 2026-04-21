@@ -59,9 +59,11 @@
   will-change: transform;
 }
 
+:root { --nav-h: 80px; }
+
 @layer base {
   button, input, select, textarea { appearance: none; background: transparent; border: 0; outline: 0; }
-  section[id] { scroll-margin-top: 5rem; }
+  section[id] { scroll-margin-top: var(--nav-h, 5rem); }
 }
 
 @layer components {
