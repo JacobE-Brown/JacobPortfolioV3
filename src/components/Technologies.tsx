@@ -182,72 +182,88 @@ const technologies: TechItem[] = [
 // --- Desktop detail panel ---
 
 function DetailPanel({ tech }: { tech: TechItem | null }) {
-  const isDefault = !tech
+  const [displayTech, setDisplayTech] = useState<TechItem | null>(tech)
+  const [animating, setAnimating] = useState(false)
+
+  useEffect(() => {
+    if (tech?.id === displayTech?.id) return
+    // Fade out, swap content, fade in
+    setAnimating(true)
+    const timeout = setTimeout(() => {
+      setDisplayTech(tech)
+      setAnimating(false)
+    }, 200)
+    return () => clearTimeout(timeout)
+  }, [tech])
+
+  const showDefault = !displayTech || displayTech.id === 'education'
 
   return (
     <div className="flex flex-col items-center gap-6 flex-1 max-w-xl px-4 lg:pt-8">
-      {/* Large hex badge */}
-      <div className="w-48 h-52">
-        <TechBadge
-          icon={
-            <img
-              className="relative w-full h-full object-contain"
-              alt={tech?.label ?? 'My Education'}
-              src={tech?.iconSrc ?? educationIcon}
-            />
-          }
-          name={tech?.label ?? 'My Education'}
-          hexSize={{ x: 100, y: 100 }}
-        />
-      </div>
-
-      {isDefault ? (
-        <>
-          <div className="flex items-center gap-2">
-            <span className="font-serif text-text-1 text-xl md:text-2xl" style={{ fontFamily: "'Lora', serif" }}>
-              See My Resume:
-            </span>
-            <a
-              href="#resume"
-              className="text-blue-medium-2 text-xl md:text-2xl underline hover:opacity-80 transition-opacity"
-              style={{ fontFamily: "'Inter', sans-serif" }}
-            >
-              My Resume
-            </a>
-          </div>
-          <div className="flex flex-col gap-6 w-full">
-            <div>
-              <h3 className="font-sans font-extrabold text-text-1 text-lg md:text-xl mb-2">Magdalen College</h3>
-              <p className="font-sans text-text-1 text-base md:text-lg leading-relaxed">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
-                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-sans font-extrabold text-text-1 text-lg md:text-xl mb-2">College of Western Idaho</h3>
-              <p className="font-sans text-text-1 text-base md:text-lg leading-relaxed">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent
-                libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum
-                imperdiet. Duis sagittis ipsum. Praesent mauris.
-              </p>
-            </div>
-          </div>
-        </>
-      ) : (
-        <div className="flex flex-col gap-4 w-full">
-          <p className="font-sans text-text-1 text-base md:text-lg leading-relaxed">
-            {tech!.description}
-          </p>
-          <div className="flex flex-wrap gap-1.5 mt-2">
-            {tech!.categories.map((cat) => (
-              <span key={cat} className="bg-blue-medium-1/20 text-text-1 text-xs font-sans px-2 py-0.5 rounded-full">
-                {cat}
-              </span>
-            ))}
-          </div>
+      <div className={`flex flex-col items-center gap-6 w-full transition-all duration-200 ease-out
+        ${animating ? 'opacity-0 translate-y-2' : 'opacity-100 translate-y-0'}`}>
+        {/* Large hex badge */}
+        <div className="w-48 h-52">
+          <TechBadge
+            icon={
+              <img
+                className="relative w-full h-full object-contain"
+                alt={displayTech?.label ?? 'My Education'}
+                src={displayTech?.iconSrc ?? educationIcon}
+              />
+            }
+            name={displayTech?.label ?? 'My Education'}
+            hexSize={{ x: 100, y: 100 }}
+          />
         </div>
-      )}
+
+        {showDefault ? (
+          <>
+            <div className="flex items-center gap-2">
+              <span className="font-heading text-text-1 text-xl md:text-2xl">
+                See My Resume:
+              </span>
+              <a
+                href="#resume"
+                className="font-sans text-blue-medium-2 text-xl md:text-2xl underline hover:opacity-80 transition-opacity"
+              >
+                My Resume
+              </a>
+            </div>
+            <div className="flex flex-col gap-6 w-full">
+              <div>
+                <h3 className="font-sans font-extrabold text-text-1 text-lg md:text-xl mb-2">Magdalen College</h3>
+                <p className="font-sans text-text-1 text-base md:text-lg leading-relaxed">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
+                  incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                  exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                </p>
+              </div>
+              <div>
+                <h3 className="font-sans font-extrabold text-text-1 text-lg md:text-xl mb-2">College of Western Idaho</h3>
+                <p className="font-sans text-text-1 text-base md:text-lg leading-relaxed">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent
+                  libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum
+                  imperdiet. Duis sagittis ipsum. Praesent mauris.
+                </p>
+              </div>
+            </div>
+          </>
+        ) : (
+          <div className="flex flex-col gap-4 w-full">
+            <p className="font-sans text-text-1 text-base md:text-lg leading-relaxed">
+              {displayTech!.description}
+            </p>
+            <div className="flex flex-wrap gap-1.5 mt-2">
+              {displayTech!.categories.map((cat) => (
+                <span key={cat} className="bg-blue-medium-1/20 text-text-1 text-xs font-sans px-2 py-0.5 rounded-full">
+                  {cat}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   )
 }
@@ -332,26 +348,60 @@ function MobileModal({ tech, onClose, activeFilters, onToggleFilter }: {
           />
         </div>
         <div className="flex flex-col gap-4 w-full">
-          <h3 className="font-sans font-extrabold text-text-1 text-xl">{tech.label}</h3>
-          <p className="font-sans text-text-1 text-base leading-relaxed">{tech.description}</p>
-          <div className="flex flex-wrap gap-1.5">
-            {tech.categories.map((cat) => {
-              const isActive = activeFilters.has(cat)
-              return (
-                <button
-                  key={cat}
-                  onClick={() => { onToggleFilter(cat); onClose() }}
-                  className={`text-xs font-sans px-2 py-0.5 rounded-full border transition-colors cursor-pointer
-                    ${isActive
-                      ? 'bg-blue-medium-1 border-blue-medium-2 text-text-1'
-                      : 'bg-blue-medium-1/20 border-blue-medium-1/40 text-text-1 hover:bg-blue-medium-1/40'
-                    }`}
+          {tech.id === 'education' ? (
+            <>
+              <div className="flex items-center gap-2">
+                <span className="font-heading text-text-1 text-xl">See My Resume:</span>
+                <a
+                  href="#resume"
+                  className="font-sans text-blue-medium-2 text-xl underline hover:opacity-80 transition-opacity"
                 >
-                  {cat}
-                </button>
-              )
-            })}
-          </div>
+                  My Resume
+                </a>
+              </div>
+              <div className="flex flex-col gap-6 w-full">
+                <div>
+                  <h3 className="font-sans font-extrabold text-text-1 text-lg mb-2">Magdalen College</h3>
+                  <p className="font-sans text-text-1 text-base leading-relaxed">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
+                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                    exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                  </p>
+                </div>
+                <div>
+                  <h3 className="font-sans font-extrabold text-text-1 text-lg mb-2">College of Western Idaho</h3>
+                  <p className="font-sans text-text-1 text-base leading-relaxed">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent
+                    libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum
+                    imperdiet. Duis sagittis ipsum. Praesent mauris.
+                  </p>
+                </div>
+              </div>
+            </>
+          ) : (
+            <>
+              <h3 className="font-sans font-extrabold text-text-1 text-xl">{tech.label}</h3>
+              <p className="font-sans text-text-1 text-base leading-relaxed">{tech.description}</p>
+              <div className="flex flex-wrap gap-1.5">
+                {tech.categories.map((cat) => {
+                  const isActive = activeFilters.has(cat)
+                  return (
+                    <button
+                      key={cat}
+                      onClick={() => { onToggleFilter(cat); onClose() }}
+                      className={`text-xs font-sans px-2 py-0.5 rounded-full border transition-colors cursor-pointer
+                        ${isActive
+                          ? 'bg-blue-medium-1 border-blue-medium-2 text-text-1'
+                          : 'bg-blue-medium-1/20 border-blue-medium-1/40 text-text-1 hover:bg-blue-medium-1/40'
+                        }`}
+                    >
+                      {cat}
+                    </button>
+                  )
+                })}
+              </div>
+            </>
+          )}
         </div>
         <button
           onClick={onClose}
@@ -466,16 +516,18 @@ export function Technologies(): React.JSX.Element {
                   onClick={(e) => { e.stopPropagation(); toggleFilter(cat.name) }}
                   className={`flex items-center justify-center gap-1.5 px-2.5 py-1 sm:px-3 sm:py-1.5
                     ${isActive
-                      ? 'bg-blue-medium-1 border-blue-medium-2'
+                      ? 'bg-blue-medium-1 border-blue-medium-2 shadow-md ring-2 ring-blue-medium-2/30'
                       : 'bg-cream-neutral border-blue-medium-1'
                     }
-                    rounded-full border-1.5 sm:border-2 shadow-sm hover:shadow-md transition-all
+                    rounded-full border-1.5 sm:border-2 shadow-sm
+                    hover:shadow-md hover:scale-105 hover:-translate-y-0.5
+                    active:scale-95
+                    transition-all duration-200 ease-out
                     cursor-pointer`}
                 >
                   <span className="font-sans font-medium text-text-1 text-xs sm:text-sm tracking-wide whitespace-nowrap">
                     {cat.name}
                   </span>
-                  {isActive && cat.icon && <img className="w-5 h-4" alt="" src={cat.icon} />}
                 </button>
               )
             })}
