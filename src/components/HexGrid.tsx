@@ -16,6 +16,7 @@ interface HexGridProps {
   fadedIds?: Set<string>;
   onSelect?: (id: string) => void;
   onReturn?: () => void;
+  initialSelectedId?: string;
   className?: string;
 }
 
@@ -25,11 +26,12 @@ const HexGrid: React.FC<HexGridProps> = ({
   fadedIds,
   onSelect,
   onReturn,
+  initialSelectedId,
   className = ""
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [selectedHex, setSelectedHex] = useState<string | null>(null);
-  const selectedHexRef = useRef<string | null>(null);
+  const [selectedHex, setSelectedHex] = useState<string | null>(initialSelectedId ?? null);
+  const selectedHexRef = useRef<string | null>(initialSelectedId ?? null);
   const [, setHoveredHex] = useState<string | null>(null);
   const [responsiveSize, setResponsiveSize] = useState(size);
 
@@ -109,21 +111,42 @@ const HexGrid: React.FC<HexGridProps> = ({
   }, [size]);
 
 
+  // Animate the initially selected tile once responsive size is resolved
+  const hasAnimatedInitial = useRef(false);
+  useEffect(() => {
+    if (hasAnimatedInitial.current || !selectedHexRef.current) return;
+    hasAnimatedInitial.current = true;
+    const el = document.getElementById(`hex-${selectedHexRef.current}`);
+    if (el) gsap.to(el, { scale: 1.18, duration: 0.5, ease: 'back.out(1.5)', delay: 0.1 });
+  }, [responsiveSize]);
+
   // Handle hex selection
   const handleSelect = useCallback((id: string) => {
     const prev = selectedHexRef.current;
+    const fallback = initialSelectedId ?? null;
 
-    // Deselect previous
-    if (prev) {
+    // Shrink previous (unless it's the fallback we're about to re-enlarge)
+    if (prev && prev !== id) {
       const prevEl = document.getElementById(`hex-${prev}`);
       if (prevEl) gsap.to(prevEl, { scale: 1, duration: 0.25, ease: 'power2.out' });
     }
 
     if (prev === id) {
-      // Toggle off
-      selectedHexRef.current = null;
-      setSelectedHex(null);
-      onReturn?.();
+      // Toggle off — revert to fallback
+      const el = document.getElementById(`hex-${id}`);
+      if (el) gsap.to(el, { scale: 1, duration: 0.25, ease: 'power2.out' });
+
+      if (fallback && fallback !== id) {
+        // Pop the fallback back
+        const fallbackEl = document.getElementById(`hex-${fallback}`);
+        if (fallbackEl) gsap.to(fallbackEl, { scale: 1.18, duration: 0.35, ease: 'back.out(1.5)' });
+        selectedHexRef.current = fallback;
+        setSelectedHex(fallback);
+        onSelect?.(fallback);
+      } else {
+        // Fallback is the same tile or none — stay put
+        selectedHexRef.current = prev;
+      }
     } else {
       // Select new
       const el = document.getElementById(`hex-${id}`);
@@ -132,7 +155,7 @@ const HexGrid: React.FC<HexGridProps> = ({
       setSelectedHex(id);
       onSelect?.(id);
     }
-  }, [onSelect, onReturn]);
+  }, [onSelect, onReturn, initialSelectedId]);
 
   // Calculate adjacent hexagons for starburst effect
   const getAdjacentHexes = useCallback((targetHex: HexData): HexData[] => {
