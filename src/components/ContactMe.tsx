@@ -59,10 +59,10 @@ export default function ContactMe() {
           <span className="border-b-4 border-blue-medium-1 pb-2">Contact Me</span>
         </h2>
         <a
-          href="mailto:JacobEBrown@JB.Dev"
+          href="mailto:JacobEBrown@jacobebrown.dev"
           className="font-sans text-blue-medium-2 text-xl sm:text-3xl md:text-5xl lg:text-6xl hover:underline"
         >
-          JacobEBrown@JB.Dev
+          JacobEBrown@jacobebrown.dev
         </a>
 
         <div className="flex flex-wrap justify-center gap-4 mt-6 sm:mt-10">

@@ -10,8 +10,10 @@ import netacentLogo from './assets/images/Projects/netacent/Netacent-Primary-Log
 import kubernetesIcon from './assets/images/TechLogos/kubernetes.svg'
 import azureAIcon from './assets/images/TechLogos/Azure-A.svg'
 import samsBeesHomepage from "./assets/images/Projects/Sam's Bees/SamsBeesHomepage.png"
-import samsBeesProducts from "./assets/images/Projects/Sam's Bees/SamsBeesProductPage.png"
 import githubIcon from './assets/images/TechLogos/github-1-1.svg'
+import portfolioHero from "./assets/images/Projects/Recursive Portfolio/Portfolio pic.png"
+import figmaIcon from './assets/images/TechLogos/figma.svg'
+import amplifyIcon from './assets/images/TechLogos/Amplify.svg'
 import ContactMe from './components/ContactMe'
 
 const projects = [
@@ -41,11 +43,18 @@ const projects = [
     ],
   },
   {
-    title: 'Project Description',
-    projectName: 'Hello World',
+    title: 'Full-Stack Developer',
+    projectName: 'This Portfolio',
+    primaryImage: portfolioHero,
+    primaryImageClassName: 'w-full h-full object-contain bg-cream-neutral',
+    secondaryImages: [figmaIcon, amplifyIcon] as [string, string],
+    secondaryImagePaddings: ['p-4', 'p-5'] as [string, string],
+    links: [
+      { href: 'https://github.com/JacobE-Brown/PortfolioV3', label: 'View on GitHub', icon: githubIcon },
+    ],
     description: [
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris.',
+      'Designed end-to-end in Figma and built with React, TypeScript, and Vite — this site is the project. The hex grid technology section uses axial coordinate math for layout and GSAP for starburst hover animations. A custom Tailwind v4 design token system drives the full color and typography palette.',
+      'Deployed on AWS Amplify with a custom domain and email routing through Route 53 and SES. The full pipeline — from Figma frame to live URL — demonstrates both frontend craft and cloud infrastructure delivery.',
     ],
   },
 ]
