@@ -28,18 +28,40 @@ Portfolio site with multiple sections, driven by a Figma design file.
 ```
 App
 ├── HeroSection         # Full-screen hero: name, subtitle, "About Me" button, hex-framed profile pic
-├── main (wrapper)      # Rounded top corners + shadow, contains all body sections
-│   ├── NavBar          # Sticky dark nav, rounded corners when not stuck, right-aligned links
-│   ├── AboutMe         # Intro text paragraph
-│   ├── WhatIDo         # "What I do" section: heading + 5 hex badge work items with descriptions
-│   ├── Technologies    # Two-column: hex grid (left) + education details (right)
-│   │   └── HexGrid     # Manages hex layout, GSAP animations, and interaction state
-│   │       └── HexTile # Absolutely-positioned wrapper per hex; drives GSAP targets via id="hex-{id}"
-│   │           └── TechBadge   # Visual hex tile: icon + label badge
-│   │               └── HexBase # SVG hex background shell (hex-base.svg) with proportional sizing
-│   ├── ProjectCard ×3  # Alternating left/right project cards with hex image galleries
-│   └── ContactMe       # Contact heading, email link, dark footer bar
+├── NavBar              # Sticky dark nav, snapped to bottom of hero on load, right-aligned links
+└── main (wrapper)      # Rounded top corners + shadow, contains all body sections
+    ├── AboutMe         # Intro text paragraph
+    ├── WhatIDo         # "What I do" section: heading + 5 hex badge work items with descriptions
+    ├── Technologies    # Two-column: hex grid (left) + education details (right)
+    │   └── HexGrid     # Manages hex layout, GSAP animations, and interaction state
+    │       └── HexTile # Absolutely-positioned wrapper per hex; drives GSAP targets via id="hex-{id}"
+    │           └── TechBadge   # Visual hex tile: icon + label badge
+    │               └── HexBase # SVG hex background shell (hex-base.svg) with proportional sizing
+    ├── ProjectCard ×3  # Alternating left/right project cards with hex image galleries
+    └── ContactMe       # Contact heading, email link, dark footer bar
 ```
+
+### NavBar layout — snap-to-bottom + sticky
+
+**Desired behavior:** NavBar sits snapped to the bottom of the viewport while the hero is visible, then becomes sticky at the top of the screen for the entire rest of the page.
+
+**Why this is tricky:** `position: sticky` only works within its containing block. If the NavBar is placed *inside* a `h-svh` wrapper with the hero, it becomes sticky within that wrapper and releases (scrolls away) as soon as the wrapper exits the viewport — breaking the sticky behavior through the main content. The nav must live *outside and after* the hero in the DOM.
+
+**How it works (do not change this pattern):**
+
+1. **`--nav-h` CSS custom property** — NavBar sets this on `document.documentElement` via a `ResizeObserver` on the `<nav>` element. This gives the exact rendered nav height at every breakpoint. The CSS default `--nav-h: 80px` in `tokens.css` is a fallback to prevent layout flash before JS runs.
+
+2. **HeroSection height** — Uses inline style `height: calc(100svh - var(--nav-h, 80px))` so the hero always fills exactly the viewport minus the nav, regardless of breakpoint.
+
+3. **DOM order** — `HeroSection` → `NavBar` → `<main>`. The NavBar is `sticky top-0` and since it lives outside any bounded wrapper, it persists through the entire page scroll.
+
+4. **`isStuck` state** — A zero-height sentinel `<div>` sits immediately before the `<nav>` in the NavBar component. An `IntersectionObserver` on the sentinel sets `isStuck = true` when it leaves the viewport, switching the nav from `rounded-t-3xl` (bottom-of-hero style) to `rounded-none` (stuck-at-top style).
+
+**Width:** NavBar and `<main>` both use `max-w-screen-2xl mx-auto sm:mx-4 md:mx-6 lg:mx-8 xl:mx-auto` — keep these identical.
+
+**`scroll-margin-top`** on `section[id]` is set to `var(--nav-h, 5rem)` in `tokens.css` so smooth-scroll targets aren't obscured by the nav.
+
+**Do not wrap HeroSection + NavBar in a shared container** — that breaks sticky persistence.
 
 ### Hex grid coordinate system
 
