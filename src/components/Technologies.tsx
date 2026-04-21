@@ -499,7 +499,7 @@ export function Technologies(): React.JSX.Element {
   return (
     <section id="skills" className="bg-blue-neutral flex flex-col items-center justify-center overflow-hidden px-4 py-10 sm:py-12 md:py-20"
       onClick={() => { if (activeFilters.size > 0) setActiveFilters(new Set()) }}>
-      <h2 className="font-heading font-medium text-text-1 text-3xl sm:text-4xl md:text-5xl lg:text-7xl mb-6 sm:mb-10 md:mb-14">
+      <h2 className="font-heading font-medium text-text-1 text-3xl sm:text-4xl md:text-5xl lg:text-7xl mb-8 sm:mb-10 md:mb-14">
         <span className="border-b-4 border-blue-medium-1 pb-2">My Skills</span>
       </h2>
 

@@ -53,9 +53,9 @@ const pillClasses =
 
 export default function ContactMe() {
   return (
-    <section id="contact" className="bg-blue-neutral flex flex-col items-center justify-end min-h-screen sm:min-h-screen">
-      <div className="flex-1 flex flex-col items-center justify-center gap-4 px-6 sm:px-8 pt-16">
-        <h2 className="font-heading font-medium text-3xl sm:text-5xl md:text-7xl lg:text-8xl text-text-1 mb-4 sm:mb-8 md:mb-12">
+    <section id="contact" className="bg-blue-neutral flex flex-col items-center justify-end min-h-[calc(100svh-5rem)]">
+      <div className="flex-1 flex flex-col items-center justify-center gap-4 px-6 sm:px-8">
+        <h2 className="font-heading font-medium text-3xl sm:text-4xl md:text-5xl lg:text-7xl text-text-1 mb-8 sm:mb-10 md:mb-14">
           <span className="border-b-4 border-blue-medium-1 pb-2">Contact Me</span>
         </h2>
         <a
@@ -80,7 +80,7 @@ export default function ContactMe() {
           ))}
         </div>
       </div>
-      <footer className="bg-text-1 w-full px-8 md:px-16 py-6">
+      <footer className="bg-text-1 w-full px-8 md:px-16 py-6 shadow-[0_-4px_12px_rgba(0,0,0,0.15)]">
         <div className="max-w-screen-2xl mx-auto flex flex-col items-center gap-4">
           {/* Scroll to top */}
           <button
@@ -119,7 +119,15 @@ export default function ContactMe() {
                 {label}
               </a>
             ))}
-
+            <span className="text-blue-neutral/20">|</span>
+            <a
+              href="/resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-sans font-semibold text-blue-medium-1 text-sm sm:text-base hover:text-blue-medium-2 transition-colors"
+            >
+              Resume
+            </a>
           </nav>
 
           {/* Copyright */}
