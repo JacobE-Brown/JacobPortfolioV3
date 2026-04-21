@@ -7,6 +7,8 @@ import WhatIDo from './components/WhatIDo'
 import Technologies from './components/Technologies'
 import ProjectCard from './components/ProjectCard'
 import netacentLogo from './assets/images/Netacent-Primary-Logo.webp'
+import kubernetesIcon from './assets/images/TechLogos/kubernetes.svg'
+import azureAIcon from './assets/images/TechLogos/Azure-A.svg'
 import ContactMe from './components/ContactMe'
 
 const projects = [
@@ -14,6 +16,8 @@ const projects = [
     title: 'DevOps Engineer',
     projectName: 'Netacent',
     primaryImage: netacentLogo,
+    secondaryImages: [azureAIcon, kubernetesIcon],
+    secondaryImagePaddings: ['p-5', 'p-2'],
     description: [
       'As a DevOps Engineer at Netacent, responsibilities include the full CI/CD lifecycle across Azure DevOps — designing, maintaining, and optimizing pipelines that build, test, and deploy containerized C# applications to Kubernetes. End-to-end management of AKS clusters spans deployments, scaling, and ongoing operations to ensure production stability.',
       'A key architectural contribution has been the design and implementation of a Prometheus and Grafana observability stack across AKS clusters, providing the team with real-time visibility into cluster health, resource utilization, and application performance — shifting operations from reactive response to proactive monitoring.',
@@ -57,7 +61,7 @@ function App() {
 
         <div id="projects">
           <h2 className="font-heading font-medium text-text-1 text-3xl sm:text-4xl md:text-5xl lg:text-7xl text-center mb-8 sm:mb-10 md:mb-14 pt-10 sm:pt-12 md:pt-20">
-            <span className="border-b-4 border-blue-medium-1 pb-2">Projects</span>
+            <span className="border-b-4 border-blue-medium-1 pb-2">Experience & Projects</span>
           </h2>
           {projects.map((project, i) => (
             <ProjectCard
@@ -68,6 +72,7 @@ function App() {
               reversed={i % 2 !== 0}
               primaryImage={project.primaryImage}
               secondaryImages={project.secondaryImages as [string?, string?]}
+              secondaryImagePaddings={project.secondaryImagePaddings as [string?, string?]}
             />
           ))}
         </div>

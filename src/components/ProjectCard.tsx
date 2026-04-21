@@ -9,6 +9,8 @@ interface ProjectCardProps {
   primaryImage?: string
   /** Two small hex image srcs */
   secondaryImages?: [string?, string?]
+  /** Tailwind padding class per small hex image (e.g. 'p-4') */
+  secondaryImagePaddings?: [string?, string?]
 }
 
 // Flat-top hexagon clip path
@@ -19,11 +21,13 @@ function HexGallery({
   projectName,
   primaryImage,
   secondaryImages = [],
+  secondaryImagePaddings = [],
 }: {
   reversed: boolean
   projectName: string
   primaryImage?: string
   secondaryImages?: [string?, string?]
+  secondaryImagePaddings?: [string?, string?]
 }) {
   // Mobile: full-width, top+bottom borders only, no rounding
   // Desktop: rounded on inward side, 3-sided border
@@ -84,7 +88,7 @@ function HexGallery({
                   <img
                     src={secondaryImages[i] ?? hexBase}
                     alt=""
-                    className="w-full h-full object-contain bg-tan-neutral p-2"
+                    className={`w-full h-full object-contain bg-tan-neutral ${secondaryImagePaddings[i] ?? 'p-2'}`}
                   />
                 </div>
               </div>
@@ -131,6 +135,7 @@ export default function ProjectCard({
   reversed = false,
   primaryImage,
   secondaryImages,
+  secondaryImagePaddings,
 }: ProjectCardProps) {
   return (
     <div className="bg-blue-neutral flex flex-col lg:flex-row items-stretch w-full min-h-80 md:min-h-112 lg:min-h-144">
@@ -140,6 +145,7 @@ export default function ProjectCard({
         projectName={projectName}
         primaryImage={primaryImage}
         secondaryImages={secondaryImages}
+        secondaryImagePaddings={secondaryImagePaddings}
       />
       <TextContent title={title} description={description} reversed={reversed} />
     </div>

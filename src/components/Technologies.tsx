@@ -2,17 +2,14 @@ import React, { useState, useEffect, useMemo, useRef } from 'react'
 import HexGrid from './HexGrid'
 import TechBadge from './TechBadge'
 
-// Category icons
-import vector3 from '@/assets/images/TechLogos/vector-3.svg'
-import vector5 from '@/assets/images/TechLogos/vector-5.svg'
 
 // Tech icon imports
 import figmaIcon from '@/assets/images/TechLogos/figma.svg'
 import educationIcon from '@/assets/images/TechLogos/education.svg'
 import awsIcon from '@/assets/images/TechLogos/aws.svg'
-import amplifyIcon from '@/assets/images/TechLogos/aws-amplify.svg'
+import amplifyIcon from '@/assets/images/TechLogos/Amplify.svg'
 import reactIcon from '@/assets/images/TechLogos/react.svg'
-import tailwindIcon from '@/assets/images/TechLogos/vector-2.svg'
+import tailwindIcon from '@/assets/images/TechLogos/tailwinds.svg'
 import csharpIcon from '@/assets/images/TechLogos/c.svg'
 import netcoreIcon from '@/assets/images/TechLogos/net-core-logo-1.svg'
 import jsIcon from '@/assets/images/TechLogos/js.svg'
@@ -25,9 +22,9 @@ import sqlIcon from '@/assets/images/TechLogos/sql.svg'
 import dockerIcon from '@/assets/images/TechLogos/docker.svg'
 import kubernetesIcon from '@/assets/images/TechLogos/kubernetes.svg'
 import helmIcon from '@/assets/images/TechLogos/helm.svg'
-import azureIcon from '@/assets/images/TechLogos/azure-devops.svg'
-import prometheusIcon from '@/assets/images/TechLogos/prometheus.svg'
-import grafanaIcon from '@/assets/images/TechLogos/grafana.svg'
+import azureIcon from '@/assets/images/TechLogos/Azure-DevOps.svg'
+import prometheusIcon from '@/assets/images/TechLogos/Prometheus.svg'
+import grafanaIcon from '@/assets/images/TechLogos/Grafana.svg'
 import lokiIcon from '@/assets/images/TechLogos/loki.svg'
 
 // --- Types ---
@@ -62,10 +59,10 @@ interface TechItem {
 const categoryDefs: CategoryDef[] = [
   { name: 'Cloud & DevOps', icon: null },
   { name: 'Back-End Development', icon: null },
-  { name: 'Front-End Development', icon: vector3 },
+  { name: 'Front-End Development', icon: null },
   { name: 'Monitoring & Observability', icon: null },
-  { name: 'Design & UX', icon: vector5 },
-  { name: 'Education', icon: vector5 },
+  { name: 'Design & UX', icon: null },
+  { name: 'Education', icon: null },
   { name: 'Miscellaneous', icon: null },
 ]
 
