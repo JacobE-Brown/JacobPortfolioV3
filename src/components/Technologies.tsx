@@ -332,18 +332,18 @@ function SubTechChip({ sub }: { sub: SubTechItem }) {
         target="_blank"
         rel="noopener noreferrer"
         title="View certificate"
-        className="flex items-center gap-1.5 bg-white/60 border border-blue-medium-2/50 rounded-lg px-2 py-1
+        className="flex items-center gap-1.5 bg-white/60 border border-blue-medium-2/50 rounded-full px-2 py-1
           cursor-pointer hover:bg-white/90 hover:border-blue-medium-2 hover:shadow-sm transition-all"
       >
         {icon}
         <span className="font-sans text-text-1 text-xs leading-none">{sub.label}</span>
-        <span className="font-sans text-blue-medium-2 text-[9px] leading-none opacity-70 ml-0.5">↗</span>
+        <span className="font-sans text-blue-medium-2 text-[11px] leading-none opacity-90 ml-0.5">↗</span>
       </a>
     )
   }
 
   return (
-    <div className="flex items-center gap-1.5 bg-white/60 border border-blue-medium-1/30 rounded-lg px-2 py-1">
+    <div className="flex items-center gap-1.5 bg-white/60 border border-blue-medium-1/30 rounded-full px-2 py-1 hover:bg-white/80 transition-colors">
       {icon}
       <span className="font-sans text-text-1 text-xs leading-none">{sub.label}</span>
     </div>
@@ -627,10 +627,11 @@ function MobileModal({ tech, onClose, activeFilters, onToggleFilter }: {
                     <button
                       key={cat}
                       onClick={() => { onToggleFilter(cat); onClose() }}
-                      className={`text-xs font-sans px-2 py-0.5 rounded-full border transition-colors cursor-pointer
+                      className={`text-xs font-sans px-2.5 py-1 rounded-full border cursor-pointer
+                        transition-all duration-150 active:scale-95
                         ${isActive
-                          ? 'bg-blue-medium-1 border-blue-medium-2 text-text-1'
-                          : 'bg-blue-medium-1/20 border-blue-medium-1/40 text-text-1 hover:bg-blue-medium-1/40'
+                          ? 'bg-blue-medium-1 border-blue-medium-2 text-text-1 font-semibold ring-2 ring-blue-medium-2/30'
+                          : 'bg-blue-medium-1/20 border-blue-medium-1/40 text-text-1 hover:bg-blue-medium-1/40 hover:border-blue-medium-1/70'
                         }`}
                     >
                       {cat}
@@ -644,7 +645,7 @@ function MobileModal({ tech, onClose, activeFilters, onToggleFilter }: {
         <button
           onClick={onClose}
           className="self-start border-2 border-blue-medium-2 bg-transparent px-5 py-2
-            text-text-1 font-sans text-lg rounded-lg
+            text-text-1 font-sans text-lg rounded-full
             hover:bg-blue-medium-2 hover:text-white transition-colors mt-4"
         >
           Back
@@ -771,7 +772,8 @@ export function Technologies(): React.JSX.Element {
                     transition-all duration-200 ease-out
                     cursor-pointer`}
                 >
-                  <span className="font-sans font-medium text-text-1 text-xs sm:text-sm tracking-wide whitespace-nowrap">
+                  <span className={`font-sans text-xs sm:text-sm tracking-wide whitespace-nowrap
+                    ${isActive ? 'font-semibold text-text-1' : 'font-medium text-text-1'}`}>
                     {cat.name}
                   </span>
                 </button>
