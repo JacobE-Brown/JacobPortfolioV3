@@ -360,7 +360,7 @@ function DetailPanel({ tech }: { tech: TechItem | null }) {
       <div className={`flex flex-col items-center gap-6 w-full transition-all duration-200 ease-out
         ${animating ? 'opacity-0 translate-y-2' : 'opacity-100 translate-y-0'}`}>
         {/* Large hex badge */}
-        <div className="w-48 h-52">
+        <div className="w-48 h-52 cursor-default transition-transform duration-200 ease-out hover:scale-105">
           <TechBadge
             icon={
               <img
@@ -528,7 +528,7 @@ function MobileModal({ tech, onClose, activeFilters, onToggleFilter }: {
           ✕
         </button>
 
-        <div className="w-40 h-44 sm:w-56 sm:h-60">
+        <div className="w-40 h-44 sm:w-56 sm:h-60 cursor-default transition-transform duration-200 ease-out hover:scale-105">
           <TechBadge
             icon={<img className="relative w-full h-full object-contain" alt={tech.label} src={tech.iconSrc} />}
             name={tech.label}
