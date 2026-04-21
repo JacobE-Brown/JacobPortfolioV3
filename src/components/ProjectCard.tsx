@@ -23,6 +23,8 @@ interface ProjectCardProps {
   galleryVariant?: 'hex' | 'browser'
   /** URL to open when the gallery is clicked (browser variant only) */
   projectUrl?: string
+  /** Technology badges shown above the links */
+  technologies?: { icon: string; label: string }[]
   /** Links shown below the description */
   links?: { href: string; label: string; icon: string }[]
 }
@@ -255,7 +257,7 @@ function BrowserGallery({
 }
 
 
-function TextContent({ title, description, reversed = false, links }: { title: string; description: string[]; reversed?: boolean; links?: { href: string; label: string; icon: string }[] }) {
+function TextContent({ title, description, reversed = false, technologies, links }: { title: string; description: string[]; reversed?: boolean; technologies?: { icon: string; label: string }[]; links?: { href: string; label: string; icon: string }[] }) {
   const orderClass = reversed
     ? 'order-last'                          // reversed: text second everywhere
     : 'order-last lg:order-1'               // normal: text second on mobile, first on desktop
@@ -278,8 +280,18 @@ function TextContent({ title, description, reversed = false, links }: { title: s
             {paragraph}
           </p>
         ))}
+        {technologies && technologies.length > 0 && (
+          <div className="flex flex-wrap gap-x-4 gap-y-2">
+            {technologies.map((tech, i) => (
+              <span key={i} className="flex items-center gap-2 font-sans text-sm md:text-base text-text-2">
+                <img src={tech.icon} alt="" className="w-5 h-5 object-contain opacity-60" />
+                {tech.label}
+              </span>
+            ))}
+          </div>
+        )}
         {links && links.length > 0 && (
-          <div className="flex flex-wrap gap-3 mt-2">
+          <div className="flex flex-wrap gap-3">
             {links.map((link, i) => (
               <ProjectLink key={i} href={link.href} label={link.label} icon={link.icon} />
             ))}
@@ -301,6 +313,7 @@ export default function ProjectCard({
   primaryImageClassName,
   galleryVariant = 'hex',
   projectUrl,
+  technologies,
   links,
 }: ProjectCardProps) {
   const gallery = galleryVariant === 'browser' ? (
@@ -319,7 +332,7 @@ export default function ProjectCard({
   return (
     <div className="bg-blue-neutral flex flex-col lg:flex-row items-stretch w-full min-h-80 md:min-h-112 lg:min-h-144">
       {gallery}
-      <TextContent title={title} description={description} reversed={reversed} links={links} />
+      <TextContent title={title} description={description} reversed={reversed} technologies={technologies} links={links} />
     </div>
   )
 }

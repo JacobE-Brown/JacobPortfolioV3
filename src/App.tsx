@@ -9,6 +9,17 @@ import ProjectCard from './components/ProjectCard'
 import netacentLogo from './assets/images/Projects/netacent/Netacent-Primary-Logo.webp'
 import kubernetesIcon from './assets/images/TechLogos/kubernetes.svg'
 import azureAIcon from './assets/images/TechLogos/Azure-A.svg'
+import azureDevOpsIcon from './assets/images/TechLogos/Azure-DevOps.svg'
+import dockerIcon from './assets/images/TechLogos/docker.svg'
+import helmIcon from './assets/images/TechLogos/Helm.svg'
+import prometheusIcon from './assets/images/TechLogos/Prometheus.svg'
+import grafanaIcon from './assets/images/TechLogos/Grafana.svg'
+import netCoreIcon from './assets/images/TechLogos/net-core-logo-1.svg'
+import reactIcon from './assets/images/TechLogos/react.svg'
+import tailwindIcon from './assets/images/TechLogos/tailwinds.svg'
+import viteIcon from './assets/images/TechLogos/vitejs.svg'
+import s3Icon from './assets/images/TechLogos/Simple Storage Service.svg'
+import typescriptIcon from './assets/images/TechLogos/typescript.svg'
 import samsBeesHomepage from "./assets/images/Projects/Sam's Bees/SamsBeesHomepage.png"
 import githubIcon from './assets/images/TechLogos/github-1-1.svg'
 import portfolioHero from "./assets/images/Projects/Recursive Portfolio/Portfolio pic.png"
@@ -23,6 +34,16 @@ const projects = [
     primaryImage: netacentLogo,
     secondaryImages: [azureAIcon, kubernetesIcon],
     secondaryImagePaddings: ['p-5', 'p-2'],
+    technologies: [
+      { icon: azureDevOpsIcon, label: 'Azure DevOps' },
+      { icon: azureAIcon,      label: 'Azure' },
+      { icon: kubernetesIcon,  label: 'Kubernetes' },
+      { icon: dockerIcon,      label: 'Docker' },
+      { icon: helmIcon,        label: 'Helm' },
+      { icon: prometheusIcon,  label: 'Prometheus' },
+      { icon: grafanaIcon,     label: 'Grafana' },
+      { icon: netCoreIcon,     label: '.NET Core' },
+    ],
     description: [
       'As a DevOps Engineer at Netacent, responsibilities include the full CI/CD lifecycle across Azure DevOps — designing, maintaining, and optimizing pipelines that build, test, and deploy containerized C# applications to Kubernetes. End-to-end management of AKS clusters spans deployments, scaling, and ongoing operations to ensure production stability.',
       'A key architectural contribution has been the design and implementation of a Prometheus and Grafana observability stack across AKS clusters, providing the team with real-time visibility into cluster health, resource utilization, and application performance — shifting operations from reactive response to proactive monitoring.',
@@ -34,6 +55,12 @@ const projects = [
     primaryImage: samsBeesHomepage,
     galleryVariant: 'browser' as const,
     projectUrl: 'http://samsbees.s3-website-us-east-1.amazonaws.com',
+    technologies: [
+      { icon: reactIcon,    label: 'React' },
+      { icon: tailwindIcon, label: 'Tailwind CSS' },
+      { icon: viteIcon,     label: 'Vite' },
+      { icon: s3Icon,       label: 'AWS S3' },
+    ],
     links: [
       { href: 'https://github.com/JacobE-Brown/SamsBees/tree/master', label: 'View on GitHub', icon: githubIcon },
     ],
@@ -49,6 +76,14 @@ const projects = [
     primaryImageClassName: 'w-full h-full object-contain bg-cream-neutral',
     secondaryImages: [figmaIcon, amplifyIcon] as [string, string],
     secondaryImagePaddings: ['p-4', 'p-5'] as [string, string],
+    technologies: [
+      { icon: figmaIcon,      label: 'Figma' },
+      { icon: reactIcon,      label: 'React' },
+      { icon: typescriptIcon, label: 'TypeScript' },
+      { icon: tailwindIcon,   label: 'Tailwind CSS' },
+      { icon: viteIcon,       label: 'Vite' },
+      { icon: amplifyIcon,    label: 'AWS Amplify' },
+    ],
     links: [
       { href: 'https://github.com/JacobE-Brown/PortfolioV3', label: 'View on GitHub', icon: githubIcon },
     ],
@@ -94,6 +129,7 @@ function App() {
               primaryImageClassName={project.primaryImageClassName}
               galleryVariant={project.galleryVariant}
               projectUrl={project.projectUrl}
+              technologies={project.technologies}
               links={project.links}
             />
           ))}
