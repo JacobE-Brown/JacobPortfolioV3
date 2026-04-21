@@ -1,4 +1,9 @@
+import { useEffect, useRef } from 'react'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import hexBase from '@/assets/images/TechLogos/hex-base.svg'
+
+gsap.registerPlugin(ScrollTrigger)
 
 interface ProjectCardProps {
   title: string
@@ -29,6 +34,51 @@ function HexGallery({
   secondaryImages?: [string?, string?]
   secondaryImagePaddings?: [string?, string?]
 }) {
+  const containerRef = useRef<HTMLDivElement>(null)
+  const largeHexRef = useRef<HTMLDivElement>(null)
+  const smallHex0Ref = useRef<HTMLDivElement>(null)
+  const smallHex1Ref = useRef<HTMLDivElement>(null)
+
+  // Scroll-triggered stagger entrance
+  useEffect(() => {
+    const hexes = [largeHexRef.current, smallHex0Ref.current, smallHex1Ref.current]
+    if (hexes.some(h => !h)) return
+
+    gsap.set(hexes, { opacity: 0, y: 40 })
+
+    const ctx = gsap.context(() => {
+      gsap.to(hexes, {
+        opacity: 1,
+        y: 0,
+        duration: 0.6,
+        ease: 'power2.out',
+        stagger: 0.15,
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: 'top 80%',
+          once: true,
+        },
+      })
+    })
+
+    return () => ctx.revert()
+  }, [])
+
+  // Hover: scale up hovered hex, nudge others
+  const handleHover = (hovered: 'large' | 'small0' | 'small1', entering: boolean) => {
+    const all = { large: largeHexRef.current, small0: smallHex0Ref.current, small1: smallHex1Ref.current }
+    const others = Object.entries(all)
+      .filter(([k]) => k !== hovered)
+      .map(([, el]) => el)
+
+    if (entering) {
+      gsap.to(all[hovered], { scale: 1.08, duration: 0.25, ease: 'power2.out' })
+      gsap.to(others, { scale: 0.95, duration: 0.25, ease: 'power2.out' })
+    } else {
+      gsap.to([all[hovered], ...others], { scale: 1, duration: 0.25, ease: 'power2.out' })
+    }
+  }
+
   // Mobile: full-width, top+bottom borders only, no rounding
   // Desktop: rounded on inward side, 3-sided border
   const desktopBorderClass = reversed
@@ -47,6 +97,7 @@ function HexGallery({
   return (
     <div className={`lg:flex-1 flex items-center justify-center lg:py-16 ${orderClass}`}>
       <div
+        ref={containerRef}
         className={`bg-text-1 border-blue-medium-1 ${roundedClass}
                     border-t-6 border-b-6 lg:border-t-8 lg:border-b-8 ${desktopBorderClass}
                     flex flex-col items-center justify-center
@@ -64,8 +115,11 @@ function HexGallery({
         <div className="flex items-center gap-2 md:gap-3">
           {/* Large hex */}
           <div
-            className="w-36 md:w-52 lg:w-64 xl:w-76 bg-blue-medium-1 p-1"
+            ref={largeHexRef}
+            className="w-36 md:w-52 lg:w-64 xl:w-76 bg-blue-medium-1 p-1 cursor-pointer"
             style={{ aspectRatio: '1 / 0.866', clipPath: HEX_CLIP }}
+            onMouseEnter={() => handleHover('large', true)}
+            onMouseLeave={() => handleHover('large', false)}
           >
             <div className="w-full h-full" style={{ clipPath: HEX_CLIP }}>
               <img
@@ -78,11 +132,14 @@ function HexGallery({
 
           {/* Two small hexes */}
           <div className="flex flex-col gap-5 md:gap-8 lg:gap-10 xl:gap-14">
-            {[0, 1].map((i) => (
+            {([smallHex0Ref, smallHex1Ref] as const).map((ref, i) => (
               <div
                 key={i}
-                className="w-16 md:w-24 lg:w-28 xl:w-40 bg-blue-medium-1 p-0.5"
+                ref={ref}
+                className="w-16 md:w-24 lg:w-28 xl:w-40 bg-blue-medium-1 p-0.5 cursor-pointer"
                 style={{ aspectRatio: '1 / 0.866', clipPath: HEX_CLIP }}
+                onMouseEnter={() => handleHover(i === 0 ? 'small0' : 'small1', true)}
+                onMouseLeave={() => handleHover(i === 0 ? 'small0' : 'small1', false)}
               >
                 <div className="w-full h-full" style={{ clipPath: HEX_CLIP }}>
                   <img
