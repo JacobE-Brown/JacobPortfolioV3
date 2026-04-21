@@ -190,4 +190,4 @@ Custom CSS classes for the grid and animations are also defined in `src/tokens.c
 
 ### Path alias
 
-`@/` resolves to `src/` (Vite alias). Tech logo SVGs live at `src/assets/images/TechLogos/`.
+`@/` resolves to `src/` (Vite alias). Tech logo SVGs live at `src/assets/images/tech/`. Non-tech icons (education, socials, hex-base) live at `src/assets/images/misc/`.

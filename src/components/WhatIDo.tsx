@@ -3,11 +3,11 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import TechBadge from './TechBadge'
 
-import reactIcon from '@/assets/images/TechLogos/react.svg'
-import pythonIcon from '@/assets/images/TechLogos/python.svg'
-import awsIcon from '@/assets/images/TechLogos/AWS/aws.svg'
-import figmaIcon from '@/assets/images/TechLogos/figma.svg'
-import sqlIcon from '@/assets/images/TechLogos/sql.svg'
+import reactIcon from '@/assets/images/tech/react.svg'
+import pythonIcon from '@/assets/images/tech/python.svg'
+import awsIcon from '@/assets/images/tech/AWS/aws.svg'
+import figmaIcon from '@/assets/images/tech/figma.svg'
+import sqlIcon from '@/assets/images/tech/sql.svg'
 
 const workItems = [
   {

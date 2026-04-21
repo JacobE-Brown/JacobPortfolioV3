@@ -4,34 +4,43 @@ import TechBadge from './TechBadge'
 
 
 // Tech icon imports
-import figmaIcon from '@/assets/images/TechLogos/figma.svg'
-import educationIcon from '@/assets/images/TechLogos/education.svg'
-import awsIcon from '@/assets/images/TechLogos/AWS/aws.svg'
-import amplifyIcon from '@/assets/images/TechLogos/AWS/Amplify.svg'
-import reactIcon from '@/assets/images/TechLogos/react.svg'
-import tailwindIcon from '@/assets/images/TechLogos/tailwinds.svg'
-import csharpIcon from '@/assets/images/TechLogos/c.svg'
-import netcoreIcon from '@/assets/images/TechLogos/net-core-logo-1.svg'
-import jsIcon from '@/assets/images/TechLogos/js.svg'
-import tsIcon from '@/assets/images/TechLogos/typescript.svg'
-import linuxIcon from '@/assets/images/TechLogos/tux-1.svg'
-import pythonIcon from '@/assets/images/TechLogos/python.svg'
-import githubIcon from '@/assets/images/TechLogos/github-1-1.svg'
-import sqlIcon from '@/assets/images/TechLogos/sql.svg'
-import dockerIcon from '@/assets/images/TechLogos/docker.svg'
-import kubernetesIcon from '@/assets/images/TechLogos/kubernetes.svg'
-import helmIcon from '@/assets/images/TechLogos/helm.svg'
-import azureDevOpsIcon from '@/assets/images/TechLogos/AzureDevOps/Azure-DevOps.svg'
-import azureCloudIcon from '@/assets/images/TechLogos/Azure/Azure-A.svg'
-import prometheusIcon from '@/assets/images/TechLogos/Prometheus.svg'
-import grafanaIcon from '@/assets/images/TechLogos/Grafana.svg'
-import claudeIcon from '@/assets/images/TechLogos/claude-color.svg'
+import figmaIcon from '@/assets/images/tech/figma.svg'
+import educationIcon from '@/assets/images/misc/education.svg'
+import awsIcon from '@/assets/images/tech/AWS/aws.svg'
+import amplifyIcon from '@/assets/images/tech/AWS/Amplify.svg'
+import reactIcon from '@/assets/images/tech/react.svg'
+import tailwindIcon from '@/assets/images/tech/tailwinds.svg'
+import csharpIcon from '@/assets/images/tech/c.svg'
+import netcoreIcon from '@/assets/images/tech/net-core-logo-1.svg'
+import jsIcon from '@/assets/images/tech/js.svg'
+import tsIcon from '@/assets/images/tech/typescript.svg'
+import linuxIcon from '@/assets/images/tech/tux-1.svg'
+import pythonIcon from '@/assets/images/tech/python.svg'
+import githubIcon from '@/assets/images/tech/github-1-1.svg'
+import sqlIcon from '@/assets/images/tech/sql.svg'
+import dockerIcon from '@/assets/images/tech/docker.svg'
+import kubernetesIcon from '@/assets/images/tech/kubernetes.svg'
+import helmIcon from '@/assets/images/tech/helm.svg'
+import azureDevOpsIcon from '@/assets/images/tech/AzureDevOps/Azure-DevOps.svg'
+import azureCloudIcon from '@/assets/images/tech/Azure/Azure-A.svg'
+import prometheusIcon from '@/assets/images/tech/Prometheus.svg'
+import grafanaIcon from '@/assets/images/tech/Grafana.svg'
+import claudeIcon from '@/assets/images/tech/claude-color.svg'
 // Sub-tech icons (partial — others use text placeholder until assets are added)
-import s3Icon from '@/assets/images/TechLogos/AWS/Simple Storage Service.svg'
-import djangoIcon from '@/assets/images/TechLogos/django.svg'
+import s3Icon from '@/assets/images/tech/AWS/Simple Storage Service.svg'
+import ec2Icon from '@/assets/images/tech/AWS/EC2.svg'
+import lambdaIcon from '@/assets/images/tech/AWS/Lambda.svg'
+import rdsIcon from '@/assets/images/tech/AWS/RDS.svg'
+import cloudFrontIcon from '@/assets/images/tech/AWS/CloudFront.svg'
+import iamIcon from '@/assets/images/tech/AWS/IAM Identity Center.svg'
+import archLinuxIcon from '@/assets/images/tech/arch-linux.svg'
+import k9sIcon from '@/assets/images/tech/k9s.png'
+import aksIcon from '@/assets/images/tech/Azure/Kubernetes-Services.svg'
+import lokiIcon from '@/assets/images/tech/loki.svg'
+import djangoIcon from '@/assets/images/tech/django.svg'
 // Education panel icons
-import graduatedIcon from '@/assets/images/TechLogos/graduated.svg'
-import awardIcon from '@/assets/images/TechLogos/award.svg'
+import graduatedIcon from '@/assets/images/misc/graduated.svg'
+import awardIcon from '@/assets/images/misc/award.svg'
 // Education documents — served from public/documents/ as static assets
 const bachelorsDoc     = '/documents/Bachlers.pdf'
 const cwiDoc           = '/documents/CWI.pdf'
@@ -107,7 +116,7 @@ function makeTech(
     id,
     label,
     iconSrc,
-    icon: <img className="relative w-full h-full object-contain" alt={alt} src={iconSrc} />,
+    icon: <img className="relative w-full h-full object-contain rounded-md" alt={alt} src={iconSrc} />,
     q,
     r,
     categories: cats,
@@ -160,12 +169,12 @@ const technologies: TechItem[] = [
     ['Cloud & DevOps'],
     'One of my favorite technologies. Experience with EC2, S3, Lambda, RDS, CloudFront, and IAM. Comfortable deploying and managing cloud infrastructure using AWS services.',
     [
-      { label: 'EC2',          iconSrc: null },
+      { label: 'EC2',          iconSrc: ec2Icon },
       { label: 'S3',           iconSrc: s3Icon },
-      { label: 'Lambda',       iconSrc: null },
-      { label: 'RDS',          iconSrc: null },
-      { label: 'CloudFront',   iconSrc: null },
-      { label: 'IAM',          iconSrc: null },
+      { label: 'Lambda',       iconSrc: lambdaIcon },
+      { label: 'RDS',          iconSrc: rdsIcon },
+      { label: 'CloudFront',   iconSrc: cloudFrontIcon },
+      { label: 'IAM',          iconSrc: iamIcon },
       { label: 'Google Cloud', iconSrc: awardIcon, href: certGoogleCloud },
     ]),
   makeTech('amplify', 'AWS Amplify', amplifyIcon, 'AWS Amplify', -2, -1,
@@ -200,7 +209,7 @@ const technologies: TechItem[] = [
     ['Cloud & DevOps'],
     'Daily driver OS and primary server environment. Comfortable with system administration, shell scripting, package management, and managing Linux-based container hosts.',
     [
-      { label: 'Arch Linux', iconSrc: null },
+      { label: 'Arch Linux', iconSrc: archLinuxIcon },
       { label: 'Ubuntu', iconSrc: null },
       { label: 'Debian', iconSrc: null },
       { label: 'Alpine', iconSrc: null },
@@ -212,7 +221,7 @@ const technologies: TechItem[] = [
     'Hands-on experience deploying and managing workloads in Kubernetes clusters. Comfortable with pods, deployments, services, ingress, namespaces, and YAML resource management. Use k9s for cluster navigation and Cilium/Hubble for networking and observability.',
     [
       { label: 'kubectl',            iconSrc: null },
-      { label: 'k9s',                iconSrc: null },
+      { label: 'k9s',                iconSrc: k9sIcon },
       { label: 'Ingress',            iconSrc: null },
       { label: 'Security Risk Mgmt', iconSrc: awardIcon, href: certManageSecurity },
     ]),
@@ -233,7 +242,7 @@ const technologies: TechItem[] = [
     ['Cloud & DevOps'],
     'Experience with Azure cloud services for container-based workloads. Use AKS for Kubernetes orchestration, ACR as a container registry, and ACNS with Retina for network observability.',
     [
-      { label: 'AKS', iconSrc: null },
+      { label: 'AKS', iconSrc: aksIcon },
       { label: 'ACR', iconSrc: null },
       { label: 'ACNS', iconSrc: null },
     ]),
@@ -278,7 +287,7 @@ const technologies: TechItem[] = [
     'Build and maintain Grafana dashboards for cluster and application observability. Experience configuring data sources, panels, and alert rules across Prometheus and Loki.',
     [
       { label: 'Alloy', iconSrc: null },
-      { label: 'Loki', iconSrc: null },
+      { label: 'Loki', iconSrc: lokiIcon },
     ]),
 
   // Index 21 — AI tooling (mobile r=1)
@@ -318,7 +327,7 @@ const educationCerts: SubTechItem[] = [
 
 function SubTechChip({ sub }: { sub: SubTechItem }) {
   const icon = sub.iconSrc ? (
-    <img src={sub.iconSrc} alt={sub.label} className="w-4 h-4 object-contain shrink-0" />
+    <img src={sub.iconSrc} alt={sub.label} className="w-4 h-4 object-contain rounded shrink-0" />
   ) : (
     <div className="w-4 h-4 flex items-center justify-center rounded bg-blue-medium-1/20 text-text-1 shrink-0 select-none"
       style={{ fontSize: '7px', fontWeight: 700, lineHeight: 1 }}>
@@ -378,7 +387,7 @@ function DetailPanel({ tech }: { tech: TechItem | null }) {
           <TechBadge
             icon={
               <img
-                className="relative w-full h-full object-contain"
+                className="relative w-full h-full object-contain rounded-md"
                 alt={displayTech?.label ?? 'My Education'}
                 src={displayTech?.iconSrc ?? educationIcon}
               />
@@ -544,7 +553,7 @@ function MobileModal({ tech, onClose, activeFilters, onToggleFilter }: {
 
         <div className="w-40 h-44 sm:w-56 sm:h-60 cursor-default transition-transform duration-200 ease-out hover:scale-105">
           <TechBadge
-            icon={<img className="relative w-full h-full object-contain" alt={tech.label} src={tech.iconSrc} />}
+            icon={<img className="relative w-full h-full object-contain rounded-md" alt={tech.label} src={tech.iconSrc} />}
             name={tech.label}
             hexSize={{ x: 120, y: 120 }}
           />

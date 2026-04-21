@@ -1,5 +1,5 @@
 import React from "react";
-import base from "@/assets/images/TechLogos/hex-base.svg";
+import base from "@/assets/images/misc/hex-base.svg";
 
 interface HexBaseProps {
   children: React.ReactNode;

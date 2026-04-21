@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import hexBase from '@/assets/images/TechLogos/hex-base.svg'
+import hexBase from '@/assets/images/misc/hex-base.svg'
 import ProjectLink from '@/components/ProjectLink'
 
 gsap.registerPlugin(ScrollTrigger)
