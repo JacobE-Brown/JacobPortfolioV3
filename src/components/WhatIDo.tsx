@@ -5,7 +5,7 @@ import TechBadge from './TechBadge'
 
 import reactIcon from '@/assets/images/TechLogos/react.svg'
 import pythonIcon from '@/assets/images/TechLogos/python.svg'
-import awsIcon from '@/assets/images/TechLogos/aws.svg'
+import awsIcon from '@/assets/images/TechLogos/AWS/aws.svg'
 import figmaIcon from '@/assets/images/TechLogos/figma.svg'
 import sqlIcon from '@/assets/images/TechLogos/sql.svg'
 

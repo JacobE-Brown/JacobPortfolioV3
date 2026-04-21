@@ -6,8 +6,8 @@ import TechBadge from './TechBadge'
 // Tech icon imports
 import figmaIcon from '@/assets/images/TechLogos/figma.svg'
 import educationIcon from '@/assets/images/TechLogos/education.svg'
-import awsIcon from '@/assets/images/TechLogos/aws.svg'
-import amplifyIcon from '@/assets/images/TechLogos/Amplify.svg'
+import awsIcon from '@/assets/images/TechLogos/AWS/aws.svg'
+import amplifyIcon from '@/assets/images/TechLogos/AWS/Amplify.svg'
 import reactIcon from '@/assets/images/TechLogos/react.svg'
 import tailwindIcon from '@/assets/images/TechLogos/tailwinds.svg'
 import csharpIcon from '@/assets/images/TechLogos/c.svg'
@@ -21,13 +21,13 @@ import sqlIcon from '@/assets/images/TechLogos/sql.svg'
 import dockerIcon from '@/assets/images/TechLogos/docker.svg'
 import kubernetesIcon from '@/assets/images/TechLogos/kubernetes.svg'
 import helmIcon from '@/assets/images/TechLogos/helm.svg'
-import azureDevOpsIcon from '@/assets/images/TechLogos/Azure-DevOps.svg'
-import azureCloudIcon from '@/assets/images/TechLogos/Azure-A.svg'
+import azureDevOpsIcon from '@/assets/images/TechLogos/AzureDevOps/Azure-DevOps.svg'
+import azureCloudIcon from '@/assets/images/TechLogos/Azure/Azure-A.svg'
 import prometheusIcon from '@/assets/images/TechLogos/Prometheus.svg'
 import grafanaIcon from '@/assets/images/TechLogos/Grafana.svg'
-import lokiIcon from '@/assets/images/TechLogos/loki.svg'
+import claudeIcon from '@/assets/images/TechLogos/claude-color.svg'
 // Sub-tech icons (partial — others use text placeholder until assets are added)
-import s3Icon from '@/assets/images/TechLogos/Simple Storage Service.svg'
+import s3Icon from '@/assets/images/TechLogos/AWS/Simple Storage Service.svg'
 import djangoIcon from '@/assets/images/TechLogos/django.svg'
 // Education panel icons
 import graduatedIcon from '@/assets/images/TechLogos/graduated.svg'
@@ -122,7 +122,7 @@ function makeTech(
 //   r=-1 (5):  amplify     linux       python      sql         docker
 //   r= 0 (4):  kubernetes  helm        azure_devops azure_cloud
 //   r= 1 (5):  csharp      netcore     react       tailwind    javascript
-//   r= 2 (4):  typescript  prometheus  grafana     loki
+//   r= 2 (4):  typescript  prometheus  grafana     claude
 //
 // Grouping rationale:
 //   Top row: info tiles + AWS
@@ -199,6 +199,10 @@ const technologies: TechItem[] = [
     ['Cloud & DevOps'],
     'Daily driver OS and primary server environment. Comfortable with system administration, shell scripting, package management, and managing Linux-based container hosts.',
     [
+      { label: 'Arch Linux', iconSrc: null },
+      { label: 'Ubuntu', iconSrc: null },
+      { label: 'Debian', iconSrc: null },
+      { label: 'Alpine', iconSrc: null },
       { label: 'Cybersecurity',    iconSrc: awardIcon, href: certCybersecurity },
       { label: 'Network Security', iconSrc: awardIcon, href: certNetworkSecurity },
     ]),
@@ -265,17 +269,26 @@ const technologies: TechItem[] = [
       { label: 'Retina', iconSrc: null },
       { label: 'Alloy', iconSrc: null },
       { label: 'ACNS', iconSrc: null },
+      { label: 'Cilium', iconSrc: null },
+      { label: 'eBPF', iconSrc: null },
     ]),
   makeTech('grafana', 'Grafana', grafanaIcon, 'Grafana', -1, 2,
     ['Monitoring & Observability'],
-    'Build and maintain Grafana dashboards for cluster and application observability. Experience configuring data sources, panels, and alert rules across Prometheus and Loki.'),
-
-  // Index 21 — monitoring tail (mobile r=1)
-  makeTech('loki', 'Grafana Loki', lokiIcon, 'Loki', 0, 2,
-    ['Monitoring & Observability'],
-    'Use Loki for log aggregation in Kubernetes clusters, with Alloy as the telemetry collector. Experience configuring log pipelines and querying logs from Grafana dashboards.',
+    'Build and maintain Grafana dashboards for cluster and application observability. Experience configuring data sources, panels, and alert rules across Prometheus and Loki.',
     [
       { label: 'Alloy', iconSrc: null },
+      { label: 'Loki', iconSrc: null },
+    ]),
+
+  // Index 21 — AI tooling (mobile r=1)
+  makeTech('claude', 'Claude AI', claudeIcon, 'Claude', 0, 2,
+    ['Miscellaneous'],
+    'Daily AI collaborator for development, architecture decisions, and complex problem-solving. Use Claude Code as a CLI-driven coding agent — leveraging subagents, skills, and hooks to automate multi-step workflows directly in the terminal.',
+    [
+      { label: 'Claude Code', iconSrc: null },
+      { label: 'Subagents', iconSrc: null },
+      { label: 'Skills', iconSrc: null },
+      { label: 'MCP', iconSrc: null },
     ]),
 ]
 
@@ -653,7 +666,7 @@ function MobileModal({ tech, onClose, activeFilters, onToggleFilter }: {
 //   r=-2 (4): helm, azure_devops, azure_cloud, csharp
 //   r=-1 (3): netcore, react, tailwind
 //   r= 0 (4): javascript, typescript, prometheus, grafana
-//   r= 1 (1): loki
+//   r= 1 (1): claude
 
 const mobileGridPositions: { q: number; r: number }[] = [
   // Row r=-5 (3): education, figma, github

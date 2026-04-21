@@ -54,7 +54,7 @@ r=-2 (4):  education   figma       github      aws
 r=-1 (5):  amplify     linux       python      sql         docker
 r= 0 (4):  kubernetes  helm        azure_devops azure_cloud
 r= 1 (5):  csharp      netcore     react       tailwind    javascript
-r= 2 (4):  typescript  prometheus  grafana     loki
+r= 2 (4):  typescript  prometheus  grafana     claude
 ```
 
 ### Hex grid layout planning — how to reorganize tiles
@@ -110,15 +110,15 @@ Goal: keep related tiles adjacent (sharing an edge = axial diff of one step).
 3. **DevOps core at the widest row** — containers, orchestration, infra
 4. Azure/Helm tooling + frontend stack
 5. More frontend → monitoring bridge
-6. Monitoring cluster at bottom (prometheus, grafana, loki)
+6. Monitoring + AI tooling at bottom (prometheus, grafana, claude)
 
-When placing tiles, check that high-affinity pairs land in adjacent positions. Common high-affinity pairs: `aws↔amplify`, `docker↔linux↔kubernetes`, `kubernetes↔helm`, `csharp↔netcore`, `react↔tailwind`, `javascript↔typescript`, `prometheus↔grafana↔loki`.
+When placing tiles, check that high-affinity pairs land in adjacent positions. Common high-affinity pairs: `aws↔amplify`, `docker↔linux↔kubernetes`, `kubernetes↔helm`, `csharp↔netcore`, `react↔tailwind`, `javascript↔typescript`, `prometheus↔grafana`.
 
 #### Step 4 — Mobile layout
 
 Below 768px, `Technologies` remaps all hexes via `mobileGridPositions` to a narrower compact grid (max 4 wide). Apply the same centering formula. Tiles remap **by index** in the `technologies[]` array, so array order determines which tile gets which mobile slot.
 
-**Current mobile layout: 3-4-3-4-3-4-1 = 22 tiles (r=−5 to r=1)** — loki is the solo tile at r=1
+**Current mobile layout: 3-4-3-4-3-4-1 = 22 tiles (r=−5 to r=1)** — claude is the solo tile at r=1
 
 Mobile max-4-wide at 60% scale ≈ 312px, fits all phones ≥ 320px.
 
