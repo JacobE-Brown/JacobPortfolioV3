@@ -11,6 +11,7 @@ import kubernetesIcon from './assets/images/TechLogos/kubernetes.svg'
 import azureAIcon from './assets/images/TechLogos/Azure-A.svg'
 import samsBeesHomepage from "./assets/images/Projects/Sam's Bees/SamsBeesHomepage.png"
 import samsBeesProducts from "./assets/images/Projects/Sam's Bees/SamsBeesProductPage.png"
+import githubIcon from './assets/images/TechLogos/github-1-1.svg'
 import ContactMe from './components/ContactMe'
 
 const projects = [
@@ -31,7 +32,9 @@ const projects = [
     primaryImage: samsBeesHomepage,
     galleryVariant: 'browser' as const,
     projectUrl: 'http://samsbees.s3-website-us-east-1.amazonaws.com',
-    githubUrl: 'https://github.com/JacobE-Brown/SamsBees/tree/master',
+    links: [
+      { href: 'https://github.com/JacobE-Brown/SamsBees/tree/master', label: 'View on GitHub', icon: githubIcon },
+    ],
     description: [
       "Sam's Bees is a full e-commerce storefront built for a local beekeeper, designed to showcase and sell handcrafted honey, beeswax, and candle products. Built with React, Tailwind CSS, and Vite, the site features a product catalog with cart functionality and a clean, warm aesthetic that reflects the brand's natural, artisan identity.",
       'Deployed as a static site to AWS S3, the project demonstrates end-to-end frontend delivery — from component design to cloud hosting — and served as the foundation for developing production habits around responsive layout, component reuse, and performance-conscious asset handling.',
@@ -82,7 +85,7 @@ function App() {
               primaryImageClassName={project.primaryImageClassName}
               galleryVariant={project.galleryVariant}
               projectUrl={project.projectUrl}
-              githubUrl={project.githubUrl}
+              links={project.links}
             />
           ))}
         </div>

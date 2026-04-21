@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import hexBase from '@/assets/images/TechLogos/hex-base.svg'
-import githubIcon from '@/assets/images/TechLogos/github-1-1.svg'
+import ProjectLink from '@/components/ProjectLink'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -23,8 +23,8 @@ interface ProjectCardProps {
   galleryVariant?: 'hex' | 'browser'
   /** URL to open when the gallery is clicked (browser variant only) */
   projectUrl?: string
-  /** GitHub repository URL */
-  githubUrl?: string
+  /** Links shown below the description */
+  links?: { href: string; label: string; icon: string }[]
 }
 
 // Flat-top hexagon clip path
@@ -255,7 +255,7 @@ function BrowserGallery({
 }
 
 
-function TextContent({ title, description, reversed = false, githubUrl }: { title: string; description: string[]; reversed?: boolean; githubUrl?: string }) {
+function TextContent({ title, description, reversed = false, links }: { title: string; description: string[]; reversed?: boolean; links?: { href: string; label: string; icon: string }[] }) {
   const orderClass = reversed
     ? 'order-last'                          // reversed: text second everywhere
     : 'order-last lg:order-1'               // normal: text second on mobile, first on desktop
@@ -278,18 +278,12 @@ function TextContent({ title, description, reversed = false, githubUrl }: { titl
             {paragraph}
           </p>
         ))}
-        {githubUrl && (
-          <a
-            href={githubUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 self-start mt-2
-                       font-sans text-sm md:text-base text-text-2 hover:text-text-1
-                       transition-colors duration-200"
-          >
-            <img src={githubIcon} alt="" className="w-5 h-5 opacity-60" />
-            View on GitHub
-          </a>
+        {links && links.length > 0 && (
+          <div className="flex flex-wrap gap-3 mt-2">
+            {links.map((link, i) => (
+              <ProjectLink key={i} href={link.href} label={link.label} icon={link.icon} />
+            ))}
+          </div>
         )}
       </div>
     </div>
@@ -307,7 +301,7 @@ export default function ProjectCard({
   primaryImageClassName,
   galleryVariant = 'hex',
   projectUrl,
-  githubUrl,
+  links,
 }: ProjectCardProps) {
   const gallery = galleryVariant === 'browser' ? (
     <BrowserGallery reversed={reversed} projectName={projectName} primaryImage={primaryImage} projectUrl={projectUrl} />
@@ -325,7 +319,7 @@ export default function ProjectCard({
   return (
     <div className="bg-blue-neutral flex flex-col lg:flex-row items-stretch w-full min-h-80 md:min-h-112 lg:min-h-144">
       {gallery}
-      <TextContent title={title} description={description} reversed={reversed} githubUrl={githubUrl} />
+      <TextContent title={title} description={description} reversed={reversed} links={links} />
     </div>
   )
 }
