@@ -47,15 +47,14 @@ App
 
 The container size is computed dynamically from the bounding box of all hex positions plus padding. A `responsiveSize` multiplier scales tile size at Tailwind breakpoints (sm/640px → 60%, md/768px → 80%, xl/1280px → 90%).
 
-**Current layout (April 2026): 21 tiles in a 3-4-5-4-3-2 diamond.**
+**Current layout (April 2026): 22 tiles in a 4-5-4-5-4 diamond.**
 
 ```
-r=-3 (3):  education   figma       github
-r=-2 (4):  aws         amplify     python      sql
-r=-1 (5):  docker      linux       kubernetes  csharp    netcore
-r= 0 (4):  azure       helm        react       tailwind
-r= 1 (3):  javascript  typescript  prometheus
-r= 2 (2):  grafana     loki
+r=-2 (4):  education   figma       github      aws
+r=-1 (5):  amplify     linux       python      sql         docker
+r= 0 (4):  kubernetes  helm        azure_devops azure_cloud
+r= 1 (5):  csharp      netcore     react       tailwind    javascript
+r= 2 (4):  typescript  prometheus  grafana     loki
 ```
 
 ### Hex grid layout planning — how to reorganize tiles
@@ -73,8 +72,8 @@ A total tile count is achievable without gaps when using this parity rule. Quick
 | Total tiles | Valid 5-row layout | Valid 6-row layout |
 |------------|-------------------|-------------------|
 | 20 | 4-5-4-3-4 | — |
-| 21 | — (impossible in 5 rows) | **3-4-5-4-3-2** ← current |
-| 22 | 4-5-4-5-4 | — |
+| 21 | — (impossible in 5 rows) | 3-4-5-4-3-2 |
+| 22 | **4-5-4-5-4** ← current | — |
 | 24 | 4-5-6-5-4 | — |
 
 **Key insight:** Even tile totals always fit in 5 symmetric rows. Odd totals (like 21) require 6 rows or accepting one off-center row.
@@ -87,16 +86,15 @@ Given n tiles in row r:
 `q_left = −(n + r) / 2`  
 `q_right = q_left + n − 1`
 
-Example for current 3-4-5-4-3-2 layout:
+Example for current 4-5-4-5-4 layout:
 
 | r | n | q_left | q_right | tiles |
 |---|---|--------|---------|-------|
-| −3 | 3 | 0 | 2 | q = 0,1,2 |
 | −2 | 4 | −1 | 2 | q = −1,0,1,2 |
 | −1 | 5 | −2 | 2 | q = −2,−1,0,1,2 |
 | 0 | 4 | −2 | 1 | q = −2,−1,0,1 |
-| 1 | 3 | −2 | 0 | q = −2,−1,0 |
-| 2 | 2 | −2 | −1 | q = −2,−1 |
+| 1 | 5 | −3 | 1 | q = −3,−2,−1,0,1 |
+| 2 | 4 | −3 | 0 | q = −3,−2,−1,0 |
 
 Verify any row: `q_left + q_right + r` should equal `−1`.
 
@@ -120,7 +118,7 @@ When placing tiles, check that high-affinity pairs land in adjacent positions. C
 
 Below 768px, `Technologies` remaps all hexes via `mobileGridPositions` to a narrower compact grid (max 4 wide). Apply the same centering formula. Tiles remap **by index** in the `technologies[]` array, so array order determines which tile gets which mobile slot.
 
-**Current mobile layout: 3-4-3-4-3-4 = 21 tiles (r=−5 to r=0)**
+**Current mobile layout: 3-4-3-4-3-4-1 = 22 tiles (r=−5 to r=1)** — loki is the solo tile at r=1
 
 Mobile max-4-wide at 60% scale ≈ 312px, fits all phones ≥ 320px.
 
