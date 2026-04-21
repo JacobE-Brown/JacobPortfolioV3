@@ -31,7 +31,8 @@ const HexTile: React.FC<HexTileProps> = ({
   className = ""
 }) => {
 
-  const handleClick = () => {
+  const handleClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
     onClick?.(id);
   };
 

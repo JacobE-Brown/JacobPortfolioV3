@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react'
+import React, { useState, useEffect, useMemo, useRef } from 'react'
 import HexGrid from './HexGrid'
 import TechBadge from './TechBadge'
 
@@ -254,19 +254,77 @@ function DetailPanel({ tech }: { tech: TechItem | null }) {
 
 // --- Mobile modal ---
 
-function MobileModal({ tech, onClose }: { tech: TechItem; onClose: () => void }) {
+function MobileModal({ tech, onClose, activeFilters, onToggleFilter }: {
+  tech: TechItem
+  onClose: () => void
+  activeFilters: Set<CategoryName>
+  onToggleFilter: (name: CategoryName) => void
+}) {
+  const overlayRef = useRef<HTMLDivElement>(null)
+  const [visible, setVisible] = useState(false)
+
   useEffect(() => {
     document.body.style.overflow = 'hidden'
+    // Trigger enter animation on next frame
+    requestAnimationFrame(() => setVisible(true))
     return () => { document.body.style.overflow = '' }
   }, [])
 
+  // Focus trap + Escape to close
+  useEffect(() => {
+    const el = overlayRef.current
+    el?.focus()
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose()
+      if (e.key === 'Tab') {
+        const focusable = el?.querySelectorAll<HTMLElement>(
+          'button, [href], [tabindex]:not([tabindex="-1"])'
+        )
+        if (!focusable?.length) return
+        const first = focusable[0]
+        const last = focusable[focusable.length - 1]
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault()
+          last.focus()
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault()
+          first.focus()
+        }
+      }
+    }
+    document.addEventListener('keydown', handleKey)
+    return () => document.removeEventListener('keydown', handleKey)
+  }, [onClose])
+
   return (
     <div
-      className="fixed inset-0 z-50 flex flex-col items-center backdrop-blur-md bg-white/70 p-6 overflow-y-auto"
+      ref={overlayRef}
+      tabIndex={-1}
+      role="dialog"
+      aria-modal="true"
+      aria-label={tech.label}
+      className={`fixed inset-0 z-50 flex flex-col items-center justify-center backdrop-blur-md bg-white/70 p-6 overflow-y-auto
+        outline-none transition-opacity duration-300 ${visible ? 'opacity-100' : 'opacity-0'}`}
       onClick={onClose}
     >
-      <div className="flex flex-col items-center gap-6 w-full max-w-sm pt-8" onClick={(e) => e.stopPropagation()}>
-        <div className="w-56 h-60">
+      <div
+        className={`relative flex flex-col items-center gap-6 w-full max-w-sm
+          transition-all duration-300 ${visible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Close button */}
+        <button
+          onClick={onClose}
+          aria-label="Close"
+          className="absolute -top-2 -right-2 w-10 h-10 flex items-center justify-center
+            rounded-full bg-blue-neutral text-text-1 text-xl font-bold
+            border-2 border-blue-medium-2 hover:bg-blue-medium-1 transition-colors"
+        >
+          ✕
+        </button>
+
+        {/* Hex badge — smaller on phones */}
+        <div className="w-40 h-44 sm:w-56 sm:h-60">
           <TechBadge
             icon={<img className="relative w-full h-full object-contain" alt={tech.label} src={tech.iconSrc} />}
             name={tech.label}
@@ -277,16 +335,29 @@ function MobileModal({ tech, onClose }: { tech: TechItem; onClose: () => void })
           <h3 className="font-sans font-extrabold text-text-1 text-xl">{tech.label}</h3>
           <p className="font-sans text-text-1 text-base leading-relaxed">{tech.description}</p>
           <div className="flex flex-wrap gap-1.5">
-            {tech.categories.map((cat) => (
-              <span key={cat} className="bg-blue-medium-1/20 text-text-1 text-xs font-sans px-2 py-0.5 rounded-full">
-                {cat}
-              </span>
-            ))}
+            {tech.categories.map((cat) => {
+              const isActive = activeFilters.has(cat)
+              return (
+                <button
+                  key={cat}
+                  onClick={() => { onToggleFilter(cat); onClose() }}
+                  className={`text-xs font-sans px-2 py-0.5 rounded-full border transition-colors cursor-pointer
+                    ${isActive
+                      ? 'bg-blue-medium-1 border-blue-medium-2 text-text-1'
+                      : 'bg-blue-medium-1/20 border-blue-medium-1/40 text-text-1 hover:bg-blue-medium-1/40'
+                    }`}
+                >
+                  {cat}
+                </button>
+              )
+            })}
           </div>
         </div>
         <button
           onClick={onClose}
-          className="self-start bg-gray-300 px-5 py-2 text-text-1 font-sans text-lg hover:bg-gray-400 transition-colors mt-4"
+          className="self-start border-2 border-blue-medium-2 bg-transparent px-5 py-2
+            text-text-1 font-sans text-lg rounded-lg
+            hover:bg-blue-medium-2 hover:text-white transition-colors mt-4"
         >
           Back
         </button>
@@ -376,7 +447,8 @@ export function Technologies(): React.JSX.Element {
   }
 
   return (
-    <section id="skills" className="bg-blue-neutral flex flex-col items-center justify-center overflow-hidden px-4 py-10 sm:py-12 md:py-20">
+    <section id="skills" className="bg-blue-neutral flex flex-col items-center justify-center overflow-hidden px-4 py-10 sm:py-12 md:py-20"
+      onClick={() => { if (activeFilters.size > 0) setActiveFilters(new Set()) }}>
       <h2 className="font-heading font-medium text-text-1 text-3xl sm:text-4xl md:text-5xl lg:text-7xl mb-6 sm:mb-10 md:mb-14">
         <span className="border-b-4 border-blue-medium-1 pb-2">My Skills</span>
       </h2>
@@ -391,7 +463,7 @@ export function Technologies(): React.JSX.Element {
               return (
                 <button
                   key={cat.name}
-                  onClick={() => toggleFilter(cat.name)}
+                  onClick={(e) => { e.stopPropagation(); toggleFilter(cat.name) }}
                   className={`flex items-center justify-center gap-1.5 px-2.5 py-1 sm:px-3 sm:py-1.5
                     ${isActive
                       ? 'bg-blue-medium-1 border-blue-medium-2'
@@ -429,7 +501,7 @@ export function Technologies(): React.JSX.Element {
 
       {/* Mobile modal */}
       {isMobile && selectedTech && (
-        <MobileModal tech={selectedTech} onClose={handleReturn} />
+        <MobileModal tech={selectedTech} onClose={handleReturn} activeFilters={activeFilters} onToggleFilter={toggleFilter} />
       )}
     </section>
   )
