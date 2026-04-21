@@ -5,12 +5,26 @@ interface ProjectCardProps {
   projectName?: string
   description: string[]
   reversed?: boolean
+  /** Primary (large) hex image src */
+  primaryImage?: string
+  /** Two small hex image srcs */
+  secondaryImages?: [string?, string?]
 }
 
 // Flat-top hexagon clip path
 const HEX_CLIP = 'polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)'
 
-function HexGallery({ reversed, projectName }: { reversed: boolean; projectName: string }) {
+function HexGallery({
+  reversed,
+  projectName,
+  primaryImage,
+  secondaryImages = [],
+}: {
+  reversed: boolean
+  projectName: string
+  primaryImage?: string
+  secondaryImages?: [string?, string?]
+}) {
   // Mobile: full-width, top+bottom borders only, no rounding
   // Desktop: rounded on inward side, 3-sided border
   const desktopBorderClass = reversed
@@ -46,14 +60,16 @@ function HexGallery({ reversed, projectName }: { reversed: boolean; projectName:
         <div className="flex items-center gap-2 md:gap-3">
           {/* Large hex */}
           <div
-            className="w-36 md:w-52 lg:w-64 xl:w-76"
+            className="w-36 md:w-52 lg:w-64 xl:w-76 bg-blue-medium-1 p-1"
             style={{ aspectRatio: '1 / 0.866', clipPath: HEX_CLIP }}
           >
-            <img
-              src={hexBase}
-              alt="Project screenshot"
-              className="w-full h-full object-cover bg-blue-medium-1/30"
-            />
+            <div className="w-full h-full" style={{ clipPath: HEX_CLIP }}>
+              <img
+                src={primaryImage ?? hexBase}
+                alt={projectName}
+                className="w-full h-full object-contain bg-tan-neutral p-4"
+              />
+            </div>
           </div>
 
           {/* Two small hexes */}
@@ -61,14 +77,16 @@ function HexGallery({ reversed, projectName }: { reversed: boolean; projectName:
             {[0, 1].map((i) => (
               <div
                 key={i}
-                className="w-16 md:w-24 lg:w-28 xl:w-40"
+                className="w-16 md:w-24 lg:w-28 xl:w-40 bg-blue-medium-1 p-0.5"
                 style={{ aspectRatio: '1 / 0.866', clipPath: HEX_CLIP }}
               >
-                <img
-                  src={hexBase}
-                  alt=""
-                  className="w-full h-full object-cover bg-blue-medium-1/30"
-                />
+                <div className="w-full h-full" style={{ clipPath: HEX_CLIP }}>
+                  <img
+                    src={secondaryImages[i] ?? hexBase}
+                    alt=""
+                    className="w-full h-full object-contain bg-tan-neutral p-2"
+                  />
+                </div>
               </div>
             ))}
           </div>
@@ -111,11 +129,18 @@ export default function ProjectCard({
   projectName = 'Hello World',
   description,
   reversed = false,
+  primaryImage,
+  secondaryImages,
 }: ProjectCardProps) {
   return (
     <div className="bg-blue-neutral flex flex-col lg:flex-row items-stretch w-full min-h-80 md:min-h-112 lg:min-h-144">
       {/* Mobile: gallery always on top. Desktop: alternates based on reversed */}
-      <HexGallery reversed={reversed} projectName={projectName} />
+      <HexGallery
+        reversed={reversed}
+        projectName={projectName}
+        primaryImage={primaryImage}
+        secondaryImages={secondaryImages}
+      />
       <TextContent title={title} description={description} reversed={reversed} />
     </div>
   )

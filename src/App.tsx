@@ -6,15 +6,17 @@ import AboutMe from './components/AboutMe'
 import WhatIDo from './components/WhatIDo'
 import Technologies from './components/Technologies'
 import ProjectCard from './components/ProjectCard'
+import netacentLogo from './assets/images/Netacent-Primary-Logo.webp'
 import ContactMe from './components/ContactMe'
 
 const projects = [
   {
-    title: 'Project Description',
-    projectName: 'Hello World',
+    title: 'DevOps Engineer',
+    projectName: 'Netacent',
+    primaryImage: netacentLogo,
     description: [
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris.',
+      'As a DevOps Engineer at Netacent, responsibilities include the full CI/CD lifecycle across Azure DevOps — designing, maintaining, and optimizing pipelines that build, test, and deploy containerized C# applications to Kubernetes. End-to-end management of AKS clusters spans deployments, scaling, and ongoing operations to ensure production stability.',
+      'A key architectural contribution has been the design and implementation of a Prometheus and Grafana observability stack across AKS clusters, providing the team with real-time visibility into cluster health, resource utilization, and application performance — shifting operations from reactive response to proactive monitoring.',
     ],
   },
   {
@@ -64,6 +66,8 @@ function App() {
               projectName={project.projectName}
               description={project.description}
               reversed={i % 2 !== 0}
+              primaryImage={project.primaryImage}
+              secondaryImages={project.secondaryImages as [string?, string?]}
             />
           ))}
         </div>
