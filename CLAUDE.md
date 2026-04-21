@@ -45,23 +45,93 @@ App
 
 `HexGrid` uses **axial (q, r) coordinates** following the Red Blob Games formulas for pointy-top hexagons. Each technology in `Technologies.tsx` is assigned a `{ q, r }` coordinate. `HexGrid` converts these to pixel positions and absolutely positions each `HexTile`.
 
-The grid is arranged in a **centered diamond shape** (4-5-6-5-4 rows). The container size is computed dynamically from the bounding box of all hex positions plus padding. A `responsiveSize` multiplier scales tile size at Tailwind breakpoints (sm/640px → 60%, md/768px → 80%, xl/1280px → 90%).
+The container size is computed dynamically from the bounding box of all hex positions plus padding. A `responsiveSize` multiplier scales tile size at Tailwind breakpoints (sm/640px → 60%, md/768px → 80%, xl/1280px → 90%).
+
+**Current layout (April 2026): 21 tiles in a 3-4-5-4-3-2 diamond.**
+
+```
+r=-3 (3):  education   figma       github
+r=-2 (4):  aws         amplify     python      sql
+r=-1 (5):  docker      linux       kubernetes  csharp    netcore
+r= 0 (4):  azure       helm        react       tailwind
+r= 1 (3):  javascript  typescript  prometheus
+r= 2 (2):  grafana     loki
+```
+
+### Hex grid layout planning — how to reorganize tiles
+
+Use this reference whenever adding/removing tiles or reorganizing the grid. Skip straight to step 3 if tile count hasn't changed.
+
+#### Step 1 — Pick a valid diamond shape for N tiles
+
+For the hex centering invariant to hold on every row, `n + r` must be **even** (n = tile count in row, r = row index). This means:
+- Even `r` rows need even tile counts
+- Odd `r` rows need odd tile counts
+
+A total tile count is achievable without gaps when using this parity rule. Quick lookup:
+
+| Total tiles | Valid 5-row layout | Valid 6-row layout |
+|------------|-------------------|-------------------|
+| 20 | 4-5-4-3-4 | — |
+| 21 | — (impossible in 5 rows) | **3-4-5-4-3-2** ← current |
+| 22 | 4-5-4-5-4 | — |
+| 24 | 4-5-6-5-4 | — |
+
+**Key insight:** Even tile totals always fit in 5 symmetric rows. Odd totals (like 21) require 6 rows or accepting one off-center row.
+
+#### Step 2 — Compute row coordinates using the centering formula
+
+The centering invariant: `q_left + q_right + r = −1` for all rows.
+
+Given n tiles in row r:  
+`q_left = −(n + r) / 2`  
+`q_right = q_left + n − 1`
+
+Example for current 3-4-5-4-3-2 layout:
+
+| r | n | q_left | q_right | tiles |
+|---|---|--------|---------|-------|
+| −3 | 3 | 0 | 2 | q = 0,1,2 |
+| −2 | 4 | −1 | 2 | q = −1,0,1,2 |
+| −1 | 5 | −2 | 2 | q = −2,−1,0,1,2 |
+| 0 | 4 | −2 | 1 | q = −2,−1,0,1 |
+| 1 | 3 | −2 | 0 | q = −2,−1,0 |
+| 2 | 2 | −2 | −1 | q = −2,−1 |
+
+Verify any row: `q_left + q_right + r` should equal `−1`.
+
+#### Step 3 — Assign tiles to positions (grouping strategy)
+
+Goal: keep related tiles adjacent (sharing an edge = axial diff of one step).
+
+**Six axial neighbor directions:** `(±1,0)`, `(0,±1)`, `(1,−1)`, `(−1,1)`
+
+**Standard grouping order used in this portfolio:**
+1. Info/context tiles at top (education, figma, github)
+2. Cloud providers + backend foundation (AWS, amplify, python, SQL)
+3. **DevOps core at the widest row** — containers, orchestration, infra
+4. Azure/Helm tooling + frontend stack
+5. More frontend → monitoring bridge
+6. Monitoring cluster at bottom (prometheus, grafana, loki)
+
+When placing tiles, check that high-affinity pairs land in adjacent positions. Common high-affinity pairs: `aws↔amplify`, `docker↔linux↔kubernetes`, `kubernetes↔helm`, `csharp↔netcore`, `react↔tailwind`, `javascript↔typescript`, `prometheus↔grafana↔loki`.
+
+#### Step 4 — Mobile layout
+
+Below 768px, `Technologies` remaps all hexes via `mobileGridPositions` to a narrower compact grid (max 4 wide). Apply the same centering formula. Tiles remap **by index** in the `technologies[]` array, so array order determines which tile gets which mobile slot.
+
+**Current mobile layout: 3-4-3-4-3-4 = 21 tiles (r=−5 to r=0)**
+
+Mobile max-4-wide at 60% scale ≈ 312px, fits all phones ≥ 320px.
 
 ### Responsive breakpoint convention
 
 **Always use Tailwind's default breakpoints** for JS media checks (`window.innerWidth`) and CSS classes — no custom pixel values. The standard breakpoints are: `sm` 640px, `md` 768px, `lg` 1024px, `xl` 1280px, `2xl` 1536px.
 
 Current responsive layout for the Skills section:
-- **< sm (640)**: compact 3-4 grid, 60% hex size, modal detail
-- **sm–md (640–768)**: compact 3-4 grid, 80% hex size, modal detail
-- **md–xl (768–1280)**: diamond 4-5-6-5-4, 80% hex size, modal detail
-- **xl+ (1280+)**: diamond 4-5-6-5-4, 90% hex size, side detail panel
-
-The **axial origin** `(q=0, r=0)` is the ASP.NET Core hex, sitting at the center of the 6-hex middle row.
-
-### Mobile compact hex layout
-
-Below 768px, `Technologies` remaps all hexes onto a **3-4-3-4-3-4-3 column** via `mobileGridPositions`. Because pointy-top axial→pixel conversion adds `√3/2 · r` to x, **q ranges must shift left by 1 for each +1 in r** to keep all rows visually centered. The centering invariant is: `q_left + q_right + r = constant` across every row. Failing to compensate causes lower rows to drift right.
+- **< md (768)**: compact mobile grid, 60–80% hex size, modal detail
+- **md–xl (768–1280)**: desktop diamond, 80% hex size, modal detail
+- **xl+ (1280+)**: desktop diamond, 90% hex size, side detail panel
 
 ### GSAP starburst hover effect
 
