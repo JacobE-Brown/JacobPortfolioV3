@@ -67,7 +67,7 @@ function HexGallery({
               <img
                 src={primaryImage ?? hexBase}
                 alt={projectName}
-                className="w-full h-full object-contain bg-tan-neutral p-4"
+                className="w-full h-full object-contain bg-tan-neutral p-8"
               />
             </div>
           </div>
