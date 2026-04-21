@@ -113,7 +113,7 @@ function HexGallery({
         ref={containerRef}
         className={`bg-text-1 border-blue-medium-1 ${roundedClass}
                     border-t-6 border-b-6 lg:border-t-8 lg:border-b-8 ${desktopBorderClass}
-                    flex flex-col items-center justify-center
+                    flex flex-col items-center justify-start
                     px-6 sm:px-8 md:px-12 lg:px-16 py-8 md:py-14
                     w-full h-full`}
       >
@@ -216,7 +216,7 @@ function BrowserGallery({
         ref={containerRef}
         className={`bg-text-1 border-blue-medium-1 ${roundedClass}
                     border-t-6 border-b-6 lg:border-t-8 lg:border-b-8 ${desktopBorderClass}
-                    flex flex-col items-center justify-center
+                    flex flex-col items-center justify-start
                     px-6 sm:px-8 md:px-12 lg:px-16 py-8 md:py-14
                     w-full h-full`}
       >
@@ -263,10 +263,10 @@ function TextContent({ title, description, reversed = false, technologies, links
     : 'order-last lg:order-1'               // normal: text second on mobile, first on desktop
 
   return (
-    <div className={`lg:flex-1 flex items-center justify-center px-6 md:px-10 lg:px-16 py-6 sm:py-10 md:py-16 ${orderClass}`}>
+    <div className={`lg:flex-1 flex items-start justify-center px-6 md:px-10 lg:px-16 py-6 sm:py-10 md:py-16 ${orderClass}`}>
       <div className="flex flex-col gap-3 sm:gap-4 md:gap-6 max-w-xl">
         <h3 className="flex items-center gap-3 md:gap-4 font-heading font-medium text-text-1
-                       text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-6xl
+                       text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl
                        leading-tight">
           <span className="w-1.5 self-stretch rounded-full bg-blue-medium-1" />
           {title}
