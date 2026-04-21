@@ -58,6 +58,7 @@ type CategoryName =
 
 interface CategoryDef {
   name: CategoryName
+  displayName: string
   icon: string | null
 }
 
@@ -82,11 +83,11 @@ interface TechItem {
 // --- Categories ---
 
 const categoryDefs: CategoryDef[] = [
-  { name: 'Cloud & DevOps', icon: null },
-  { name: 'Back-End Development', icon: null },
-  { name: 'Front-End Development', icon: null },
-  { name: 'Monitoring & Observability', icon: null },
-  { name: 'Miscellaneous', icon: null },
+  { name: 'Cloud & DevOps',           displayName: 'Cloud & DevOps', icon: null },
+  { name: 'Back-End Development',     displayName: 'Backend',        icon: null },
+  { name: 'Front-End Development',    displayName: 'Frontend',       icon: null },
+  { name: 'Monitoring & Observability', displayName: 'Observability', icon: null },
+  { name: 'Miscellaneous',            displayName: 'Misc',           icon: null },
 ]
 
 // --- Tech data ---
@@ -723,6 +724,15 @@ export function Technologies(): React.JSX.Element {
     return faded
   }, [activeFilters, displayHexes])
 
+  const categoryCounts = useMemo(() => {
+    const counts = {} as Record<CategoryName, number>
+    for (const cat of categoryDefs) counts[cat.name] = 0
+    for (const tech of technologies) {
+      for (const cat of tech.categories) counts[cat]++
+    }
+    return counts
+  }, [])
+
   const selectedTech = selectedId ? displayHexes.find((t) => t.id === selectedId) ?? null : null
 
   const handleSelect = (id: string) => {
@@ -754,31 +764,61 @@ export function Technologies(): React.JSX.Element {
       <div className="flex flex-col lg:flex-row items-start justify-center gap-8 w-full max-w-7xl">
         {/* Left: Filters + Hex Grid */}
         <div className="flex flex-col items-center gap-4 flex-1">
-          <div className="flex flex-wrap items-center justify-center gap-2 max-w-2xl px-4">
-            {categoryDefs.map((cat) => {
-              const isActive = activeFilters.has(cat.name)
-              return (
+          <div className="flex flex-col items-center gap-2">
+            <div className="flex flex-wrap items-center justify-center gap-2 max-w-2xl px-4">
+              {categoryDefs.map((cat) => {
+                const isActive = activeFilters.has(cat.name)
+                return (
+                  <button
+                    key={cat.name}
+                    onClick={(e) => { e.stopPropagation(); toggleFilter(cat.name) }}
+                    className={`flex items-center gap-1.5 px-2.5 py-1 sm:px-3 sm:py-1.5
+                      ${isActive
+                        ? 'bg-blue-medium-1 border-blue-medium-2 shadow-md ring-2 ring-blue-medium-2/30'
+                        : 'bg-cream-neutral border-blue-medium-1'
+                      }
+                      rounded-full border-1.5 sm:border-2 shadow-sm
+                      hover:shadow-md hover:scale-105 hover:-translate-y-0.5
+                      active:scale-95
+                      transition-all duration-200 ease-out
+                      cursor-pointer`}
+                  >
+                    {isActive && (
+                      <span className="text-text-1 text-xs leading-none">✓</span>
+                    )}
+                    <span className={`font-sans text-xs sm:text-sm tracking-wide whitespace-nowrap
+                      ${isActive ? 'font-semibold text-text-1' : 'font-medium text-text-1'}`}>
+                      {cat.displayName}
+                    </span>
+                    <span className={`font-sans text-[10px] leading-none tabular-nums
+                      ${isActive ? 'text-text-1/70' : 'text-text-1/40'}`}>
+                      {categoryCounts[cat.name]}
+                    </span>
+                  </button>
+                )
+              })}
+              {activeFilters.size > 0 && (
                 <button
-                  key={cat.name}
-                  onClick={(e) => { e.stopPropagation(); toggleFilter(cat.name) }}
-                  className={`flex items-center justify-center gap-1.5 px-2.5 py-1 sm:px-3 sm:py-1.5
-                    ${isActive
-                      ? 'bg-blue-medium-1 border-blue-medium-2 shadow-md ring-2 ring-blue-medium-2/30'
-                      : 'bg-cream-neutral border-blue-medium-1'
-                    }
-                    rounded-full border-1.5 sm:border-2 shadow-sm
-                    hover:shadow-md hover:scale-105 hover:-translate-y-0.5
+                  onClick={(e) => { e.stopPropagation(); setActiveFilters(new Set()); setSelectedId(null) }}
+                  className="flex items-center gap-1 px-2.5 py-1 sm:px-3 sm:py-1.5
+                    bg-transparent border-text-1/20 text-text-1/50
+                    rounded-full border-1.5 sm:border-2
+                    hover:border-text-1/50 hover:text-text-1/80 hover:scale-105
                     active:scale-95
-                    transition-all duration-200 ease-out
-                    cursor-pointer`}
+                    transition-all duration-200 ease-out cursor-pointer"
                 >
-                  <span className={`font-sans text-xs sm:text-sm tracking-wide whitespace-nowrap
-                    ${isActive ? 'font-semibold text-text-1' : 'font-medium text-text-1'}`}>
-                    {cat.name}
+                  <span className="font-sans text-xs sm:text-sm">✕</span>
+                  <span className="font-sans text-xs sm:text-sm whitespace-nowrap">
+                    Clear{activeFilters.size > 1 ? ` (${activeFilters.size})` : ''}
                   </span>
                 </button>
-              )
-            })}
+              )}
+            </div>
+            <p className="font-sans text-xs text-text-1/40 tracking-wide select-none">
+              {activeFilters.size === 0
+                ? 'Select multiple to combine · Click any tile to learn more'
+                : 'Click any tile to learn more'}
+            </p>
           </div>
 
           <div className="flex justify-center">
