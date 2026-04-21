@@ -6,9 +6,11 @@ import AboutMe from './components/AboutMe'
 import WhatIDo from './components/WhatIDo'
 import Technologies from './components/Technologies'
 import ProjectCard from './components/ProjectCard'
-import netacentLogo from './assets/images/Netacent-Primary-Logo.webp'
+import netacentLogo from './assets/images/Projects/netacent/Netacent-Primary-Logo.webp'
 import kubernetesIcon from './assets/images/TechLogos/kubernetes.svg'
 import azureAIcon from './assets/images/TechLogos/Azure-A.svg'
+import samsBeesHomepage from "./assets/images/Projects/Sam's Bees/SamsBeesHomepage.png"
+import samsBeesProducts from "./assets/images/Projects/Sam's Bees/SamsBeesProductPage.png"
 import ContactMe from './components/ContactMe'
 
 const projects = [
@@ -24,11 +26,15 @@ const projects = [
     ],
   },
   {
-    title: 'Project Description',
-    projectName: 'Hello World',
+    title: 'Frontend Developer',
+    projectName: "Sam's Bees",
+    primaryImage: samsBeesHomepage,
+    galleryVariant: 'browser' as const,
+    projectUrl: 'http://samsbees.s3-website-us-east-1.amazonaws.com',
+    githubUrl: 'https://github.com/JacobE-Brown/SamsBees/tree/master',
     description: [
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris.',
+      "Sam's Bees is a full e-commerce storefront built for a local beekeeper, designed to showcase and sell handcrafted honey, beeswax, and candle products. Built with React, Tailwind CSS, and Vite, the site features a product catalog with cart functionality and a clean, warm aesthetic that reflects the brand's natural, artisan identity.",
+      'Deployed as a static site to AWS S3, the project demonstrates end-to-end frontend delivery — from component design to cloud hosting — and served as the foundation for developing production habits around responsive layout, component reuse, and performance-conscious asset handling.',
     ],
   },
   {
@@ -73,6 +79,10 @@ function App() {
               primaryImage={project.primaryImage}
               secondaryImages={project.secondaryImages as [string?, string?]}
               secondaryImagePaddings={project.secondaryImagePaddings as [string?, string?]}
+              primaryImageClassName={project.primaryImageClassName}
+              galleryVariant={project.galleryVariant}
+              projectUrl={project.projectUrl}
+              githubUrl={project.githubUrl}
             />
           ))}
         </div>

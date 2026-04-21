@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import hexBase from '@/assets/images/TechLogos/hex-base.svg'
+import githubIcon from '@/assets/images/TechLogos/github-1-1.svg'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -16,6 +17,14 @@ interface ProjectCardProps {
   secondaryImages?: [string?, string?]
   /** Tailwind padding class per small hex image (e.g. 'p-4') */
   secondaryImagePaddings?: [string?, string?]
+  /** Tailwind classes for the primary hex image (overrides default object-contain p-8) */
+  primaryImageClassName?: string
+  /** Gallery layout variant */
+  galleryVariant?: 'hex' | 'browser'
+  /** URL to open when the gallery is clicked (browser variant only) */
+  projectUrl?: string
+  /** GitHub repository URL */
+  githubUrl?: string
 }
 
 // Flat-top hexagon clip path
@@ -27,12 +36,14 @@ function HexGallery({
   primaryImage,
   secondaryImages = [],
   secondaryImagePaddings = [],
+  primaryImageClassName,
 }: {
   reversed: boolean
   projectName: string
   primaryImage?: string
   secondaryImages?: [string?, string?]
   secondaryImagePaddings?: [string?, string?]
+  primaryImageClassName?: string
 }) {
   const containerRef = useRef<HTMLDivElement>(null)
   const largeHexRef = useRef<HTMLDivElement>(null)
@@ -125,7 +136,7 @@ function HexGallery({
               <img
                 src={primaryImage ?? hexBase}
                 alt={projectName}
-                className="w-full h-full object-contain bg-tan-neutral p-8"
+                className={primaryImageClassName ?? 'w-full h-full object-contain bg-tan-neutral p-8'}
               />
             </div>
           </div>
@@ -157,7 +168,94 @@ function HexGallery({
   )
 }
 
-function TextContent({ title, description, reversed = false }: { title: string; description: string[]; reversed?: boolean }) {
+function BrowserGallery({
+  reversed,
+  projectName,
+  primaryImage,
+  projectUrl,
+}: {
+  reversed: boolean
+  projectName: string
+  primaryImage?: string
+  projectUrl?: string
+}) {
+  const containerRef = useRef<HTMLDivElement>(null)
+  const mockupRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (!mockupRef.current) return
+    gsap.set(mockupRef.current, { opacity: 0, y: 40 })
+    const ctx = gsap.context(() => {
+      gsap.to(mockupRef.current, {
+        opacity: 1, y: 0, duration: 0.6, ease: 'power2.out',
+        scrollTrigger: { trigger: containerRef.current, start: 'top 80%', once: true },
+      })
+    })
+    return () => ctx.revert()
+  }, [])
+
+  const handleMouseEnter = () => {
+    gsap.to(mockupRef.current, { scale: 1.04, duration: 0.25, ease: 'power2.out' })
+  }
+  const handleMouseLeave = () => {
+    gsap.to(mockupRef.current, { scale: 1, duration: 0.25, ease: 'power2.out' })
+  }
+  const handleClick = () => {
+    if (projectUrl) window.open(projectUrl, '_blank', 'noopener,noreferrer')
+  }
+
+  const desktopBorderClass = reversed ? 'lg:border-r-8' : 'lg:border-l-8'
+  const roundedClass = reversed ? 'rounded-none lg:rounded-r-[4.5rem]' : 'rounded-none lg:rounded-l-[4.5rem]'
+  const orderClass = reversed ? 'order-first' : 'order-first lg:order-2'
+
+  return (
+    <div className={`lg:flex-1 flex items-center justify-center lg:py-16 ${orderClass}`}>
+      <div
+        ref={containerRef}
+        className={`bg-text-1 border-blue-medium-1 ${roundedClass}
+                    border-t-6 border-b-6 lg:border-t-8 lg:border-b-8 ${desktopBorderClass}
+                    flex flex-col items-center justify-center
+                    px-6 sm:px-8 md:px-12 lg:px-16 py-8 md:py-14
+                    w-full h-full`}
+      >
+        <h3 className="font-serif font-semibold text-cream-neutral
+                       text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-7xl
+                       tracking-widest mb-5 sm:mb-8 md:mb-12 lg:mb-14">
+          {projectName}
+        </h3>
+
+        {/* Browser mockup */}
+        <div
+          ref={mockupRef}
+          className="w-full max-w-sm md:max-w-md lg:max-w-lg rounded-lg overflow-hidden shadow-2xl"
+          style={{ cursor: projectUrl ? 'pointer' : 'default' }}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+          onClick={handleClick}
+        >
+          {/* Browser chrome */}
+          <div className="bg-[#2a2a2e] px-3 py-2 flex items-center gap-2">
+            <span className="w-3 h-3 rounded-full bg-[#ff5f57]" />
+            <span className="w-3 h-3 rounded-full bg-[#febc2e]" />
+            <span className="w-3 h-3 rounded-full bg-[#28c840]" />
+            <div className="ml-2 flex-1 bg-[#3a3a3e] rounded text-[10px] text-gray-400 px-3 py-0.5 truncate font-sans">
+              samsbees.s3-website-us-east-1.amazonaws.com
+            </div>
+          </div>
+          {/* Screenshot */}
+          <img
+            src={primaryImage ?? hexBase}
+            alt={projectName}
+            className="w-full block object-cover"
+          />
+        </div>
+      </div>
+    </div>
+  )
+}
+
+
+function TextContent({ title, description, reversed = false, githubUrl }: { title: string; description: string[]; reversed?: boolean; githubUrl?: string }) {
   const orderClass = reversed
     ? 'order-last'                          // reversed: text second everywhere
     : 'order-last lg:order-1'               // normal: text second on mobile, first on desktop
@@ -180,6 +278,19 @@ function TextContent({ title, description, reversed = false }: { title: string; 
             {paragraph}
           </p>
         ))}
+        {githubUrl && (
+          <a
+            href={githubUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 self-start mt-2
+                       font-sans text-sm md:text-base text-text-2 hover:text-text-1
+                       transition-colors duration-200"
+          >
+            <img src={githubIcon} alt="" className="w-5 h-5 opacity-60" />
+            View on GitHub
+          </a>
+        )}
       </div>
     </div>
   )
@@ -193,18 +304,28 @@ export default function ProjectCard({
   primaryImage,
   secondaryImages,
   secondaryImagePaddings,
+  primaryImageClassName,
+  galleryVariant = 'hex',
+  projectUrl,
+  githubUrl,
 }: ProjectCardProps) {
+  const gallery = galleryVariant === 'browser' ? (
+    <BrowserGallery reversed={reversed} projectName={projectName} primaryImage={primaryImage} projectUrl={projectUrl} />
+  ) : (
+    <HexGallery
+      reversed={reversed}
+      projectName={projectName}
+      primaryImage={primaryImage}
+      secondaryImages={secondaryImages}
+      secondaryImagePaddings={secondaryImagePaddings}
+      primaryImageClassName={primaryImageClassName}
+    />
+  )
+
   return (
     <div className="bg-blue-neutral flex flex-col lg:flex-row items-stretch w-full min-h-80 md:min-h-112 lg:min-h-144">
-      {/* Mobile: gallery always on top. Desktop: alternates based on reversed */}
-      <HexGallery
-        reversed={reversed}
-        projectName={projectName}
-        primaryImage={primaryImage}
-        secondaryImages={secondaryImages}
-        secondaryImagePaddings={secondaryImagePaddings}
-      />
-      <TextContent title={title} description={description} reversed={reversed} />
+      {gallery}
+      <TextContent title={title} description={description} reversed={reversed} githubUrl={githubUrl} />
     </div>
   )
 }
