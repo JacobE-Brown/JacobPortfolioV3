@@ -29,6 +29,7 @@ const HexGrid: React.FC<HexGridProps> = ({
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [selectedHex, setSelectedHex] = useState<string | null>(null);
+  const selectedHexRef = useRef<string | null>(null);
   const [, setHoveredHex] = useState<string | null>(null);
   const [responsiveSize, setResponsiveSize] = useState(size);
 
@@ -110,14 +111,28 @@ const HexGrid: React.FC<HexGridProps> = ({
 
   // Handle hex selection
   const handleSelect = useCallback((id: string) => {
-    if (selectedHex === id) {
+    const prev = selectedHexRef.current;
+
+    // Deselect previous
+    if (prev) {
+      const prevEl = document.getElementById(`hex-${prev}`);
+      if (prevEl) gsap.to(prevEl, { scale: 1, duration: 0.25, ease: 'power2.out' });
+    }
+
+    if (prev === id) {
+      // Toggle off
+      selectedHexRef.current = null;
       setSelectedHex(null);
       onReturn?.();
     } else {
+      // Select new
+      const el = document.getElementById(`hex-${id}`);
+      if (el) gsap.to(el, { scale: 1.18, duration: 0.35, ease: 'back.out(1.5)' });
+      selectedHexRef.current = id;
       setSelectedHex(id);
       onSelect?.(id);
     }
-  }, [selectedHex, onSelect, onReturn]);
+  }, [onSelect, onReturn]);
 
   // Calculate adjacent hexagons for starburst effect
   const getAdjacentHexes = useCallback((targetHex: HexData): HexData[] => {
@@ -184,9 +199,9 @@ const HexGrid: React.FC<HexGridProps> = ({
         }
       });
     } else {
-      // Reset all animations
+      // Reset — return selected tile to 1.18, others to 1
       gsap.to(targetElement, {
-        scale: 1,
+        scale: selectedHexRef.current === targetHexId ? 1.18 : 1,
         duration: 0.2,
         ease: "power2.out"
       });
@@ -197,7 +212,7 @@ const HexGrid: React.FC<HexGridProps> = ({
           gsap.to(adjacentElement, {
             x: 0,
             y: 0,
-            scale: 1,
+            scale: selectedHexRef.current === hex.id ? 1.18 : 1,
             duration: 0.2,
             ease: "power2.out"
           });

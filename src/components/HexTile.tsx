@@ -51,7 +51,7 @@ const HexTile: React.FC<HexTileProps> = ({
   return (
     <div
       id={`hex-${id}`}
-      className={`hex-tile absolute cursor-pointer ${className}`}
+      className={`hex-tile absolute cursor-pointer ${isSelected ? 'selected' : ''} ${className}`}
       style={{
         left: `${left}px`,
         top: `${top}px`,
@@ -60,7 +60,7 @@ const HexTile: React.FC<HexTileProps> = ({
         zIndex: isSelected ? 10 : 1,
         opacity: faded ? 0.2 : 1,
         pointerEvents: faded ? 'none' as const : 'auto' as const,
-        filter: faded ? 'grayscale(80%)' : 'none',
+        ...(faded ? { filter: 'grayscale(80%)' } : {}),
         transition: 'opacity 0.4s ease, filter 0.4s ease',
         transformOrigin: 'center center'
       }}

@@ -71,7 +71,7 @@
     will-change: transform;
   }
 
-  .hex-tile:hover { z-index: 5; filter: drop-shadow(0 0 10px #70CFFB99); }
+  .hex-tile:hover { z-index: 5; }
   .hex-tile.selected { z-index: 10; }
 
   .hex-grid-container {
