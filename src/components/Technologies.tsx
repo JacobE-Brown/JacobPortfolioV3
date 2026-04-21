@@ -34,8 +34,6 @@ type CategoryName =
   | 'Back-End Development'
   | 'Cloud & DevOps'
   | 'Monitoring & Observability'
-  | 'Design & UX'
-  | 'Education'
   | 'Miscellaneous'
 
 interface CategoryDef {
@@ -61,8 +59,6 @@ const categoryDefs: CategoryDef[] = [
   { name: 'Back-End Development', icon: null },
   { name: 'Front-End Development', icon: null },
   { name: 'Monitoring & Observability', icon: null },
-  { name: 'Design & UX', icon: null },
-  { name: 'Education', icon: null },
   { name: 'Miscellaneous', icon: null },
 ]
 
@@ -109,10 +105,10 @@ function makeTech(
 const technologies: TechItem[] = [
   // Row r=-3 — info / context tiles
   makeTech('education', 'My Education', educationIcon, 'Education', 0, -3,
-    ['Education'],
+    ['Miscellaneous'],
     'Graduated from the College of Western Idaho with an Associates in Full-Stack Web Development. I continue learning through online courses, self-study, and personal projects.'),
   makeTech('figma', 'Figma', figmaIcon, 'Figma', 1, -3,
-    ['Design & UX'],
+    ['Front-End Development', 'Miscellaneous'],
     'One of my favorite tools. Use Figma for UI/UX design, prototyping, and design systems — including the design for this portfolio.'),
   makeTech('github', 'GitHub', githubIcon, 'GitHub', 2, -3,
     ['Miscellaneous'],
