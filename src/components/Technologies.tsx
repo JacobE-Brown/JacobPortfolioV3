@@ -4,7 +4,6 @@ import TechBadge from './TechBadge'
 
 // Category icons
 import vector3 from '@/assets/images/TechLogos/vector-3.svg'
-import vector4 from '@/assets/images/TechLogos/vector-4.svg'
 import vector5 from '@/assets/images/TechLogos/vector-5.svg'
 
 // Tech icon imports
@@ -12,25 +11,23 @@ import figmaIcon from '@/assets/images/TechLogos/figma.svg'
 import educationIcon from '@/assets/images/TechLogos/education.svg'
 import awsIcon from '@/assets/images/TechLogos/aws.svg'
 import reactIcon from '@/assets/images/TechLogos/react.svg'
-import vitejsIcon from '@/assets/images/TechLogos/vitejs.svg'
 import tailwindIcon from '@/assets/images/TechLogos/vector-2.svg'
 import csharpIcon from '@/assets/images/TechLogos/c.svg'
 import netcoreIcon from '@/assets/images/TechLogos/net-core-logo-1.svg'
-import bootstrapIcon from '@/assets/images/TechLogos/bootstrap-5.svg'
-import cssIcon from '@/assets/images/TechLogos/css-3.svg'
-import htmlIcon from '@/assets/images/TechLogos/html-5.svg'
 import jsIcon from '@/assets/images/TechLogos/js.svg'
 import tsIcon from '@/assets/images/TechLogos/typescript.svg'
-import kotlinIcon from '@/assets/images/TechLogos/kotlin.svg'
-import jetpackIcon from '@/assets/images/TechLogos/jetpack.svg'
-import androidIcon from '@/assets/images/TechLogos/vector.svg'
 import linuxIcon from '@/assets/images/TechLogos/tux-1.svg'
-import archIcon from '@/assets/images/TechLogos/arch-linux.svg'
 import pythonIcon from '@/assets/images/TechLogos/python.svg'
-import djangoIcon from '@/assets/images/TechLogos/django.svg'
 import githubIcon from '@/assets/images/TechLogos/github-1-1.svg'
 import sqlIcon from '@/assets/images/TechLogos/sql.svg'
-import vueIcon from '@/assets/images/TechLogos/react.svg'
+// New DevOps icons — replace placeholder files with your preferred style
+import dockerIcon from '@/assets/images/TechLogos/docker.svg'
+import kubernetesIcon from '@/assets/images/TechLogos/kubernetes.svg'
+import helmIcon from '@/assets/images/TechLogos/helm.svg'
+import azureIcon from '@/assets/images/TechLogos/azure-devops.svg'
+import prometheusIcon from '@/assets/images/TechLogos/prometheus.svg'
+import grafanaIcon from '@/assets/images/TechLogos/grafana.svg'
+import lokiIcon from '@/assets/images/TechLogos/loki.svg'
 
 // --- Types ---
 
@@ -38,7 +35,7 @@ type CategoryName =
   | 'Front-End Development'
   | 'Back-End Development'
   | 'Cloud & DevOps'
-  | 'Mobile Development'
+  | 'Monitoring & Observability'
   | 'Design & UX'
   | 'Education'
   | 'Miscellaneous'
@@ -62,10 +59,10 @@ interface TechItem {
 // --- Categories ---
 
 const categoryDefs: CategoryDef[] = [
-  { name: 'Front-End Development', icon: vector3 },
-  { name: 'Back-End Development', icon: null },
   { name: 'Cloud & DevOps', icon: null },
-  { name: 'Mobile Development', icon: vector4 },
+  { name: 'Back-End Development', icon: null },
+  { name: 'Front-End Development', icon: vector3 },
+  { name: 'Monitoring & Observability', icon: null },
   { name: 'Design & UX', icon: vector5 },
   { name: 'Education', icon: vector5 },
   { name: 'Miscellaneous', icon: null },
@@ -95,88 +92,84 @@ function makeTech(
   }
 }
 
+// Desktop layout: 4-5-5-3-3 diamond (20 tiles)
+//
+//   r=-2 (4):  sql  figma  education  aws
+//   r=-1 (5):  python  docker  react  kubernetes  tailwind
+//   r= 0 (5):  linux  github  csharp  netcore  helm
+//   r= 1 (3):  azure  javascript  typescript
+//   r= 2 (3):  prometheus  grafana  loki
+
 const technologies: TechItem[] = [
-  // Row 0
+  // Row r=-2
   makeTech('sql', 'SQL / Databases', sqlIcon, 'SQL', -1, -2,
     ['Back-End Development'],
     'Experienced with relational databases including PostgreSQL, MySQL, and SQLite. Comfortable writing complex queries, designing schemas, and working with ORMs.'),
   makeTech('figma', 'Figma', figmaIcon, 'Figma', 0, -2,
     ['Design & UX'],
-    'Proficient in Figma for UI/UX design, prototyping, and design system creation. Use it daily for wireframing and high-fidelity mockups.'),
+    'One of my favorite tools. Use Figma for UI/UX design, prototyping, and design systems — including the design for this portfolio.'),
   makeTech('education', 'My Education', educationIcon, 'Education', 1, -2,
     ['Education'],
-    'Formal education in computer science with a focus on software engineering, data structures, and algorithms.'),
+    'Graduated from the College of Western Idaho with an Associates in Full-Stack Web Development. I continue learning through online courses, self-study, and personal projects.'),
   makeTech('aws', 'AWS', awsIcon, 'AWS', 2, -2,
     ['Cloud & DevOps'],
-    'Experience with AWS services including EC2, S3, Lambda, RDS, and CloudFront. Comfortable deploying and managing cloud infrastructure.'),
+    'One of my favorite technologies. Experience with EC2, S3, Lambda, RDS, CloudFront, and IAM. Comfortable deploying and managing cloud infrastructure using AWS services.'),
 
-  // Row 1
+  // Row r=-1
   makeTech('python', 'Python', pythonIcon, 'Python', -2, -1,
     ['Back-End Development'],
-    'Strong Python skills for backend development, scripting, and automation. Experience with Django, Flask, and data processing libraries.'),
-  makeTech('vue', 'Vue', vueIcon, 'Vue', -1, -1,
-    ['Front-End Development'],
-    'Familiar with Vue.js for building reactive single-page applications. Experience with Vue Router and Vuex state management.'),
+    'Strong Python skills with a focus on scripting, automation, and tooling. Experience building utilities and working with data processing libraries.'),
+  makeTech('docker', 'Docker', dockerIcon, 'Docker', -1, -1,
+    ['Cloud & DevOps'],
+    'Daily use for containerizing applications and managing local dev environments. Comfortable writing Dockerfiles, managing images, and working within container-based workflows.'),
   makeTech('react', 'React', reactIcon, 'React', 0, -1,
     ['Front-End Development'],
-    'Primary frontend framework. Deep experience with hooks, context, component patterns, and the React ecosystem including Next.js.'),
-  makeTech('vite', 'Vite JS', vitejsIcon, 'Vite', 1, -1,
+    'Primary frontend framework. Deep experience with hooks, context, component patterns, and building production UIs — this portfolio is built with React.'),
+  makeTech('kubernetes', 'Kubernetes', kubernetesIcon, 'Kubernetes', 1, -1,
+    ['Cloud & DevOps'],
+    'Hands-on experience deploying and managing workloads in Kubernetes clusters. Comfortable with pods, deployments, services, ingress, namespaces, and YAML resource management. Use k9s for cluster navigation and Cilium/Hubble for networking and observability.'),
+  makeTech('tailwind', 'Tailwind CSS', tailwindIcon, 'Tailwind', 2, -1,
     ['Front-End Development'],
-    'Preferred build tool for modern web projects. Fast HMR, ESM-native bundling, and excellent plugin ecosystem.'),
-  makeTech('tailwind', 'Tailwinds CSS', tailwindIcon, 'Tailwind', 2, -1,
-    ['Front-End Development'],
-    'Go-to CSS framework for utility-first styling. Proficient with Tailwind v4, custom themes, and responsive design patterns.'),
+    'Go-to CSS framework for utility-first styling. Proficient with Tailwind v4, custom design tokens, and responsive design patterns — used throughout this portfolio.'),
 
-  // Row 2
-  makeTech('linux', 'Linux', linuxIcon, 'Linux', -3, 0,
-    ['Cloud & DevOps', 'Miscellaneous'],
-    'Daily driver OS. Comfortable with system administration, shell scripting, package management, and server configuration.'),
-  makeTech('github', 'Github', githubIcon, 'GitHub', -2, 0,
+  // Row r=0
+  makeTech('linux', 'Linux', linuxIcon, 'Linux', -2, 0,
+    ['Cloud & DevOps'],
+    'Daily driver OS and primary server environment. Comfortable with system administration, shell scripting, package management, and managing Linux-based container hosts.'),
+  makeTech('github', 'GitHub', githubIcon, 'GitHub', -1, 0,
     ['Miscellaneous'],
-    'Version control with Git and GitHub for collaboration, code review, CI/CD pipelines, and project management.'),
-  makeTech('csharp', 'C#', csharpIcon, 'C#', -1, 0,
+    'Version control with Git and GitHub for collaboration, code review, and CI/CD. Proficient with branching strategies, rebasing, cherry-picking, and resolving complex merge conflicts.'),
+  makeTech('csharp', 'C#', csharpIcon, 'C#', 0, 0,
     ['Back-End Development'],
-    'Proficient in C# for backend development with ASP.NET Core. Experience with Entity Framework, LINQ, and .NET ecosystem.'),
-  makeTech('netcore', 'ASP.NET Core', netcoreIcon, '.NET', 0, 0,
+    'Strongest backend language. Proficient in C# with ASP.NET Core, Entity Framework, LINQ, and .NET ecosystem tooling.'),
+  makeTech('netcore', 'ASP.NET Core', netcoreIcon, '.NET', 1, 0,
     ['Back-End Development'],
-    'Backend framework for building REST APIs and web applications. Experience with middleware, dependency injection, and Entity Framework Core.'),
-  makeTech('bootstrap', 'BootStrap', bootstrapIcon, 'Bootstrap', 1, 0,
-    ['Front-End Development'],
-    'Experienced with Bootstrap for rapid UI development. Familiar with the grid system, components, and customization via Sass variables.'),
-  makeTech('arch', 'Arch Linux', archIcon, 'Arch', 2, 0,
-    ['Cloud & DevOps', 'Miscellaneous'],
-    'Running Arch Linux as primary development environment. Deep understanding of system configuration, AUR, and rolling release management.'),
+    'Backend framework for building REST APIs and web applications. Experience with middleware pipelines, dependency injection, and Entity Framework Core.'),
+  makeTech('helm', 'Helm', helmIcon, 'Helm', 2, 0,
+    ['Cloud & DevOps'],
+    'Use Helm to manage Kubernetes application deployments via charts. Experience writing and customizing Helm charts for repeatable, version-controlled cluster releases.'),
 
-  // Row 3
-  makeTech('django', 'Django', djangoIcon, 'Django', -3, 1,
-    ['Back-End Development'],
-    'Full-stack Python framework experience. Built projects with Django REST Framework, template system, ORM, and admin interface.'),
-  makeTech('css', 'CSS 3', cssIcon, 'CSS', -2, 1,
-    ['Front-End Development'],
-    'Strong CSS fundamentals including Flexbox, Grid, animations, custom properties, and modern layout techniques.'),
-  makeTech('html', 'HTML 5', htmlIcon, 'HTML', -1, 1,
-    ['Front-End Development'],
-    'Semantic HTML5 markup with focus on accessibility, SEO best practices, and modern web standards.'),
-  makeTech('javascript', 'Java Script', jsIcon, 'JavaScript', 0, 1,
+  // Row r=1
+  makeTech('azure', 'Azure DevOps', azureIcon, 'Azure DevOps', -2, 1,
+    ['Cloud & DevOps'],
+    'Daily use of Azure DevOps at Netacent — managing pipelines, releases, repos, and work items. Experience authoring YAML pipelines and configuring multi-stage release definitions.'),
+  makeTech('javascript', 'JavaScript', jsIcon, 'JavaScript', -1, 1,
     ['Front-End Development', 'Back-End Development'],
-    'Core language for web development. Proficient with ES6+, async patterns, DOM manipulation, and Node.js runtime.'),
-  makeTech('typescript', 'Type Script', tsIcon, 'TypeScript', 1, 1,
+    'Core language for web development. Proficient with ES6+, async/await patterns, DOM manipulation, and Node.js runtime.'),
+  makeTech('typescript', 'TypeScript', tsIcon, 'TypeScript', 0, 1,
     ['Front-End Development', 'Back-End Development'],
-    'Preferred over plain JavaScript. Strong typing, interfaces, generics, and type-safe API design across full-stack projects.'),
+    'Preferred over plain JavaScript. Strong typing, interfaces, generics, and type-safe design across full-stack projects — used exclusively in this portfolio.'),
 
-  // Row 4
-  makeTech('git', 'Git', githubIcon, 'Git', -3, 2,
-    ['Miscellaneous'],
-    'Proficient with Git version control including branching strategies, rebasing, cherry-picking, and resolving complex merge conflicts.'),
-  makeTech('kotlin', 'Kotlin', kotlinIcon, 'Kotlin', -2, 2,
-    ['Mobile Development'],
-    'Primary language for Android development. Experience with coroutines, Kotlin DSLs, and modern Kotlin idioms.'),
-  makeTech('jetpack', 'Jetpack Compose', jetpackIcon, 'Jetpack', -1, 2,
-    ['Mobile Development'],
-    'Modern Android UI toolkit. Building declarative UIs with composables, state management, navigation, and Material Design 3.'),
-  makeTech('android', 'Android', androidIcon, 'Android', 0, 2,
-    ['Mobile Development'],
-    'Native Android development with Kotlin and Jetpack libraries. Experience with MVVM architecture, Room, Retrofit, and Play Store deployment.'),
+  // Row r=2
+  makeTech('prometheus', 'Prometheus', prometheusIcon, 'Prometheus', -2, 2,
+    ['Monitoring & Observability'],
+    'Experience setting up Prometheus for metrics collection in Kubernetes environments. Use Retina for network metrics and integrate with Grafana for visualization and alerting.'),
+  makeTech('grafana', 'Grafana', grafanaIcon, 'Grafana', -1, 2,
+    ['Monitoring & Observability'],
+    'Build and maintain Grafana dashboards for cluster and application observability. Experience configuring data sources, panels, and alert rules across Prometheus and Loki.'),
+  makeTech('loki', 'Grafana Loki', lokiIcon, 'Loki', 0, 2,
+    ['Monitoring & Observability'],
+    'Use Loki for log aggregation in Kubernetes clusters, with Alloy as the telemetry collector. Experience configuring log pipelines and querying logs from Grafana dashboards.'),
 ]
 
 // --- Desktop detail panel ---
@@ -416,23 +409,21 @@ function MobileModal({ tech, onClose, activeFilters, onToggleFilter }: {
   )
 }
 
-// --- Mobile hex layout (3-4-3-4-3-4-3 pattern) ---
+// --- Mobile hex layout ---
+// 4-5-4-3-4 = 20 tiles, satisfies the centering invariant (q_left + q_right + r = -1) for all rows.
+// Tiles are remapped in technologies[] array order (index 0–19).
 
 const mobileGridPositions: { q: number; r: number }[] = [
-  // Row r=-3 (3 hexes) — q shifted +1 to compensate axial skew
-  { q: 0, r: -3 }, { q: 1, r: -3 }, { q: 2, r: -3 },
-  // Row r=-2 (4 hexes) — q shifted +1
+  // Row r=-2 (4 hexes): sql, figma, education, aws
   { q: -1, r: -2 }, { q: 0, r: -2 }, { q: 1, r: -2 }, { q: 2, r: -2 },
-  // Row r=-1 (3 hexes) — no shift needed (reference row)
-  { q: -1, r: -1 }, { q: 0, r: -1 }, { q: 1, r: -1 },
-  // Row r=0 (4 hexes) — no shift needed
+  // Row r=-1 (5 hexes): python, docker, react, kubernetes, tailwind
+  { q: -2, r: -1 }, { q: -1, r: -1 }, { q: 0, r: -1 }, { q: 1, r: -1 }, { q: 2, r: -1 },
+  // Row r=0 (4 hexes): linux, github, csharp, netcore
   { q: -2, r: 0 }, { q: -1, r: 0 }, { q: 0, r: 0 }, { q: 1, r: 0 },
-  // Row r=1 (3 hexes) — q shifted -1
+  // Row r=1 (3 hexes): helm, azure, javascript
   { q: -2, r: 1 }, { q: -1, r: 1 }, { q: 0, r: 1 },
-  // Row r=2 (4 hexes) — q shifted -1
+  // Row r=2 (4 hexes): typescript, prometheus, grafana, loki
   { q: -3, r: 2 }, { q: -2, r: 2 }, { q: -1, r: 2 }, { q: 0, r: 2 },
-  // Row r=3 (3 hexes) — q shifted -2
-  { q: -3, r: 3 }, { q: -2, r: 3 }, { q: -1, r: 3 },
 ]
 
 // --- Main component ---
@@ -453,7 +444,7 @@ export function Technologies(): React.JSX.Element {
     return () => window.removeEventListener('resize', check)
   }, [])
 
-  // Remap hex coordinates to compact 3-4 layout on small screens
+  // Remap hex coordinates to compact layout on small screens
   const displayHexes = useMemo(() => {
     if (!isCompactGrid) return technologies
     return technologies.map((tech, i) => ({
