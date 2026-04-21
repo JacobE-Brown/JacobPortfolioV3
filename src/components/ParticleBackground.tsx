@@ -13,16 +13,21 @@ const options: ISourceOptions = {
     },
     color: { value: '#54BAB9' },
     opacity: {
-      value: { min: 0, max: 0.6 },
+      value: { min: 0.1, max: 0.9 },
       animation: {
         enable: true,
-        speed: 0.4,
+        speed: 0.5,
         startValue: 'random',
         sync: false,
       },
     },
     size: {
-      value: { min: 1, max: 3 },
+      value: { min: 2, max: 5 },
+    },
+    shadow: {
+      enable: true,
+      color: '#54BAB9',
+      blur: 8,
     },
     move: {
       enable: true,

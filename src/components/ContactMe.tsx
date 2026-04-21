@@ -86,11 +86,13 @@ export default function ContactMe() {
           <button
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
             aria-label="Scroll to top"
-            className="border-2 border-blue-neutral/30 rounded-full p-2
+            className="group relative overflow-hidden border-2 border-blue-neutral/30 rounded-full p-2 cursor-pointer
                        text-blue-neutral/50 hover:text-blue-medium-1 hover:border-blue-medium-1
-                       transition-colors"
+                       hover:scale-110 origin-center will-change-transform
+                       transition-all duration-300 ease-out"
           >
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
+            <span className="absolute inset-0 rounded-full bg-blue-medium-1/15 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" />
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round" className="relative w-5 h-5">
               <path d="M18 15l-6-6-6 6" />
             </svg>
           </button>
