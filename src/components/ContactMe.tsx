@@ -121,7 +121,7 @@ export default function ContactMe() {
             ))}
             <span className="text-blue-neutral/20">|</span>
             <a
-              href="/resume.pdf"
+              href="/documents/Jacob Brown Resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className="font-sans font-semibold text-blue-medium-1 text-sm sm:text-base hover:text-blue-medium-2 transition-colors"
