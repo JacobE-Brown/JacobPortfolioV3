@@ -532,52 +532,40 @@ function MobileModal({ tech, onClose, activeFilters, onToggleFilter }: {
       role="dialog"
       aria-modal="true"
       aria-label={tech.label}
-      className={`fixed inset-0 z-50 flex flex-col items-center backdrop-blur-md bg-white/70
-        px-6 pb-10 overflow-y-auto
-        landscape:p-4 landscape:overflow-hidden
+      className={`fixed inset-0 z-50 flex flex-col items-center
+        backdrop-blur-md bg-white/70 p-6 landscape:px-10 landscape:py-6 overflow-y-auto
         outline-none transition-opacity duration-300 ${visible ? 'opacity-100' : 'opacity-0'}`}
       style={{ paddingTop: 'calc(var(--nav-h, 80px) + 1.5rem)' }}
       onClick={onClose}
     >
+      {/* Card — portrait: flex column, landscape: two-column grid */}
       <div
-        className={`relative flex flex-col landscape:flex-row items-center landscape:items-center
-          gap-6 w-full max-w-sm
-          landscape:max-w-none landscape:h-full landscape:overflow-hidden
+        className={`relative flex flex-col
+          landscape:grid landscape:grid-cols-[2fr_1fr]
+          items-center landscape:items-stretch gap-6
+          w-full max-w-sm landscape:max-w-none
+          landscape:my-auto landscape:h-[calc(100svh-3rem)]
           transition-all duration-300 ${visible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Close button */}
+        {/* Close button — top-right of card */}
         <button
           onClick={onClose}
           aria-label="Close"
-          className="absolute -top-2 right-0 z-10 w-10 h-10 flex items-center justify-center
+          className="absolute -top-2 right-0 landscape:top-2 landscape:right-2
+            z-10 w-10 h-10 flex items-center justify-center
             rounded-full bg-blue-neutral text-text-1 text-xl font-bold
             border-2 border-blue-medium-2 hover:bg-blue-medium-1 transition-colors cursor-pointer"
         >
           ✕
         </button>
 
-        {/* Hex badge — top in portrait, right 1/3 in landscape */}
-        <div className="order-1 landscape:order-2 shrink-0
-                        landscape:w-1/3 landscape:h-full landscape:flex landscape:items-center landscape:justify-center">
-          <div className="w-40 h-44 sm:w-56 sm:h-60
-                          landscape:w-32 landscape:h-36 sm:landscape:w-40 sm:landscape:h-44
-                          cursor-default transition-transform duration-200 ease-out hover:scale-105">
-            <TechBadge
-              icon={<img className="relative w-full h-full object-contain rounded-md" alt={tech.label} src={tech.iconSrc} />}
-              name={tech.label}
-              hexSize={{ x: 120, y: 120 }}
-            />
-          </div>
-        </div>
-
-        {/* Text content — below hex in portrait, left 2/3 + scrollable in landscape */}
-        <div className="flex flex-col gap-4 w-full order-2 landscape:order-1
-                        landscape:w-2/3 landscape:min-w-0 landscape:overflow-y-auto landscape:pr-4
-                        landscape:h-full">
+        {/* Text — below hex in portrait, left column in landscape */}
+        <div className="flex flex-col gap-4 w-full order-2 landscape:order-none
+                        landscape:min-w-0 landscape:min-h-0 landscape:overflow-y-auto
+                        landscape:justify-center landscape:py-2 landscape:pr-6">
           {tech.id === 'education' ? (
             <>
-              {/* Diplomas & resume */}
               <div className="flex flex-col gap-2 w-full">
                 <h4 className="font-sans font-semibold text-text-1 text-xs uppercase tracking-widest opacity-50">
                   Diplomas & Resume
@@ -598,7 +586,6 @@ function MobileModal({ tech, onClose, activeFilters, onToggleFilter }: {
                 </div>
               </div>
 
-              {/* School descriptions */}
               <div className="flex flex-col gap-6 w-full">
                 <div>
                   <h3 className="font-sans font-extrabold text-text-1 text-lg mb-2">Magdalen College</h3>
@@ -618,7 +605,6 @@ function MobileModal({ tech, onClose, activeFilters, onToggleFilter }: {
                 </div>
               </div>
 
-              {/* Certifications */}
               <div className="flex flex-col gap-2 w-full">
                 <h4 className="font-sans font-semibold text-text-1 text-xs uppercase tracking-widest opacity-50">
                   Certifications
@@ -668,7 +654,6 @@ function MobileModal({ tech, onClose, activeFilters, onToggleFilter }: {
             </>
           )}
 
-          {/* Back button — inside text flow so it scrolls with content in landscape */}
           <button
             onClick={onClose}
             className="self-start border-2 border-blue-medium-2 bg-transparent px-5 py-2
@@ -678,12 +663,26 @@ function MobileModal({ tech, onClose, activeFilters, onToggleFilter }: {
             Back
           </button>
         </div>
+
+        {/* Hex badge — top in portrait, right column in landscape (vertically centered) */}
+        <div className="order-1 landscape:order-none shrink-0
+                        landscape:flex landscape:items-center landscape:justify-center">
+          <div className="w-40 h-44 sm:w-56 sm:h-60
+                          landscape:w-36 landscape:h-40
+                          cursor-default transition-transform duration-200 ease-out hover:scale-105">
+            <TechBadge
+              icon={<img className="relative w-full h-full object-contain rounded-md" alt={tech.label} src={tech.iconSrc} />}
+              name={tech.label}
+              hexSize={{ x: 120, y: 120 }}
+            />
+          </div>
+        </div>
       </div>
     </div>
   )
 }
 
-// --- Mobile hex layout ---
+// --- Mobile portrait hex layout ---
 // 3-4-3-4-3-4-1 = 22 tiles across 7 rows (r=-5 to r=1)
 // Max 4 wide — fits comfortably at 60% scale on small phones.
 // All rows satisfy the centering invariant: q_left + q_right + r = -1
@@ -710,8 +709,35 @@ const mobileGridPositions: { q: number; r: number }[] = [
   { q: -1, r: -1 }, { q: 0, r: -1 }, { q: 1, r: -1 },
   // Row r=0 (4): javascript, typescript, prometheus, grafana
   { q: -2, r: 0 }, { q: -1, r: 0 }, { q: 0, r: 0 }, { q: 1, r: 0 },
-  // Row r=1 (1): loki
+  // Row r=1 (1): claude
   { q: -1, r: 1 },
+]
+
+// --- Mobile landscape hex layout ---
+// 6-5-6-5 = 22 tiles across 4 rows (r=-2 to r=1)
+// Max 6 wide — wider and shorter to fit landscape viewports.
+// All rows satisfy the centering invariant: q_left + q_right + r = -1
+// Tiles are remapped in technologies[] array order (index 0–21).
+//
+//   r=-2 (6): education, figma, github, aws, amplify, python
+//   r=-1 (5): sql, docker, linux, kubernetes, helm
+//   r= 0 (6): azure_devops, azure_cloud, csharp, netcore, react, tailwind
+//   r= 1 (5): javascript, typescript, prometheus, grafana, claude
+//
+// Grouping: info+cloud top row, devops core second, backend+frontend third,
+// frontend+monitoring bottom. High-affinity pairs adjacent:
+// aws↔amplify, docker↔linux↔kubernetes, kubernetes↔helm,
+// csharp↔netcore, react↔tailwind, javascript↔typescript, prometheus↔grafana
+
+const landscapeMobileGridPositions: { q: number; r: number }[] = [
+  // Row r=-2 (6): education, figma, github, aws, amplify, python
+  { q: -2, r: -2 }, { q: -1, r: -2 }, { q: 0, r: -2 }, { q: 1, r: -2 }, { q: 2, r: -2 }, { q: 3, r: -2 },
+  // Row r=-1 (5): sql, docker, linux, kubernetes, helm
+  { q: -2, r: -1 }, { q: -1, r: -1 }, { q: 0, r: -1 }, { q: 1, r: -1 }, { q: 2, r: -1 },
+  // Row r=0 (6): azure_devops, azure_cloud, csharp, netcore, react, tailwind
+  { q: -3, r: 0 }, { q: -2, r: 0 }, { q: -1, r: 0 }, { q: 0, r: 0 }, { q: 1, r: 0 }, { q: 2, r: 0 },
+  // Row r=1 (5): javascript, typescript, prometheus, grafana, claude
+  { q: -3, r: 1 }, { q: -2, r: 1 }, { q: -1, r: 1 }, { q: 0, r: 1 }, { q: 1, r: 1 },
 ]
 
 // --- Main component ---
@@ -721,25 +747,58 @@ export function Technologies(): React.JSX.Element {
   const [activeFilters, setActiveFilters] = useState<Set<CategoryName>>(new Set())
   const [isMobile, setIsMobile] = useState(false)
   const [isCompactGrid, setIsCompactGrid] = useState(false)
+  const [isLandscapeCompact, setIsLandscapeCompact] = useState(false)
 
   useEffect(() => {
+    const orientationMql = window.matchMedia('(orientation: landscape)')
+
     const check = () => {
-      setIsMobile(window.innerWidth < 1280)
-      setIsCompactGrid(window.innerWidth < 768)
+      const width = window.innerWidth
+      const isLandscape = orientationMql.matches
+
+      setIsMobile(width < 1280)
+
+      if (isLandscape && width < 1024) {
+        // Landscape mobile/tablet — use wide 6-5-6-5 layout
+        setIsCompactGrid(false)
+        setIsLandscapeCompact(true)
+      } else if (!isLandscape && width < 768) {
+        // Portrait mobile — use tall 3-4-3-4-3-4-1 layout
+        setIsCompactGrid(true)
+        setIsLandscapeCompact(false)
+      } else {
+        // Desktop / large tablet — use 4-5-4-5-4 diamond
+        setIsCompactGrid(false)
+        setIsLandscapeCompact(false)
+      }
     }
+
     check()
     window.addEventListener('resize', check)
-    return () => window.removeEventListener('resize', check)
+    orientationMql.addEventListener('change', check)
+    return () => {
+      window.removeEventListener('resize', check)
+      orientationMql.removeEventListener('change', check)
+    }
   }, [])
 
   const displayHexes = useMemo(() => {
-    if (!isCompactGrid) return technologies
-    return technologies.map((tech, i) => ({
-      ...tech,
-      q: mobileGridPositions[i].q,
-      r: mobileGridPositions[i].r,
-    }))
-  }, [isCompactGrid])
+    if (isLandscapeCompact) {
+      return technologies.map((tech, i) => ({
+        ...tech,
+        q: landscapeMobileGridPositions[i].q,
+        r: landscapeMobileGridPositions[i].r,
+      }))
+    }
+    if (isCompactGrid) {
+      return technologies.map((tech, i) => ({
+        ...tech,
+        q: mobileGridPositions[i].q,
+        r: mobileGridPositions[i].r,
+      }))
+    }
+    return technologies
+  }, [isCompactGrid, isLandscapeCompact])
 
   const fadedIds = useMemo(() => {
     if (activeFilters.size === 0) return new Set<string>()

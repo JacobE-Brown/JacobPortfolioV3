@@ -88,11 +88,17 @@ const HexGrid: React.FC<HexGridProps> = ({
 
   // Update responsive size on resize
   useEffect(() => {
+    const orientationMql = window.matchMedia('(orientation: landscape)');
+
     const updateSize = () => {
       const width = window.innerWidth;
+      const isLandscape = orientationMql.matches;
       let newResponsiveSize = size;
-      
-      if (width < 640) {
+
+      if (isLandscape && width < 1024) {
+        // Landscape mobile/tablet: compact scale for wider grid layouts
+        newResponsiveSize = size * 0.6;
+      } else if (width < 640) {
         newResponsiveSize = size * 0.6; // 60% — phones (sm)
       } else if (width < 768) {
         newResponsiveSize = size * 0.8; // 80% — large phones (md)
@@ -101,13 +107,17 @@ const HexGrid: React.FC<HexGridProps> = ({
       } else {
         newResponsiveSize = size * 0.9; // 90% — diamond with side detail panel (xl+)
       }
-      
+
       setResponsiveSize(newResponsiveSize);
     };
 
     updateSize();
     window.addEventListener('resize', updateSize);
-    return () => window.removeEventListener('resize', updateSize);
+    orientationMql.addEventListener('change', updateSize);
+    return () => {
+      window.removeEventListener('resize', updateSize);
+      orientationMql.removeEventListener('change', updateSize);
+    };
   }, [size]);
 
 
