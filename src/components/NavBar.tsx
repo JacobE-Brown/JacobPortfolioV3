@@ -135,6 +135,7 @@ export default function NavBar() {
 
       {/* Mobile/tablet floating hamburger button — bottom-right thumb zone */}
       <button
+        id="nav-fab"
         onClick={() => setMenuOpen(true)}
         aria-label="Open menu"
         className={`fixed bottom-6 right-6 z-40 lg:hidden

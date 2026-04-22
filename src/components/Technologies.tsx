@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useRef } from 'react'
+import React, { useState, useEffect, useMemo, useRef, useCallback } from 'react'
 import HexGrid from './HexGrid'
 import TechBadge from './TechBadge'
 
@@ -493,18 +493,31 @@ function MobileModal({ tech, onClose, activeFilters, onToggleFilter }: {
 }) {
   const overlayRef = useRef<HTMLDivElement>(null)
   const [visible, setVisible] = useState(false)
+  const closingRef = useRef(false)
+
+  const animateClose = useCallback(() => {
+    if (closingRef.current) return
+    closingRef.current = true
+    setVisible(false)
+    setTimeout(onClose, 300)
+  }, [onClose])
 
   useEffect(() => {
     document.body.style.overflow = 'hidden'
+    const fab = document.getElementById('nav-fab')
+    if (fab) fab.style.display = 'none'
     requestAnimationFrame(() => setVisible(true))
-    return () => { document.body.style.overflow = '' }
+    return () => {
+      document.body.style.overflow = ''
+      if (fab) fab.style.display = ''
+    }
   }, [])
 
   useEffect(() => {
     const el = overlayRef.current
     el?.focus()
     const handleKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose()
+      if (e.key === 'Escape') animateClose()
       if (e.key === 'Tab') {
         const focusable = el?.querySelectorAll<HTMLElement>(
           'button, [href], [tabindex]:not([tabindex="-1"])'
@@ -523,7 +536,7 @@ function MobileModal({ tech, onClose, activeFilters, onToggleFilter }: {
     }
     document.addEventListener('keydown', handleKey)
     return () => document.removeEventListener('keydown', handleKey)
-  }, [onClose])
+  }, [animateClose])
 
   return (
     <div
@@ -536,7 +549,7 @@ function MobileModal({ tech, onClose, activeFilters, onToggleFilter }: {
         backdrop-blur-md bg-white/70 p-6 landscape:px-10 landscape:py-6 overflow-y-auto
         outline-none transition-opacity duration-300 ${visible ? 'opacity-100' : 'opacity-0'}`}
       style={{ paddingTop: 'calc(var(--nav-h, 80px) + 1.5rem)' }}
-      onClick={onClose}
+      onClick={animateClose}
     >
       {/* Card — portrait: flex column, landscape: two-column grid */}
       <div
@@ -550,7 +563,7 @@ function MobileModal({ tech, onClose, activeFilters, onToggleFilter }: {
       >
         {/* Close button — top-right of card */}
         <button
-          onClick={onClose}
+          onClick={animateClose}
           aria-label="Close"
           className="absolute -top-2 right-0 landscape:top-2 landscape:right-2
             z-10 w-10 h-10 flex items-center justify-center
@@ -638,7 +651,7 @@ function MobileModal({ tech, onClose, activeFilters, onToggleFilter }: {
                   return (
                     <button
                       key={cat}
-                      onClick={() => { onToggleFilter(cat); onClose() }}
+                      onClick={() => { onToggleFilter(cat); animateClose() }}
                       className={`text-xs font-sans px-2.5 py-1 rounded-full border cursor-pointer
                         transition-all duration-150 active:scale-95
                         ${isActive
@@ -655,7 +668,7 @@ function MobileModal({ tech, onClose, activeFilters, onToggleFilter }: {
           )}
 
           <button
-            onClick={onClose}
+            onClick={animateClose}
             className="self-start border-2 border-blue-medium-2 bg-transparent px-5 py-2
               text-text-1 font-sans text-lg rounded-full shrink-0
               hover:bg-blue-medium-2 hover:text-white transition-colors mt-2 cursor-pointer"
@@ -847,7 +860,7 @@ export function Technologies(): React.JSX.Element {
         <span className="border-b-4 border-blue-medium-1 pb-2">My Skills</span>
       </h2>
 
-      <div className="flex flex-col lg:flex-row items-start justify-center gap-8 w-full max-w-7xl">
+      <div className="flex flex-col lg:flex-row items-center lg:items-start justify-center gap-8 w-full max-w-7xl">
         {/* Left: Filters + Hex Grid */}
         <div className="flex flex-col items-center gap-4 flex-1">
           <div className="flex flex-col items-center gap-2">
