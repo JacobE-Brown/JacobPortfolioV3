@@ -1085,7 +1085,7 @@ export function Technologies(): React.JSX.Element {
             </p>
           </div>
 
-          <div className="flex justify-center">
+          <div id="hex-grid-anchor" className="flex justify-center">
             <HexGrid
               hexes={displayHexes}
               size={75}

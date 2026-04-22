@@ -15,7 +15,7 @@ export default function HeroSection() {
       style={{ height: 'calc(100svh - var(--nav-h, 80px))' }}
     >
       <div
-        className="flex items-center justify-center h-full py-16 md:py-24
+        className="flex items-center justify-center h-full py-8 sm:py-16 md:py-24
                       max-lg:landscape:py-4
                       max-w-screen-2xl mx-auto
                       px-6 sm:px-8 md:px-16"
@@ -29,7 +29,7 @@ export default function HeroSection() {
             src={profileImg}
             alt="Jacob Brown"
             className="shrink-0
-                       w-72 h-72 sm:w-96 sm:h-96 md:w-128 md:h-128 lg:w-160 lg:h-160
+                       w-52 h-52 sm:w-96 sm:h-96 md:w-128 md:h-128 lg:w-160 lg:h-160
                        max-sm:landscape:w-40 max-sm:landscape:h-40
                        max-md:landscape:w-52 max-md:landscape:h-52
                        max-lg:landscape:w-72 max-lg:landscape:h-72
@@ -54,16 +54,16 @@ export default function HeroSection() {
                 Full-Stack Developer
               </p>
             </div>
-            <div className="flex gap-4">
+            <div className="flex flex-col sm:flex-row gap-4">
               <a
                 href="#about"
                 onClick={smoothScroll}
-                className="bg-transparent border-2 border-text-1 rounded-full
+                className="bg-transparent ring-2 ring-text-1 rounded-full
                          px-8 py-3 max-lg:landscape:px-6 max-lg:landscape:py-2
-                         shadow-md
+                         shadow-md will-change-transform
                          font-sans font-semibold text-text-1 text-lg md:text-xl
                          max-lg:landscape:text-sm tracking-wider
-                         hover:bg-text-1 hover:text-cream-neutral hover:shadow-xl hover:scale-105
+                         hover:bg-text-1 hover:text-cream-neutral hover:ring-text-1 hover:shadow-xl hover:scale-105
                          active:scale-95
                          transition-all duration-300 ease-out"
               >
@@ -72,12 +72,12 @@ export default function HeroSection() {
               <a
                 href="#contact"
                 onClick={smoothScroll}
-                className="bg-transparent border-2 border-text-1 rounded-full
+                className="bg-transparent ring-2 ring-text-1 rounded-full
                          px-8 py-3 max-lg:landscape:px-6 max-lg:landscape:py-2
-                         shadow-md
+                         shadow-md will-change-transform
                          font-sans font-semibold text-text-1 text-lg md:text-xl
                          max-lg:landscape:text-sm tracking-wider
-                         hover:bg-text-1 hover:text-cream-neutral hover:shadow-xl hover:scale-105
+                         hover:bg-text-1 hover:text-cream-neutral hover:ring-text-1 hover:shadow-xl hover:scale-105
                          active:scale-95
                          transition-all duration-300 ease-out"
               >

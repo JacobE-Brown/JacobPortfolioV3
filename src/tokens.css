@@ -75,7 +75,7 @@
 
 @layer base {
   button, input, select, textarea { appearance: none; background: transparent; border: 0; outline: 0; }
-  section[id] { scroll-margin-top: var(--nav-h, 5rem); }
+  section[id], #hex-grid-anchor { scroll-margin-top: var(--nav-h, 5rem); }
 }
 
 @layer components {

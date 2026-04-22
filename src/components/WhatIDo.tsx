@@ -78,9 +78,9 @@ export default function WhatIDo() {
   }
 
   const handleClick = (category: string) => {
-    const skillsSection = document.getElementById('skills')
-    if (skillsSection) {
-      skillsSection.scrollIntoView({ behavior: 'smooth' })
+    const target = document.getElementById('hex-grid-anchor') || document.getElementById('skills')
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth' })
     }
     // Dispatch after a short delay so the scroll lands first
     setTimeout(() => {

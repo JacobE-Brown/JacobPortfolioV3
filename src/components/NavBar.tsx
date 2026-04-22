@@ -11,6 +11,8 @@ const navLinks = [
 export default function NavBar() {
   const [activeLink, setActiveLink] = useState('#home')
   const [isStuck, setIsStuck] = useState(false)
+  const [pastHero, setPastHero] = useState(false)
+  const [scrollingUp, setScrollingUp] = useState(true)
   const [menuOpen, setMenuOpen] = useState(false)
   const sentinelRef = useRef<HTMLDivElement>(null)
   const navRef = useRef<HTMLElement>(null)
@@ -77,6 +79,28 @@ export default function NavBar() {
     }
   }, [])
 
+  // Track scroll direction + whether user has scrolled past hero
+  useEffect(() => {
+    let lastY = window.scrollY
+    let ticking = false
+    const threshold = 100 // pixels scrolled before FAB appears
+    const onScroll = () => {
+      if (ticking) return
+      ticking = true
+      requestAnimationFrame(() => {
+        const y = window.scrollY
+        setPastHero(y > threshold)
+        if (Math.abs(y - lastY) > 8) {
+          setScrollingUp(y < lastY || y <= 0)
+          lastY = y
+        }
+        ticking = false
+      })
+    }
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
   // Lock body scroll when drawer is open
   useEffect(() => {
     if (menuOpen) {
@@ -138,8 +162,8 @@ export default function NavBar() {
         id="nav-fab"
         onClick={() => setMenuOpen(true)}
         aria-label="Open menu"
-        className={`fixed bottom-10 right-8 z-40 lg:hidden
-                   w-14 h-14 flex items-center justify-center
+        className={`fixed bottom-12 right-8 z-40 lg:hidden
+                   w-12 h-12 sm:w-14 sm:h-14 flex items-center justify-center
                    bg-text-1 text-tan-neutral rounded-2xl
                    ring-2 ring-tan-neutral/50
                    shadow-[0_2px_8px_rgba(0,42,88,0.2),0_8px_24px_rgba(0,42,88,0.25)]
@@ -147,8 +171,10 @@ export default function NavBar() {
                    hover:ring-tan-neutral/70
                    active:scale-90 active:shadow-none
                    transition-all duration-300 ease-out cursor-pointer
-                   animate-fab-in animate-fab-pulse
-                   ${menuOpen ? 'opacity-0 pointer-events-none scale-90' : 'scale-100'}`}
+                   ${pastHero && scrollingUp ? 'animate-fab-pulse' : ''}
+                   ${menuOpen ? 'opacity-0 pointer-events-none scale-90'
+                     : (!pastHero || !scrollingUp) ? 'opacity-0 pointer-events-none translate-y-4'
+                     : 'opacity-100 scale-100'}`}
       >
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" className="w-6 h-6">
           <path d="M4 7h16M4 12h10M4 17h14" />
