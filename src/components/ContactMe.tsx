@@ -17,10 +17,10 @@ function smoothScroll(e: React.MouseEvent<HTMLAnchorElement>) {
 }
 
 const socials = [
-  { name: "GitHub",   href: "https://github.com/JacobEBrown",      icon: githubIcon },
-  { name: "LinkedIn", href: "https://linkedin.com/in/JacobEBrown",  icon: linkedinIcon },
-  { name: "Substack", href: "https://substack.com/@JacobEBrown",    icon: substackIcon },
-  { name: "Figma",    href: "#",                                     icon: figmaIcon },
+  { name: "GitHub",   href: "https://github.com/JacobE-Brown",      icon: githubIcon },
+  { name: "LinkedIn", href: "https://www.linkedin.com/in/jacobbrowndev/",  icon: linkedinIcon },
+  { name: "Substack", href: "https://substack.com/@jacobbrowndev",   icon: substackIcon },
+  { name: "Figma",    href: "#",                                     icon: figmaIcon, disabled: true },
 ];
 
 export default function ContactMe() {
@@ -123,22 +123,39 @@ export default function ContactMe() {
             {socials.map((s) => (
               <a
                 key={s.name}
-                href={s.href}
+                href={s.disabled ? undefined : s.href}
                 onClick={(e) => {
+                  if (s.disabled) {
+                    e.preventDefault()
+                    return
+                  }
                   if (s.href.startsWith('http')) {
                     e.preventDefault()
                     openExternalLink(s.href)
                   }
                 }}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 bg-white/60 border border-blue-medium-2/50 rounded-full px-4 py-2
-                           cursor-pointer hover:bg-white/90 hover:border-blue-medium-2 hover:shadow-md hover:scale-105
-                           active:scale-95 transition-all duration-300 ease-out"
+                target={s.disabled ? undefined : "_blank"}
+                rel={s.disabled ? undefined : "noopener noreferrer"}
+                className={`group relative flex items-center gap-2 rounded-full px-4 py-2
+                           transition-all duration-300 ease-out
+                           ${s.disabled
+                             ? 'bg-white/30 border border-gray-300/50 cursor-default opacity-50 grayscale'
+                             : 'bg-white/60 border border-blue-medium-2/50 cursor-pointer hover:bg-white/90 hover:border-blue-medium-2 hover:shadow-md hover:scale-105 active:scale-95'
+                           }`}
               >
                 <img src={s.icon} alt="" className="w-5 h-5 sm:w-6 sm:h-6 object-contain rounded shrink-0" />
                 <span className="font-sans font-semibold text-text-2 text-sm sm:text-base leading-none">{s.name}</span>
-                <span className="font-sans text-blue-medium-2 text-xs leading-none opacity-90 ml-0.5">↗</span>
+                {!s.disabled && (
+                  <span className="font-sans text-blue-medium-2 text-xs leading-none opacity-90 ml-0.5">↗</span>
+                )}
+                {s.disabled && (
+                  <span className="absolute -top-10 left-1/2 -translate-x-1/2
+                                   bg-text-1 text-blue-neutral text-xs font-sans font-medium rounded-lg px-3 py-1.5
+                                   opacity-0 group-hover:opacity-100 transition-opacity duration-200
+                                   pointer-events-none whitespace-nowrap shadow-lg">
+                    Coming Soon
+                  </span>
+                )}
               </a>
             ))}
           </div>
