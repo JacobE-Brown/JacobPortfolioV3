@@ -45,8 +45,8 @@ const projects = [
       { icon: netCoreIcon,     label: '.NET Core' },
     ],
     description: [
-      'As a DevOps Engineer at Netacent, responsibilities include the full CI/CD lifecycle across Azure DevOps — designing, maintaining, and optimizing pipelines that build, test, and deploy containerized C# applications to Kubernetes. End-to-end management of AKS clusters spans deployments, scaling, and ongoing operations to ensure production stability.',
-      'A key architectural contribution has been the design and implementation of a Prometheus and Grafana observability stack across AKS clusters, providing the team with real-time visibility into cluster health, resource utilization, and application performance — shifting operations from reactive response to proactive monitoring.',
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
+      'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.',
     ],
   },
   {

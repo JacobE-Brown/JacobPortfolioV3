@@ -148,7 +148,7 @@ const technologies: TechItem[] = [
   // Indices 0-2 — info / context tiles (mobile r=-5)
   makeTech('education', 'My Education', educationIcon, 'Education', -1, -2,
     ['Miscellaneous'],
-    'Graduated from the College of Western Idaho with an Associates in Full-Stack Web Development. I continue learning through online courses, self-study, and personal projects.'),
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.'),
   makeTech('figma', 'Figma', figmaIcon, 'Figma', 0, -2,
     ['Front-End Development', 'Miscellaneous'],
     'One of my favorite tools. Use Figma for UI/UX design, prototyping, and design systems — including the design for this portfolio.',
