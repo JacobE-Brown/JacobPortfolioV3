@@ -281,12 +281,12 @@ function TextContent({ title, description, reversed = false, technologies, links
           </p>
         ))}
         {technologies && technologies.length > 0 && (
-          <div className="flex flex-wrap gap-x-4 gap-y-2">
+          <div className="flex flex-wrap gap-2">
             {technologies.map((tech, i) => (
-              <span key={i} className="flex items-center gap-2 font-sans text-sm md:text-base text-text-2">
-                <img src={tech.icon} alt="" className="w-5 h-5 object-contain opacity-60" />
-                {tech.label}
-              </span>
+              <div key={i} className="flex items-center gap-2 bg-white/60 border border-blue-medium-1/30 rounded-full px-3 py-1.5 hover:bg-white/80 transition-colors">
+                <img src={tech.icon} alt="" className="w-5 h-5 sm:w-6 sm:h-6 object-contain rounded shrink-0" />
+                <span className="font-sans text-text-2 text-sm leading-none">{tech.label}</span>
+              </div>
             ))}
           </div>
         )}
