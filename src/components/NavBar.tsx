@@ -141,7 +141,8 @@ export default function NavBar() {
         className={`fixed bottom-6 right-6 z-40 lg:hidden
                    w-12 h-12 flex items-center justify-center
                    bg-text-1 text-tan-neutral rounded-full
-                   shadow-lg hover:shadow-xl
+                   border-2 border-blue-medium-1
+                   shadow-[0_4px_12px_rgba(0,0,0,0.25)] hover:shadow-[0_6px_20px_rgba(0,0,0,0.35)]
                    transition-all duration-300 ease-out cursor-pointer
                    ${menuOpen ? 'opacity-0 pointer-events-none scale-90' : 'opacity-100 scale-100'}`}
       >

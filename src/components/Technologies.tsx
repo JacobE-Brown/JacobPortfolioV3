@@ -546,7 +546,7 @@ function MobileModal({ tech, onClose, activeFilters, onToggleFilter }: {
       aria-modal="true"
       aria-label={tech.label}
       className={`fixed inset-0 z-50 flex flex-col items-center
-        backdrop-blur-md bg-white/70 p-6 landscape:px-10 landscape:py-6 overflow-y-auto
+        backdrop-blur-md bg-white/70 p-6 landscape:px-4 landscape:py-6 overflow-y-auto
         outline-none transition-opacity duration-300 ${visible ? 'opacity-100' : 'opacity-0'}`}
       style={{ paddingTop: 'calc(var(--nav-h, 80px) + 1.5rem)' }}
       onClick={animateClose}

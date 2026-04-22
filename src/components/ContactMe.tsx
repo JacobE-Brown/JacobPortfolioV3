@@ -65,7 +65,7 @@ export default function ContactMe() {
           JacobEBrown@jacobebrown.dev
         </a>
 
-        <div className="flex flex-wrap justify-center gap-4 mt-6 sm:mt-10">
+        <div className="flex flex-wrap justify-center gap-4 mt-6 sm:mt-10 max-lg:landscape:mb-10">
           {socials.map((s) => (
             <a
               key={s.name}

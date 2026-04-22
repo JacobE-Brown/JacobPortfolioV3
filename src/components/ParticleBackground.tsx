@@ -5,6 +5,7 @@ import type { ISourceOptions } from '@tsparticles/engine'
 
 const options: ISourceOptions = {
   fullScreen: false,
+  background: { color: '#FFF0DD' },
   fpsLimit: 60,
   particles: {
     number: {
@@ -26,7 +27,7 @@ const options: ISourceOptions = {
     },
     shadow: {
       enable: true,
-      color: '#54BAB9',
+      color: '#FFF0DD',
       blur: 8,
     },
     move: {
