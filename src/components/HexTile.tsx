@@ -1,4 +1,5 @@
 import React from 'react';
+import { gsap } from 'gsap';
 import TechBadge from './TechBadge';
 
 interface HexTileProps {
@@ -33,6 +34,21 @@ const HexTile: React.FC<HexTileProps> = ({
 
   const handleClick = (e: React.MouseEvent) => {
     e.stopPropagation();
+
+    // Haptic feedback on supported devices
+    if (navigator.vibrate) {
+      navigator.vibrate(12);
+    }
+
+    // Quick tap-punch animation before selection kicks in
+    const el = document.getElementById(`hex-${id}`);
+    if (el) {
+      gsap.fromTo(el,
+        { scale: 1 },
+        { scale: 1.15, duration: 0.1, ease: 'power2.out', yoyo: true, repeat: 1 }
+      );
+    }
+
     onClick?.(id);
   };
 

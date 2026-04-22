@@ -788,7 +788,7 @@ function MobileModal({ tech, onClose, activeFilters, onToggleFilter }: {
         /* ── Portrait: bottom sheet ── */
         <div
           className={`flex flex-col w-full h-full
-            bg-blue-neutral
+            bg-blue-neutral/60
             transition-transform duration-300 ease-out
             ${visible ? 'translate-y-0' : 'translate-y-full'}`}
           onClick={(e) => e.stopPropagation()}
