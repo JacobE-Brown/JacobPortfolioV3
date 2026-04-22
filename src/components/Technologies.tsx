@@ -929,6 +929,7 @@ export function Technologies(): React.JSX.Element {
               onReturn={handleReturn}
               initialSelectedId={isMobile ? undefined : "education"}
               animateSelection={!isMobile}
+              externalSelectedId={selectedId}
             />
           </div>
         </div>

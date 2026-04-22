@@ -18,6 +18,7 @@ interface HexGridProps {
   onReturn?: () => void;
   initialSelectedId?: string;
   animateSelection?: boolean;
+  externalSelectedId?: string | null;
   className?: string;
 }
 
@@ -29,6 +30,7 @@ const HexGrid: React.FC<HexGridProps> = ({
   onReturn,
   initialSelectedId,
   animateSelection = true,
+  externalSelectedId,
   className = ""
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -132,6 +134,14 @@ const HexGrid: React.FC<HexGridProps> = ({
     if (el) gsap.to(el, { scale: 1.18, duration: 0.5, ease: 'back.out(1.5)', delay: 0.1 });
   }, [responsiveSize, animateSelection]);
 
+  // Sync internal state when parent clears selection externally (e.g. modal close)
+  useEffect(() => {
+    if (externalSelectedId === null && selectedHexRef.current !== null) {
+      selectedHexRef.current = null;
+      setSelectedHex(null);
+    }
+  }, [externalSelectedId]);
+
   // Handle hex selection
   const handleSelect = useCallback((id: string) => {
     const prev = selectedHexRef.current;
@@ -159,8 +169,13 @@ const HexGrid: React.FC<HexGridProps> = ({
         selectedHexRef.current = fallback;
         setSelectedHex(fallback);
         onSelect?.(fallback);
+      } else if (!fallback) {
+        // No fallback — fully deselect
+        selectedHexRef.current = null;
+        setSelectedHex(null);
+        onReturn?.();
       } else {
-        // Fallback is the same tile or none — stay put
+        // Fallback is the same tile — stay put
         selectedHexRef.current = prev;
       }
     } else {
@@ -266,8 +281,8 @@ const HexGrid: React.FC<HexGridProps> = ({
   // Handle hex hover
   const handleHover = useCallback((id: string, isHovering: boolean) => {
     setHoveredHex(isHovering ? id : null);
-    handleStarburstHover(id, isHovering);
-  }, [handleStarburstHover]);
+    if (animateSelection) handleStarburstHover(id, isHovering);
+  }, [animateSelection, handleStarburstHover]);
 
   // Get center offset
   const centerOffset = getCenterOffset();
