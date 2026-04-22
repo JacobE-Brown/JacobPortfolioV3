@@ -53,7 +53,7 @@ const pillClasses =
 
 export default function ContactMe() {
   return (
-    <section id="contact" className="bg-blue-neutral flex flex-col items-center justify-end min-h-[calc(100svh-5rem)]">
+    <section id="contact" className="bg-blue-neutral flex flex-col items-center justify-end" style={{ minHeight: 'calc(100svh - var(--nav-h, 5rem))' }}>
       <div className="flex-1 flex flex-col items-center justify-center gap-4 px-6 sm:px-8">
         <h2 className="font-heading font-medium text-3xl sm:text-4xl md:text-5xl lg:text-7xl text-text-1 mb-8 sm:mb-10 md:mb-14">
           <span className="border-b-4 border-blue-medium-1 pb-2">Contact Me</span>

@@ -113,7 +113,7 @@ function App() {
         <Technologies />
 
         <div id="projects">
-          <h2 className="font-heading font-medium text-text-1 text-3xl sm:text-4xl md:text-5xl lg:text-7xl text-center mb-8 sm:mb-10 md:mb-14 pt-10 sm:pt-12 md:pt-20">
+          <h2 className="font-heading font-medium text-text-1 text-3xl sm:text-4xl md:text-5xl lg:text-7xl text-center mb-8 sm:mb-10 md:mb-14 pt-10 sm:pt-12 md:pt-20 px-6 sm:px-8 md:px-16">
             <span className="border-b-4 border-blue-medium-1 pb-2">Experience & Projects</span>
           </h2>
           {projects.map((project, i) => (

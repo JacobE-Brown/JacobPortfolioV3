@@ -532,8 +532,9 @@ function MobileModal({ tech, onClose, activeFilters, onToggleFilter }: {
       role="dialog"
       aria-modal="true"
       aria-label={tech.label}
-      className={`fixed inset-0 z-50 flex flex-col items-center justify-center backdrop-blur-md bg-white/70 p-6 overflow-y-auto
+      className={`fixed inset-0 z-50 flex flex-col items-center backdrop-blur-md bg-white/70 px-6 pb-10 overflow-y-auto
         outline-none transition-opacity duration-300 ${visible ? 'opacity-100' : 'opacity-0'}`}
+      style={{ paddingTop: 'calc(var(--nav-h, 80px) + 1.5rem)' }}
       onClick={onClose}
     >
       <div
@@ -544,9 +545,9 @@ function MobileModal({ tech, onClose, activeFilters, onToggleFilter }: {
         <button
           onClick={onClose}
           aria-label="Close"
-          className="absolute -top-2 -right-2 w-10 h-10 flex items-center justify-center
+          className="absolute -top-2 right-0 w-10 h-10 flex items-center justify-center
             rounded-full bg-blue-neutral text-text-1 text-xl font-bold
-            border-2 border-blue-medium-2 hover:bg-blue-medium-1 transition-colors"
+            border-2 border-blue-medium-2 hover:bg-blue-medium-1 transition-colors cursor-pointer"
         >
           ✕
         </button>
@@ -699,7 +700,7 @@ const mobileGridPositions: { q: number; r: number }[] = [
 // --- Main component ---
 
 export function Technologies(): React.JSX.Element {
-  const [selectedId, setSelectedId] = useState<string | null>('education')
+  const [selectedId, setSelectedId] = useState<string | null>(null)
   const [activeFilters, setActiveFilters] = useState<Set<CategoryName>>(new Set())
   const [isMobile, setIsMobile] = useState(false)
   const [isCompactGrid, setIsCompactGrid] = useState(false)
