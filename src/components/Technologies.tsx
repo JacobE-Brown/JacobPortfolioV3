@@ -916,6 +916,17 @@ export function Technologies(): React.JSX.Element {
   const [isCompactGrid, setIsCompactGrid] = useState(false)
   const [isLandscapeCompact, setIsLandscapeCompact] = useState(false)
 
+  // Listen for filter activation from WhatIDo section
+  useEffect(() => {
+    const handler = (e: Event) => {
+      const category = (e as CustomEvent).detail as CategoryName
+      setActiveFilters(new Set([category]))
+      setSelectedId(null)
+    }
+    window.addEventListener('activate-skill-filter', handler)
+    return () => window.removeEventListener('activate-skill-filter', handler)
+  }, [])
+
   useEffect(() => {
     const orientationMql = window.matchMedia('(orientation: landscape)')
 

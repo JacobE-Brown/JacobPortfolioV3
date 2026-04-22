@@ -6,34 +6,39 @@ import TechBadge from './TechBadge'
 import reactIcon from '@/assets/images/tech/react.svg'
 import pythonIcon from '@/assets/images/tech/python.svg'
 import awsIcon from '@/assets/images/tech/AWS/aws.svg'
+import prometheusIcon from '@/assets/images/tech/Prometheus.svg'
 import figmaIcon from '@/assets/images/tech/figma.svg'
-import sqlIcon from '@/assets/images/tech/sql.svg'
 
 const workItems = [
   {
     icon: reactIcon,
-    label: 'Frontend Dev',
+    label: 'Frontend',
+    category: 'Front-End Development',
     description: 'Building responsive, interactive UIs with modern frameworks and design systems.',
   },
   {
     icon: pythonIcon,
-    label: 'Backend Dev',
+    label: 'Backend',
+    category: 'Back-End Development',
     description: 'Designing scalable APIs, services, and data pipelines that power applications.',
   },
   {
     icon: awsIcon,
     label: 'Cloud & DevOps',
+    category: 'Cloud & DevOps',
     description: 'Deploying and managing infrastructure with CI/CD pipelines and cloud services.',
   },
   {
-    icon: figmaIcon,
-    label: 'UI/UX Design',
-    description: 'Translating Figma designs into pixel-perfect, accessible user experiences.',
+    icon: prometheusIcon,
+    label: 'Observability',
+    category: 'Monitoring & Observability',
+    description: 'Monitoring clusters and applications with metrics, dashboards, and alerting.',
   },
   {
-    icon: sqlIcon,
-    label: 'Databases',
-    description: 'Modeling, querying, and optimizing relational and NoSQL data stores.',
+    icon: figmaIcon,
+    label: 'Misc',
+    category: 'Miscellaneous',
+    description: 'Design, AI tooling, version control, and everything else that ties it all together.',
   },
 ]
 
@@ -72,6 +77,17 @@ export default function WhatIDo() {
     gsap.to(els[index], { scale: entering ? 1.08 : 1, duration: 0.25, ease: 'power2.out' })
   }
 
+  const handleClick = (category: string) => {
+    const skillsSection = document.getElementById('skills')
+    if (skillsSection) {
+      skillsSection.scrollIntoView({ behavior: 'smooth' })
+    }
+    // Dispatch after a short delay so the scroll lands first
+    setTimeout(() => {
+      window.dispatchEvent(new CustomEvent('activate-skill-filter', { detail: category }))
+    }, 400)
+  }
+
   return (
     <section className="bg-blue-neutral flex flex-col items-center gap-6 sm:gap-8 px-6 sm:px-8 md:px-16 py-10">
       <h2 className="font-heading font-medium text-text-1 text-3xl sm:text-4xl md:text-5xl lg:text-7xl mb-8 sm:mb-10 md:mb-14">
@@ -90,6 +106,7 @@ export default function WhatIDo() {
                         ${i === workItems.length - 1 && workItems.length % 2 !== 0 ? 'col-span-2 lg:col-span-1' : ''}`}
             onMouseEnter={() => handleHover(i, true)}
             onMouseLeave={() => handleHover(i, false)}
+            onClick={() => handleClick(item.category)}
           >
             <TechBadge
               icon={<img src={item.icon} alt={item.label} className="w-full h-full" />}
