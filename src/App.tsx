@@ -106,6 +106,10 @@ function App() {
                        max-w-screen-2xl mx-auto shadow-2xl
                        px-0 sm:mx-4 md:mx-6 lg:mx-8 xl:mx-auto">
 
+        {/* Mobile/tablet nav accent — mirrors the desktop navbar's rounded navy top */}
+        <div className="lg:hidden bg-text-1 rounded-t-3xl h-3
+                        shadow-[0_-2px_4px_rgba(0,0,0,0.04),0_-4px_12px_rgba(0,0,0,0.08),0_-8px_24px_rgba(0,0,0,0.12)]" />
+
         <AboutMe />
 
         <WhatIDo />

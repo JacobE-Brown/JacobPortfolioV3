@@ -532,34 +532,49 @@ function MobileModal({ tech, onClose, activeFilters, onToggleFilter }: {
       role="dialog"
       aria-modal="true"
       aria-label={tech.label}
-      className={`fixed inset-0 z-50 flex flex-col items-center backdrop-blur-md bg-white/70 px-6 pb-10 overflow-y-auto
+      className={`fixed inset-0 z-50 flex flex-col items-center backdrop-blur-md bg-white/70
+        px-6 pb-10 overflow-y-auto
+        landscape:p-4 landscape:overflow-hidden
         outline-none transition-opacity duration-300 ${visible ? 'opacity-100' : 'opacity-0'}`}
       style={{ paddingTop: 'calc(var(--nav-h, 80px) + 1.5rem)' }}
       onClick={onClose}
     >
       <div
-        className={`relative flex flex-col items-center gap-6 w-full max-w-sm
+        className={`relative flex flex-col landscape:flex-row items-center landscape:items-center
+          gap-6 w-full max-w-sm
+          landscape:max-w-none landscape:h-full landscape:overflow-hidden
           transition-all duration-300 ${visible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}
         onClick={(e) => e.stopPropagation()}
       >
+        {/* Close button */}
         <button
           onClick={onClose}
           aria-label="Close"
-          className="absolute -top-2 right-0 w-10 h-10 flex items-center justify-center
+          className="absolute -top-2 right-0 z-10 w-10 h-10 flex items-center justify-center
             rounded-full bg-blue-neutral text-text-1 text-xl font-bold
             border-2 border-blue-medium-2 hover:bg-blue-medium-1 transition-colors cursor-pointer"
         >
           ✕
         </button>
 
-        <div className="w-40 h-44 sm:w-56 sm:h-60 cursor-default transition-transform duration-200 ease-out hover:scale-105">
-          <TechBadge
-            icon={<img className="relative w-full h-full object-contain rounded-md" alt={tech.label} src={tech.iconSrc} />}
-            name={tech.label}
-            hexSize={{ x: 120, y: 120 }}
-          />
+        {/* Hex badge — top in portrait, right 1/3 in landscape */}
+        <div className="order-1 landscape:order-2 shrink-0
+                        landscape:w-1/3 landscape:h-full landscape:flex landscape:items-center landscape:justify-center">
+          <div className="w-40 h-44 sm:w-56 sm:h-60
+                          landscape:w-32 landscape:h-36 sm:landscape:w-40 sm:landscape:h-44
+                          cursor-default transition-transform duration-200 ease-out hover:scale-105">
+            <TechBadge
+              icon={<img className="relative w-full h-full object-contain rounded-md" alt={tech.label} src={tech.iconSrc} />}
+              name={tech.label}
+              hexSize={{ x: 120, y: 120 }}
+            />
+          </div>
         </div>
-        <div className="flex flex-col gap-4 w-full">
+
+        {/* Text content — below hex in portrait, left 2/3 + scrollable in landscape */}
+        <div className="flex flex-col gap-4 w-full order-2 landscape:order-1
+                        landscape:w-2/3 landscape:min-w-0 landscape:overflow-y-auto landscape:pr-4
+                        landscape:h-full">
           {tech.id === 'education' ? (
             <>
               {/* Diplomas & resume */}
@@ -652,15 +667,17 @@ function MobileModal({ tech, onClose, activeFilters, onToggleFilter }: {
               </div>
             </>
           )}
+
+          {/* Back button — inside text flow so it scrolls with content in landscape */}
+          <button
+            onClick={onClose}
+            className="self-start border-2 border-blue-medium-2 bg-transparent px-5 py-2
+              text-text-1 font-sans text-lg rounded-full shrink-0
+              hover:bg-blue-medium-2 hover:text-white transition-colors mt-2 cursor-pointer"
+          >
+            Back
+          </button>
         </div>
-        <button
-          onClick={onClose}
-          className="self-start border-2 border-blue-medium-2 bg-transparent px-5 py-2
-            text-text-1 font-sans text-lg rounded-full
-            hover:bg-blue-medium-2 hover:text-white transition-colors mt-4"
-        >
-          Back
-        </button>
       </div>
     </div>
   )
