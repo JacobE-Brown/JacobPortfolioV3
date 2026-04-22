@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useExternalLink } from './ExternalLinkModal'
 
 import githubIcon from '@/assets/images/tech/github-1-1.svg'
 import linkedinIcon from '@/assets/images/misc/linkedin(1).svg'
@@ -23,6 +24,7 @@ const socials = [
 ];
 
 export default function ContactMe() {
+  const { openExternalLink } = useExternalLink()
   const headingRef = useRef<HTMLHeadingElement>(null)
   const emailRef = useRef<HTMLDivElement>(null)
   const emailLinkRef = useRef<HTMLAnchorElement>(null)
@@ -122,6 +124,12 @@ export default function ContactMe() {
               <a
                 key={s.name}
                 href={s.href}
+                onClick={(e) => {
+                  if (s.href.startsWith('http')) {
+                    e.preventDefault()
+                    openExternalLink(s.href)
+                  }
+                }}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 bg-white/60 border border-blue-medium-2/50 rounded-full px-4 py-2

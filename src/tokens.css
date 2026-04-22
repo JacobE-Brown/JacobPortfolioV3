@@ -32,6 +32,8 @@
 .animate-spin { animation: spin 1s linear infinite; }
 .animate-fab-in { animation: fab-in 0.6s 0.3s ease-out both; }
 .animate-fab-pulse { animation: fab-pulse 2s 1.2s ease-in-out 3; }
+.animate-modal-backdrop { animation: modal-backdrop-in 0.2s ease-out; }
+.animate-modal-card { animation: modal-card-in 0.3s ease-out; }
 
 @keyframes spin { to { transform: rotate(1turn); } }
 @keyframes fade-in {
@@ -63,6 +65,13 @@
 @keyframes fab-pulse {
   0%, 100% { box-shadow: 0 0 0 0 rgba(255, 240, 221, 0.4); }
   50% { box-shadow: 0 0 0 8px rgba(255, 240, 221, 0); }
+}
+
+@keyframes modal-backdrop-in {
+  from { opacity: 0; }
+}
+@keyframes modal-card-in {
+  from { opacity: 0; transform: scale(0.95) translateY(8px); }
 }
 
 /* GSAP animation support */

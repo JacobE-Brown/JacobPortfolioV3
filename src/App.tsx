@@ -26,12 +26,15 @@ import portfolioHero from "./assets/images/Projects/Recursive Portfolio/Portfoli
 import figmaIcon from './assets/images/tech/figma.svg'
 import amplifyIcon from './assets/images/tech/AWS/Amplify.svg'
 import ContactMe from './components/ContactMe'
+import { ExternalLinkProvider } from './components/ExternalLinkModal'
+import externalLinkIcon from './assets/images/misc/external-link.svg'
 
 const projects = [
   {
     title: 'DevOps Engineer',
     projectName: 'Netacent',
     primaryImage: netacentLogo,
+    projectUrl: 'https://netacent.com',
     secondaryImages: [azureAIcon, kubernetesIcon],
     secondaryImagePaddings: ['p-5', 'p-2'],
     technologies: [
@@ -43,6 +46,9 @@ const projects = [
       { icon: prometheusIcon,  label: 'Prometheus' },
       { icon: grafanaIcon,     label: 'Grafana' },
       { icon: netCoreIcon,     label: '.NET Core' },
+    ],
+    links: [
+      { href: 'https://netacent.com', label: 'Visit Site', icon: externalLinkIcon },
     ],
     description: [
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
@@ -62,6 +68,7 @@ const projects = [
       { icon: s3Icon,       label: 'AWS S3' },
     ],
     links: [
+      { href: 'http://samsbees.s3-website-us-east-1.amazonaws.com', label: 'Visit Site', icon: externalLinkIcon },
       { href: 'https://github.com/JacobE-Brown/SamsBees/tree/master', label: 'View on GitHub', icon: githubIcon },
     ],
     description: [
@@ -85,6 +92,7 @@ const projects = [
       { icon: amplifyIcon,    label: 'AWS Amplify' },
     ],
     links: [
+      { href: 'https://jacobebrown.dev', label: 'Visit Site', icon: externalLinkIcon },
       { href: 'https://github.com/JacobE-Brown/PortfolioV3', label: 'View on GitHub', icon: githubIcon },
     ],
     description: [
@@ -96,6 +104,7 @@ const projects = [
 
 function App() {
   return (
+    <ExternalLinkProvider>
     <div className="min-h-screen bg-parchment text-text-1">
       <ParticleBackground />
       <HeroSection />
@@ -103,7 +112,7 @@ function App() {
 
       {/* Content pillar */}
       <main className="relative z-10 overflow-x-clip bg-blue-neutral
-                       max-w-screen-2xl mx-auto shadow-2xl
+                       max-w-screen-2xl mx-auto shadow-2xl rounded-t-3xl
                        px-0 sm:mx-4 md:mx-6 lg:mx-8 xl:mx-auto">
 
         {/* Mobile/tablet nav accent — mirrors the desktop navbar's rounded navy top */}
@@ -142,6 +151,7 @@ function App() {
         <ContactMe />
       </main>
     </div>
+    </ExternalLinkProvider>
   )
 }
 

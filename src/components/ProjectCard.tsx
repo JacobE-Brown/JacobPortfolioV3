@@ -3,6 +3,7 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import hexBase from '@/assets/images/misc/hex-base.svg'
 import ProjectLink from '@/components/ProjectLink'
+import { useExternalLink } from '@/components/ExternalLinkModal'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -39,6 +40,7 @@ function HexGallery({
   secondaryImages = [],
   secondaryImagePaddings = [],
   primaryImageClassName,
+  projectUrl,
 }: {
   reversed: boolean
   projectName: string
@@ -46,9 +48,11 @@ function HexGallery({
   secondaryImages?: [string?, string?]
   secondaryImagePaddings?: [string?, string?]
   primaryImageClassName?: string
+  projectUrl?: string
 }) {
   const containerRef = useRef<HTMLDivElement>(null)
   const largeHexRef = useRef<HTMLDivElement>(null)
+  const { openExternalLink } = useExternalLink()
   const smallHex0Ref = useRef<HTMLDivElement>(null)
   const smallHex1Ref = useRef<HTMLDivElement>(null)
 
@@ -133,6 +137,7 @@ function HexGallery({
             style={{ aspectRatio: '1 / 0.866', clipPath: HEX_CLIP }}
             onMouseEnter={() => handleHover('large', true)}
             onMouseLeave={() => handleHover('large', false)}
+            onClick={() => { if (projectUrl) openExternalLink(projectUrl) }}
           >
             <div className="w-full h-full" style={{ clipPath: HEX_CLIP }}>
               <img
@@ -183,6 +188,7 @@ function BrowserGallery({
 }) {
   const containerRef = useRef<HTMLDivElement>(null)
   const mockupRef = useRef<HTMLDivElement>(null)
+  const { openExternalLink } = useExternalLink()
 
   useEffect(() => {
     if (!mockupRef.current) return
@@ -203,7 +209,7 @@ function BrowserGallery({
     gsap.to(mockupRef.current, { scale: 1, duration: 0.25, ease: 'power2.out' })
   }
   const handleClick = () => {
-    if (projectUrl) window.open(projectUrl, '_blank', 'noopener,noreferrer')
+    if (projectUrl) openExternalLink(projectUrl)
   }
 
   const desktopBorderClass = reversed ? 'lg:border-r-8' : 'lg:border-l-8'
@@ -326,6 +332,7 @@ export default function ProjectCard({
       secondaryImages={secondaryImages}
       secondaryImagePaddings={secondaryImagePaddings}
       primaryImageClassName={primaryImageClassName}
+      projectUrl={projectUrl}
     />
   )
 
