@@ -149,7 +149,7 @@ function HexGallery({
               <div
                 key={i}
                 ref={ref}
-                className="w-16 md:w-24 lg:w-28 xl:w-40 bg-blue-medium-1 p-0.5 cursor-pointer"
+                className="w-24 md:w-28 lg:w-32 xl:w-40 bg-blue-medium-1 p-0.5 cursor-pointer"
                 style={{ aspectRatio: '1 / 0.866', clipPath: HEX_CLIP }}
                 onMouseEnter={() => handleHover(i === 0 ? 'small0' : 'small1', true)}
                 onMouseLeave={() => handleHover(i === 0 ? 'small0' : 'small1', false)}
