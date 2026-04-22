@@ -6,14 +6,16 @@ export default function AboutMe() {
           <span className="border-b-4 border-blue-medium-1 pb-2">About Me</span>
         </h2>
         <p className="font-sans text-lg md:text-xl lg:text-2xl text-text-1 leading-relaxed">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt
-          ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-          ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+          I am a DevOps Engineer for Netacent. I recently graduated from CWI with an associates
+          in Full-Stack web development, and I like to branch out into extra technologies through
+          online courses, self study, and personal projects. I am naturally strongest in backend
+          code, but I have recently nurtured an interest in good design theory and UI. A couple of
+          my favorite technologies are Amazon Web Services and Figma, which I used for building
+          this portfolio.
         </p>
         <p className="font-sans text-lg md:text-xl lg:text-2xl text-text-1 leading-relaxed">
-          Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
-          anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem.
+          My AI philosophy is to give the LLM very refined prompts, always understand what the LLM
+          did and why, asking it for explanations if necessary, and to check and recheck for errors.
         </p>
       </div>
     </section>
