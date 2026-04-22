@@ -17,6 +17,7 @@ interface HexGridProps {
   onSelect?: (id: string) => void;
   onReturn?: () => void;
   initialSelectedId?: string;
+  animateSelection?: boolean;
   className?: string;
 }
 
@@ -27,6 +28,7 @@ const HexGrid: React.FC<HexGridProps> = ({
   onSelect,
   onReturn,
   initialSelectedId,
+  animateSelection = true,
   className = ""
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -124,11 +126,11 @@ const HexGrid: React.FC<HexGridProps> = ({
   // Animate the initially selected tile once responsive size is resolved
   const hasAnimatedInitial = useRef(false);
   useEffect(() => {
-    if (hasAnimatedInitial.current || !selectedHexRef.current) return;
+    if (!animateSelection || hasAnimatedInitial.current || !selectedHexRef.current) return;
     hasAnimatedInitial.current = true;
     const el = document.getElementById(`hex-${selectedHexRef.current}`);
     if (el) gsap.to(el, { scale: 1.18, duration: 0.5, ease: 'back.out(1.5)', delay: 0.1 });
-  }, [responsiveSize]);
+  }, [responsiveSize, animateSelection]);
 
   // Handle hex selection
   const handleSelect = useCallback((id: string) => {
@@ -136,20 +138,24 @@ const HexGrid: React.FC<HexGridProps> = ({
     const fallback = initialSelectedId ?? null;
 
     // Shrink previous (unless it's the fallback we're about to re-enlarge)
-    if (prev && prev !== id) {
+    if (animateSelection && prev && prev !== id) {
       const prevEl = document.getElementById(`hex-${prev}`);
       if (prevEl) gsap.to(prevEl, { scale: 1, duration: 0.25, ease: 'power2.out' });
     }
 
     if (prev === id) {
       // Toggle off — revert to fallback
-      const el = document.getElementById(`hex-${id}`);
-      if (el) gsap.to(el, { scale: 1, duration: 0.25, ease: 'power2.out' });
+      if (animateSelection) {
+        const el = document.getElementById(`hex-${id}`);
+        if (el) gsap.to(el, { scale: 1, duration: 0.25, ease: 'power2.out' });
+      }
 
       if (fallback && fallback !== id) {
         // Pop the fallback back
-        const fallbackEl = document.getElementById(`hex-${fallback}`);
-        if (fallbackEl) gsap.to(fallbackEl, { scale: 1.18, duration: 0.35, ease: 'back.out(1.5)' });
+        if (animateSelection) {
+          const fallbackEl = document.getElementById(`hex-${fallback}`);
+          if (fallbackEl) gsap.to(fallbackEl, { scale: 1.18, duration: 0.35, ease: 'back.out(1.5)' });
+        }
         selectedHexRef.current = fallback;
         setSelectedHex(fallback);
         onSelect?.(fallback);
@@ -159,13 +165,15 @@ const HexGrid: React.FC<HexGridProps> = ({
       }
     } else {
       // Select new
-      const el = document.getElementById(`hex-${id}`);
-      if (el) gsap.to(el, { scale: 1.18, duration: 0.35, ease: 'back.out(1.5)' });
+      if (animateSelection) {
+        const el = document.getElementById(`hex-${id}`);
+        if (el) gsap.to(el, { scale: 1.18, duration: 0.35, ease: 'back.out(1.5)' });
+      }
       selectedHexRef.current = id;
       setSelectedHex(id);
       onSelect?.(id);
     }
-  }, [onSelect, onReturn, initialSelectedId]);
+  }, [onSelect, onReturn, initialSelectedId, animateSelection]);
 
   // Calculate adjacent hexagons for starburst effect
   const getAdjacentHexes = useCallback((targetHex: HexData): HexData[] => {
@@ -232,9 +240,10 @@ const HexGrid: React.FC<HexGridProps> = ({
         }
       });
     } else {
-      // Reset — return selected tile to 1.18, others to 1
+      // Reset — return selected tile to 1.18 (if animated), others to 1
+      const selectedScale = animateSelection ? 1.18 : 1;
       gsap.to(targetElement, {
-        scale: selectedHexRef.current === targetHexId ? 1.18 : 1,
+        scale: selectedHexRef.current === targetHexId ? selectedScale : 1,
         duration: 0.2,
         ease: "power2.out"
       });
@@ -245,7 +254,7 @@ const HexGrid: React.FC<HexGridProps> = ({
           gsap.to(adjacentElement, {
             x: 0,
             y: 0,
-            scale: selectedHexRef.current === hex.id ? 1.18 : 1,
+            scale: selectedHexRef.current === hex.id ? selectedScale : 1,
             duration: 0.2,
             ease: "power2.out"
           });

@@ -758,7 +758,7 @@ const landscapeMobileGridPositions: { q: number; r: number }[] = [
 export function Technologies(): React.JSX.Element {
   const [selectedId, setSelectedId] = useState<string | null>(null)
   const [activeFilters, setActiveFilters] = useState<Set<CategoryName>>(new Set())
-  const [isMobile, setIsMobile] = useState(false)
+  const [isMobile, setIsMobile] = useState(() => window.innerWidth < 1280)
   const [isCompactGrid, setIsCompactGrid] = useState(false)
   const [isLandscapeCompact, setIsLandscapeCompact] = useState(false)
 
@@ -927,7 +927,8 @@ export function Technologies(): React.JSX.Element {
               fadedIds={fadedIds}
               onSelect={handleSelect}
               onReturn={handleReturn}
-              initialSelectedId="education"
+              initialSelectedId={isMobile ? undefined : "education"}
+              animateSelection={!isMobile}
             />
           </div>
         </div>
