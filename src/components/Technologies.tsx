@@ -38,6 +38,52 @@ import k9sIcon from '@/assets/images/tech/k9s.png'
 import aksIcon from '@/assets/images/tech/Azure/Kubernetes-Services.svg'
 import lokiIcon from '@/assets/images/tech/loki.svg'
 import djangoIcon from '@/assets/images/tech/django.svg'
+import githubActionsIcon from '@/assets/images/tech/github-actions.svg'
+import mysqlIcon from '@/assets/images/tech/logo-mysql-170x115.png'
+import postgresqlIcon from '@/assets/images/tech/postgresql-logo-svgrepo-com.svg'
+import redisIcon from '@/assets/images/tech/icons8-redis-24.png'
+import ubuntuIcon from '@/assets/images/tech/ubuntu-logo_svgstack_com_31491776873971.svg'
+import debianIcon from '@/assets/images/tech/debian.svg'
+import ciliumIcon from '@/assets/images/tech/cilium.svg'
+import ebpfIcon from '@/assets/images/tech/ebpf-icon.svg'
+import alloyIcon from '@/assets/images/tech/alloy_icon.png'
+import acrIcon from '@/assets/images/tech/container-registries.svg'
+import vueIcon from '@/assets/images/tech/vue.svg'
+import skillIcon from '@/assets/images/misc/skill.svg'
+import sqliteIcon from '@/assets/images/tech/sqlite.svg'
+import mssqlIcon from '@/assets/images/tech/sql-server.svg'
+import retinaIcon from '@/assets/images/tech/Retina-logo-horizontal.png'
+import clawdIcon from '@/assets/images/tech/clawd.svg'
+import mcpIcon from '@/assets/images/tech/MCP.svg'
+import subagentIcon from '@/assets/images/tech/virtual-assistant.svg'
+import azurePipelinesIcon from '@/assets/images/tech/Azure/azurepipelines-svgrepo-com.svg'
+import azureReposIcon from '@/assets/images/tech/Azure/Azure Repos.svg'
+import azureBoardsIcon from '@/assets/images/tech/AzureDevOps/Azure_Public_Service_Icons/Icons/general/10015-icon-service-Dashboard.svg'
+import hubbleIcon from '@/assets/images/tech/hubble-space-telescope.svg'
+import angularIcon from '@/assets/images/tech/Angular_idhHNISbnM_1.svg'
+import wordpressIcon from '@/assets/images/tech/wordpress.svg'
+import lightsailIcon from '@/assets/images/tech/AWS/Lightsail.svg'
+import route53Icon from '@/assets/images/tech/AWS/Route 53.svg'
+import vpcIcon from '@/assets/images/tech/AWS/Virtual Private Cloud.svg'
+import cloudWatchIcon from '@/assets/images/tech/AWS/CloudWatch.svg'
+import sqsIcon from '@/assets/images/tech/AWS/Simple Queue Service.svg'
+import cosmosDbIcon from '@/assets/images/tech/Azure/Azure-Cosmos-DB.svg'
+import azureSqlIcon from '@/assets/images/tech/Azure/SQL-Database.svg'
+import azureBlobIcon from '@/assets/images/tech/Azure/Blob-Block.svg'
+import azureVmIcon from '@/assets/images/tech/Azure/Virtual-Machine.svg'
+import azureFuncIcon from '@/assets/images/tech/Azure/Function-Apps.svg'
+import azureEntraIcon from '@/assets/images/tech/Azure/Entra-Managed-Identities.svg'
+import azureArtifactsIcon from '@/assets/images/tech/azure-artifacts.svg'
+import terminalIcon from '@/assets/images/tech/terminal.svg'
+import nugetIcon from '@/assets/images/tech/nuget.svg'
+import chocolateyIcon from '@/assets/images/tech/chocolatey.svg'
+import auroraIcon from '@/assets/images/tech/Aurora.svg'
+import viteIcon from '@/assets/images/tech/vitejs.svg'
+import dynamoDbIcon from '@/assets/images/tech/DynamoDB.svg'
+import serilogIcon from '@/assets/images/tech/Serilog.svg'
+import nodeIcon from '@/assets/images/tech/nodejs-icon-svgrepo-com.svg'
+import cssIcon from '@/assets/images/tech/css-3.svg'
+import bootstrapIcon from '@/assets/images/tech/bootstrap-5.svg'
 // Education panel icons
 import graduatedIcon from '@/assets/images/misc/graduated.svg'
 import awardIcon from '@/assets/images/misc/award.svg'
@@ -153,6 +199,7 @@ const technologies: TechItem[] = [
     ['Front-End Development', 'Miscellaneous'],
     'One of my favorite tools. Use Figma for UI/UX design, prototyping, and design systems — including the design for this portfolio.',
     [
+      { label: 'Claude AI', iconSrc: claudeIcon },
       { label: 'Figma Design Essentials', iconSrc: awardIcon, href: certFigmaDesign },
       { label: 'Wireframes',              iconSrc: awardIcon, href: certWireframes },
     ]),
@@ -160,7 +207,9 @@ const technologies: TechItem[] = [
     ['Miscellaneous'],
     'Version control with Git and GitHub for collaboration, code review, and CI/CD. Proficient with branching strategies, rebasing, cherry-picking, and resolving complex merge conflicts.',
     [
-      { label: 'GitHub Actions', iconSrc: null },
+      { label: 'Git',             iconSrc: githubIcon },
+      { label: 'GitHub Actions', iconSrc: githubActionsIcon },
+      { label: 'Azure Repos',    iconSrc: azureReposIcon },
       { label: 'Git & GitHub',   iconSrc: awardIcon, href: certGitGithub },
     ]),
 
@@ -175,17 +224,30 @@ const technologies: TechItem[] = [
       { label: 'RDS',          iconSrc: rdsIcon },
       { label: 'CloudFront',   iconSrc: cloudFrontIcon },
       { label: 'IAM',          iconSrc: iamIcon },
+      { label: 'Lightsail',    iconSrc: lightsailIcon },
+      { label: 'Route 53',     iconSrc: route53Icon },
+      { label: 'VPC',          iconSrc: vpcIcon },
+      { label: 'CloudWatch',   iconSrc: cloudWatchIcon },
+      { label: 'SQS',          iconSrc: sqsIcon },
+      { label: 'DynamoDB',     iconSrc: dynamoDbIcon },
       { label: 'Google Cloud', iconSrc: awardIcon, href: certGoogleCloud },
     ]),
   makeTech('amplify', 'AWS Amplify', amplifyIcon, 'AWS Amplify', -2, -1,
     ['Cloud & DevOps'],
-    'Hosting this portfolio on AWS Amplify. Experience using Amplify for CI/CD deployment pipelines, custom domains, and hosting static sites and full-stack web apps.'),
+    'Hosting this portfolio on AWS Amplify. Experience using Amplify for CI/CD deployment pipelines, custom domains, and hosting static sites and full-stack web apps.',
+    [
+      { label: 'Lightsail', iconSrc: lightsailIcon },
+      { label: 'WordPress', iconSrc: wordpressIcon },
+    ]),
   makeTech('python', 'Python', pythonIcon, 'Python', 0, -1,
     ['Back-End Development'],
     'Strong Python skills with a focus on scripting, automation, and tooling. Experience building utilities and working with data processing libraries.',
     [
-      { label: 'pip',                   iconSrc: null },
+      { label: 'pip',                   iconSrc: pythonIcon },
       { label: 'Django',                iconSrc: djangoIcon },
+      { label: 'NumPy',                 iconSrc: pythonIcon },
+      { label: 'Pandas',                iconSrc: pythonIcon },
+      { label: 'Flask',                 iconSrc: pythonIcon },
       { label: 'Python Certification',  iconSrc: awardIcon, href: certPython },
       { label: 'Data Analytics',        iconSrc: awardIcon, href: certDataAnalytics },
     ]),
@@ -193,26 +255,37 @@ const technologies: TechItem[] = [
     ['Back-End Development'],
     'Experienced with relational databases including MySQL, SQLite, MSSQL, and PostgreSQL. Also familiar with caching solutions like Redis.',
     [
-      { label: 'MySQL',                 iconSrc: null },
-      { label: 'SQLite',                iconSrc: null },
-      { label: 'MSSQL',                 iconSrc: null },
-      { label: 'Redis',                 iconSrc: null },
-      { label: 'PostgreSQL',            iconSrc: null },
+      { label: 'MySQL',                 iconSrc: mysqlIcon },
+      { label: 'SQLite',                iconSrc: sqliteIcon },
+      { label: 'MSSQL',                 iconSrc: mssqlIcon },
+      { label: 'Redis',                 iconSrc: redisIcon },
+      { label: 'PostgreSQL',            iconSrc: postgresqlIcon },
+      { label: 'Cosmos DB',             iconSrc: cosmosDbIcon },
+      { label: 'Aurora',                iconSrc: auroraIcon },
+      { label: 'DynamoDB',              iconSrc: null },
       { label: 'Database Certification',iconSrc: awardIcon, href: certDatabase },
     ]),
 
   // Indices 7-9 — DevOps core (mobile r=-3)
   makeTech('docker', 'Docker', dockerIcon, 'Docker', 2, -1,
     ['Cloud & DevOps'],
-    'Daily use for containerizing applications and managing local dev environments. Comfortable writing Dockerfiles, managing images, and working within container-based workflows.'),
+    'Daily use for containerizing applications and managing local dev environments. Comfortable writing Dockerfiles, managing images, and working within container-based workflows.',
+    [
+      { label: 'Docker Compose', iconSrc: dockerIcon },
+      { label: 'Docker Hub',     iconSrc: dockerIcon },
+      { label: 'Dockerfile',     iconSrc: dockerIcon },
+      { label: 'ACR',            iconSrc: acrIcon },
+    ]),
   makeTech('linux', 'Linux', linuxIcon, 'Linux', -1, -1,
     ['Cloud & DevOps'],
     'Daily driver OS and primary server environment. Comfortable with system administration, shell scripting, package management, and managing Linux-based container hosts.',
     [
+      { label: 'Bash', iconSrc: terminalIcon },
+      { label: 'Vim', iconSrc: null },
+      { label: 'SSH', iconSrc: terminalIcon },
       { label: 'Arch Linux', iconSrc: archLinuxIcon },
-      { label: 'Ubuntu', iconSrc: null },
-      { label: 'Debian', iconSrc: null },
-      { label: 'Alpine', iconSrc: null },
+      { label: 'Ubuntu', iconSrc: ubuntuIcon },
+      { label: 'Debian', iconSrc: debianIcon },
       { label: 'Cybersecurity',    iconSrc: awardIcon, href: certCybersecurity },
       { label: 'Network Security', iconSrc: awardIcon, href: certNetworkSecurity },
     ]),
@@ -220,74 +293,119 @@ const technologies: TechItem[] = [
     ['Cloud & DevOps'],
     'Hands-on experience deploying and managing workloads in Kubernetes clusters. Comfortable with pods, deployments, services, ingress, namespaces, and YAML resource management. Use k9s for cluster navigation and Cilium/Hubble for networking and observability.',
     [
-      { label: 'kubectl',            iconSrc: null },
+      { label: 'kubectl',            iconSrc: kubernetesIcon },
       { label: 'k9s',                iconSrc: k9sIcon },
-      { label: 'Ingress',            iconSrc: null },
+      { label: 'Ingress',            iconSrc: kubernetesIcon },
+      { label: 'Namespaces',        iconSrc: kubernetesIcon },
       { label: 'Security Risk Mgmt', iconSrc: awardIcon, href: certManageSecurity },
     ]),
 
   // Indices 10-13 — orchestration + Azure pair (mobile r=-2)
   makeTech('helm', 'Helm', helmIcon, 'Helm', -1, 0,
     ['Cloud & DevOps'],
-    'Use Helm to manage Kubernetes application deployments via charts. Experience writing and customizing Helm charts for repeatable, version-controlled cluster releases.'),
+    'Use Helm to manage Kubernetes application deployments via charts. Experience writing and customizing Helm charts for repeatable, version-controlled cluster releases.',
+    [
+      { label: 'Helm Charts',  iconSrc: helmIcon },
+      { label: 'Helmfile',     iconSrc: helmIcon },
+      { label: 'Values Files', iconSrc: helmIcon },
+    ]),
   makeTech('azure_devops', 'Azure DevOps', azureDevOpsIcon, 'Azure DevOps', 0, 0,
     ['Cloud & DevOps'],
     'Daily use at Netacent — managing pipelines, releases, repos, and work items. Experience authoring YAML pipelines and configuring multi-stage release definitions.',
     [
-      { label: 'Pipelines', iconSrc: null },
-      { label: 'Repos', iconSrc: null },
-      { label: 'Boards', iconSrc: null },
+      { label: 'Pipelines', iconSrc: azurePipelinesIcon },
+      { label: 'Repos', iconSrc: azureReposIcon },
+      { label: 'Boards', iconSrc: azureBoardsIcon },
+      { label: 'Artifacts', iconSrc: azureArtifactsIcon },
+      { label: 'AWS', iconSrc: awsIcon },
     ]),
   makeTech('azure_cloud', 'Azure Cloud', azureCloudIcon, 'Azure Cloud', 1, 0,
     ['Cloud & DevOps'],
     'Experience with Azure cloud services for container-based workloads. Use AKS for Kubernetes orchestration, ACR as a container registry, and ACNS with Retina for network observability.',
     [
       { label: 'AKS', iconSrc: aksIcon },
-      { label: 'ACR', iconSrc: null },
-      { label: 'ACNS', iconSrc: null },
+      { label: 'ACR', iconSrc: acrIcon },
+      { label: 'ACNS', iconSrc: hubbleIcon },
+      { label: 'Blob Storage', iconSrc: azureBlobIcon },
+      { label: 'Azure SQL', iconSrc: azureSqlIcon },
+      { label: 'VMs', iconSrc: azureVmIcon },
+      { label: 'Functions', iconSrc: azureFuncIcon },
+      { label: 'Entra ID', iconSrc: azureEntraIcon },
     ]),
   makeTech('csharp', 'C#', csharpIcon, 'C#', -3, 1,
     ['Back-End Development'],
     'Strongest backend language. Proficient in C# with ASP.NET Core, Entity Framework, LINQ, and .NET ecosystem tooling.',
     [
-      { label: 'EF Core', iconSrc: null },
-      { label: 'LINQ', iconSrc: null },
+      { label: 'Serilog', iconSrc: serilogIcon },
+      { label: 'NuGet', iconSrc: nugetIcon },
+      { label: 'Chocolatey', iconSrc: chocolateyIcon },
     ]),
 
   // Indices 14-16 — back-end + frontend (mobile r=-1)
   makeTech('netcore', 'ASP.NET Core', netcoreIcon, '.NET', -2, 1,
     ['Back-End Development'],
-    'Backend framework for building REST APIs and web applications. Experience with middleware pipelines, dependency injection, and Entity Framework Core.'),
+    'Backend framework for building REST APIs and web applications. Experience with middleware pipelines, dependency injection, and Entity Framework Core.',
+    [
+      { label: 'NuGet', iconSrc: nugetIcon },
+      { label: 'Chocolatey', iconSrc: chocolateyIcon },
+    ]),
   makeTech('react', 'React', reactIcon, 'React', -1, 1,
     ['Front-End Development'],
-    'Primary frontend framework. Deep experience with hooks, context, component patterns, and building production UIs — this portfolio is built with React.'),
+    'Primary frontend framework. Deep experience with hooks, context, component patterns, and building production UIs — this portfolio is built with React.',
+    [
+      { label: 'Angular', iconSrc: angularIcon },
+      { label: 'Vue', iconSrc: vueIcon },
+      { label: 'TypeScript', iconSrc: tsIcon },
+      { label: 'JavaScript', iconSrc: jsIcon },
+      { label: 'Figma', iconSrc: figmaIcon },
+      { label: 'Node.js', iconSrc: nodeIcon },
+      { label: 'Vite', iconSrc: viteIcon },
+    ]),
   makeTech('tailwind', 'Tailwind CSS', tailwindIcon, 'Tailwind', 0, 1,
     ['Front-End Development'],
-    'Go-to CSS framework for utility-first styling. Proficient with Tailwind v4, custom design tokens, and responsive design patterns — used throughout this portfolio.'),
+    'Go-to CSS framework for utility-first styling. Proficient with Tailwind v4, custom design tokens, and responsive design patterns — used throughout this portfolio.',
+    [
+      { label: 'CSS', iconSrc: cssIcon },
+      { label: 'Bootstrap', iconSrc: bootstrapIcon },
+      { label: 'Figma', iconSrc: figmaIcon },
+    ]),
 
   // Indices 17-20 — frontend + monitoring (mobile r=0)
   makeTech('javascript', 'JavaScript', jsIcon, 'JavaScript', 1, 1,
     ['Front-End Development', 'Back-End Development'],
-    'Core language for web development. Proficient with ES6+, async/await patterns, DOM manipulation, and Node.js runtime.'),
+    'Core language for web development. Proficient with ES6+, async/await patterns, DOM manipulation, and Node.js runtime.',
+    [
+      { label: 'TypeScript', iconSrc: tsIcon },
+      { label: 'React', iconSrc: reactIcon },
+      { label: 'Vue', iconSrc: vueIcon },
+      { label: 'Angular', iconSrc: angularIcon },
+    ]),
   makeTech('typescript', 'TypeScript', tsIcon, 'TypeScript', -3, 2,
     ['Front-End Development', 'Back-End Development'],
-    'Preferred over plain JavaScript. Strong typing, interfaces, generics, and type-safe design across full-stack projects — used exclusively in this portfolio.'),
+    'Preferred over plain JavaScript. Strong typing, interfaces, generics, and type-safe design across full-stack projects — used exclusively in this portfolio.',
+    [
+      { label: 'React', iconSrc: reactIcon },
+      { label: 'Vue', iconSrc: vueIcon },
+      { label: 'Angular', iconSrc: angularIcon },
+    ]),
   makeTech('prometheus', 'Prometheus', prometheusIcon, 'Prometheus', -2, 2,
     ['Monitoring & Observability'],
     'Experience setting up Prometheus for metrics collection in Kubernetes environments. Use Retina for network metrics and integrate with Grafana for visualization and alerting.',
     [
-      { label: 'Retina', iconSrc: null },
-      { label: 'Alloy', iconSrc: null },
-      { label: 'ACNS', iconSrc: null },
-      { label: 'Cilium', iconSrc: null },
-      { label: 'eBPF', iconSrc: null },
+      { label: 'Retina', iconSrc: retinaIcon },
+      { label: 'Alloy', iconSrc: alloyIcon },
+      { label: 'ACNS', iconSrc: hubbleIcon },
+      { label: 'Cilium', iconSrc: ciliumIcon },
+      { label: 'eBPF', iconSrc: ebpfIcon },
     ]),
   makeTech('grafana', 'Grafana', grafanaIcon, 'Grafana', -1, 2,
     ['Monitoring & Observability'],
     'Build and maintain Grafana dashboards for cluster and application observability. Experience configuring data sources, panels, and alert rules across Prometheus and Loki.',
     [
-      { label: 'Alloy', iconSrc: null },
+      { label: 'Alloy', iconSrc: alloyIcon },
       { label: 'Loki', iconSrc: lokiIcon },
+      { label: 'Prometheus', iconSrc: prometheusIcon },
+      { label: 'ACNS', iconSrc: hubbleIcon },
     ]),
 
   // Index 21 — AI tooling (mobile r=1)
@@ -295,10 +413,11 @@ const technologies: TechItem[] = [
     ['Miscellaneous'],
     'Daily AI collaborator for development, architecture decisions, and complex problem-solving. Use Claude Code as a CLI-driven coding agent — leveraging subagents, skills, and hooks to automate multi-step workflows directly in the terminal.',
     [
-      { label: 'Claude Code', iconSrc: null },
-      { label: 'Subagents', iconSrc: null },
-      { label: 'Skills', iconSrc: null },
-      { label: 'MCP', iconSrc: null },
+      { label: 'Claude Code', iconSrc: clawdIcon },
+      { label: 'CLAUDE.md', iconSrc: claudeIcon },
+      { label: 'Subagents', iconSrc: subagentIcon },
+      { label: 'Skills', iconSrc: skillIcon },
+      { label: 'MCP', iconSrc: mcpIcon },
     ]),
 ]
 
@@ -327,10 +446,10 @@ const educationCerts: SubTechItem[] = [
 
 function SubTechChip({ sub }: { sub: SubTechItem }) {
   const icon = sub.iconSrc ? (
-    <img src={sub.iconSrc} alt={sub.label} className="w-4 h-4 object-contain rounded shrink-0" />
+    <img src={sub.iconSrc} alt={sub.label} className="w-5 h-5 sm:w-6 sm:h-6 object-contain rounded shrink-0" />
   ) : (
-    <div className="w-4 h-4 flex items-center justify-center rounded bg-blue-medium-1/20 text-text-1 shrink-0 select-none"
-      style={{ fontSize: '7px', fontWeight: 700, lineHeight: 1 }}>
+    <div className="w-5 h-5 sm:w-6 sm:h-6 flex items-center justify-center rounded bg-blue-medium-1/20 text-text-1 shrink-0 select-none"
+      style={{ fontSize: '9px', fontWeight: 700, lineHeight: 1 }}>
       {sub.label.slice(0, 2).toUpperCase()}
     </div>
   )
@@ -342,20 +461,20 @@ function SubTechChip({ sub }: { sub: SubTechItem }) {
         target="_blank"
         rel="noopener noreferrer"
         title="View certificate"
-        className="flex items-center gap-1.5 bg-white/60 border border-blue-medium-2/50 rounded-full px-2 py-1
+        className="flex items-center gap-2 bg-white/60 border border-blue-medium-2/50 rounded-full px-3 py-1.5
           cursor-pointer hover:bg-white/90 hover:border-blue-medium-2 hover:shadow-sm transition-all"
       >
         {icon}
-        <span className="font-sans text-text-1 text-xs leading-none">{sub.label}</span>
-        <span className="font-sans text-blue-medium-2 text-[11px] leading-none opacity-90 ml-0.5">↗</span>
+        <span className="font-sans text-text-1 text-sm leading-none">{sub.label}</span>
+        <span className="font-sans text-blue-medium-2 text-xs leading-none opacity-90 ml-0.5">↗</span>
       </a>
     )
   }
 
   return (
-    <div className="flex items-center gap-1.5 bg-white/60 border border-blue-medium-1/30 rounded-full px-2 py-1 hover:bg-white/80 transition-colors">
+    <div className="flex items-center gap-2 bg-white/60 border border-blue-medium-1/30 rounded-full px-3 py-1.5 hover:bg-white/80 transition-colors">
       {icon}
-      <span className="font-sans text-text-1 text-xs leading-none">{sub.label}</span>
+      <span className="font-sans text-text-1 text-sm leading-none">{sub.label}</span>
     </div>
   )
 }
@@ -445,7 +564,7 @@ function DetailPanel({ tech }: { tech: TechItem | null }) {
               <h4 className="font-sans font-semibold text-text-1 text-xs uppercase tracking-widest opacity-50">
                 Certifications
               </h4>
-              <div className="flex flex-wrap gap-1.5">
+              <div className="flex flex-wrap gap-2">
                 {educationCerts.map((cert) => (
                   <SubTechChip key={cert.label} sub={cert} />
                 ))}
@@ -462,16 +581,16 @@ function DetailPanel({ tech }: { tech: TechItem | null }) {
                 <h4 className="font-sans font-semibold text-text-1 text-xs uppercase tracking-widest opacity-50">
                   Related
                 </h4>
-                <div className="flex flex-wrap gap-1.5">
+                <div className="flex flex-wrap gap-2">
                   {displayTech!.subTech.map((sub) => (
                     <SubTechChip key={sub.label} sub={sub} />
                   ))}
                 </div>
               </div>
             )}
-            <div className="flex flex-wrap gap-1.5 mt-1">
+            <div className="flex flex-wrap gap-2 mt-1">
               {displayTech!.categories.map((cat) => (
-                <span key={cat} className="bg-blue-medium-1/20 text-text-1 text-xs font-sans px-2 py-0.5 rounded-full">
+                <span key={cat} className="bg-blue-medium-1/20 text-text-1 text-sm font-sans px-3 py-1 rounded-full">
                   {cat}
                 </span>
               ))}
@@ -607,21 +726,21 @@ function MobileModal({ tech, onClose, activeFilters, onToggleFilter }: {
           <h4 className="font-sans font-semibold text-text-1 text-xs uppercase tracking-widest opacity-50">
             Related
           </h4>
-          <div className="flex flex-wrap gap-1.5">
+          <div className="flex flex-wrap gap-2">
             {tech.subTech.map((sub) => (
               <SubTechChip key={sub.label} sub={sub} />
             ))}
           </div>
         </div>
       )}
-      <div className="flex flex-wrap gap-1.5">
+      <div className="flex flex-wrap gap-2">
         {tech.categories.map((cat) => {
           const isActive = activeFilters.has(cat)
           return (
             <button
               key={cat}
               onClick={() => { onToggleFilter(cat); animateClose() }}
-              className={`text-xs font-sans px-2.5 py-1 rounded-full border cursor-pointer
+              className={`text-sm font-sans px-3 py-1.5 rounded-full border cursor-pointer
                 transition-all duration-150 active:scale-95
                 ${isActive
                   ? 'bg-blue-medium-1 border-blue-medium-2 text-text-1 font-semibold ring-2 ring-blue-medium-2/30'
