@@ -82,7 +82,7 @@ export default function ContactMe() {
 
   return (
     <section id="contact" className="bg-blue-neutral flex flex-col items-center justify-end" style={{ minHeight: 'calc(100svh - var(--nav-h, 5rem))' }}>
-      <div className="flex-1 flex flex-col items-center justify-center gap-6 sm:gap-8 md:gap-12 lg:gap-16 px-6 sm:px-8">
+      <div className="flex-1 flex flex-col items-center justify-center gap-6 sm:gap-8 md:gap-12 lg:gap-16 px-6 sm:px-8 pb-10 sm:pb-12">
         <h2
           ref={headingRef}
           className="font-heading font-medium text-3xl sm:text-4xl md:text-5xl lg:text-7xl text-text-1"
