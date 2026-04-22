@@ -553,26 +553,14 @@ function MobileModal({ tech, onClose, activeFilters, onToggleFilter }: {
     >
       {/* Card — two-column grid: text left, hex right */}
       <div
-        className={`relative grid grid-cols-[2fr_1fr] items-center gap-10
+        className={`grid grid-cols-[2fr_1fr] items-center gap-10
           w-full flex-1 min-h-0 px-6 sm:px-12 md:px-20
           transition-all duration-300 ${visible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Close button — top-right of card */}
-        <button
-          onClick={animateClose}
-          aria-label="Close"
-          className="absolute -top-2 right-0
-            z-10 w-10 h-10 flex items-center justify-center
-            rounded-full bg-blue-neutral text-text-1 text-xl font-bold
-            border-2 border-blue-medium-2 hover:bg-blue-medium-1 transition-colors cursor-pointer"
-        >
-          ✕
-        </button>
-
         {/* Text — left column */}
         <div className="flex flex-col gap-4 w-full min-w-0 min-h-0 max-h-full overflow-y-auto
-                        justify-center py-2">
+                        py-2">
           {tech.id === 'education' ? (
             <>
               <div className="flex flex-col gap-2 w-full">
@@ -662,20 +650,11 @@ function MobileModal({ tech, onClose, activeFilters, onToggleFilter }: {
               </div>
             </>
           )}
-
-          <button
-            onClick={animateClose}
-            className="self-start border-2 border-blue-medium-2 bg-transparent px-5 py-2
-              text-text-1 font-sans text-lg rounded-full shrink-0
-              hover:bg-blue-medium-2 hover:text-white transition-colors mt-2 cursor-pointer"
-          >
-            Back
-          </button>
         </div>
 
-        {/* Hex badge — right column */}
-        <div className="flex items-center justify-center">
-          <div className="w-28 h-32 sm:w-40 sm:h-44
+        {/* Hex badge + close — right column */}
+        <div className="flex flex-col items-center justify-center gap-10">
+          <div className="flex items-center justify-center
                           cursor-default transition-transform duration-200 ease-out hover:scale-105">
             <TechBadge
               icon={<img className="relative w-full h-full object-contain rounded-md" alt={tech.label} src={tech.iconSrc} />}
@@ -683,6 +662,17 @@ function MobileModal({ tech, onClose, activeFilters, onToggleFilter }: {
               hexSize={{ x: 120, y: 120 }}
             />
           </div>
+          <button
+            onClick={animateClose}
+            className="bg-transparent border-2 border-text-1 rounded-full
+              px-8 py-3 shadow-md
+              font-sans font-semibold text-text-1 text-base tracking-wider
+              hover:bg-text-1 hover:text-cream-neutral hover:shadow-xl hover:scale-105
+              active:scale-95
+              transition-all duration-300 ease-out cursor-pointer"
+          >
+            Close
+          </button>
         </div>
       </div>
     </div>
