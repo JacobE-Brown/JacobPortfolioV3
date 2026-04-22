@@ -30,6 +30,8 @@
 .animate-marquee-vertical { animation: marquee-vertical var(--duration) linear infinite; }
 .animate-shimmer { animation: shimmer 8s infinite; }
 .animate-spin { animation: spin 1s linear infinite; }
+.animate-fab-in { animation: fab-in 0.6s 0.3s ease-out both; }
+.animate-fab-pulse { animation: fab-pulse 2s 1.2s ease-in-out 3; }
 
 @keyframes spin { to { transform: rotate(1turn); } }
 @keyframes fade-in {
@@ -51,6 +53,16 @@
 @keyframes marquee-vertical {
   0% { transform: translateY(0); }
   100% { transform: translateY(calc(-100% - var(--gap))); }
+}
+
+@keyframes fab-in {
+  0% { opacity: 0; transform: translateY(20px) scale(0.8); }
+  70% { transform: translateY(-4px) scale(1.03); }
+  100% { opacity: 1; transform: none; }
+}
+@keyframes fab-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255, 240, 221, 0.4); }
+  50% { box-shadow: 0 0 0 8px rgba(255, 240, 221, 0); }
 }
 
 /* GSAP animation support */

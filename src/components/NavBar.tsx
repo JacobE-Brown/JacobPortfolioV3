@@ -138,16 +138,20 @@ export default function NavBar() {
         id="nav-fab"
         onClick={() => setMenuOpen(true)}
         aria-label="Open menu"
-        className={`fixed bottom-6 right-6 z-40 lg:hidden
-                   w-12 h-12 flex items-center justify-center
-                   bg-text-1 text-tan-neutral rounded-full
-                   border-2 border-blue-medium-1
-                   shadow-[0_4px_12px_rgba(0,0,0,0.25)] hover:shadow-[0_6px_20px_rgba(0,0,0,0.35)]
+        className={`fixed bottom-10 right-8 z-40 lg:hidden
+                   w-14 h-14 flex items-center justify-center
+                   bg-text-1 text-tan-neutral rounded-2xl
+                   ring-2 ring-tan-neutral/50
+                   shadow-[0_2px_8px_rgba(0,42,88,0.2),0_8px_24px_rgba(0,42,88,0.25)]
+                   hover:shadow-[0_4px_12px_rgba(0,42,88,0.3),0_12px_32px_rgba(0,42,88,0.35)]
+                   hover:ring-tan-neutral/70
+                   active:scale-90 active:shadow-none
                    transition-all duration-300 ease-out cursor-pointer
-                   ${menuOpen ? 'opacity-0 pointer-events-none scale-90' : 'opacity-100 scale-100'}`}
+                   animate-fab-in animate-fab-pulse
+                   ${menuOpen ? 'opacity-0 pointer-events-none scale-90' : 'scale-100'}`}
       >
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" className="w-6 h-6">
-          <path d="M4 6h16M4 12h16M4 18h16" />
+          <path d="M4 7h16M4 12h10M4 17h14" />
         </svg>
       </button>
 
@@ -158,7 +162,8 @@ export default function NavBar() {
       >
         {/* Backdrop */}
         <div
-          className="absolute inset-0 bg-black/50"
+          className={`absolute inset-0 bg-black/40 backdrop-blur-sm transition-opacity duration-300
+                      ${menuOpen ? 'opacity-100' : 'opacity-0'}`}
           onClick={() => setMenuOpen(false)}
         />
 
@@ -168,22 +173,30 @@ export default function NavBar() {
                       flex flex-col transition-transform duration-300 ease-out
                       ${menuOpen ? 'translate-x-0' : 'translate-x-full'}`}
         >
-          {/* Close button */}
-          <div className="flex justify-end px-6 py-5">
+          {/* Header — branding + close */}
+          <div className="flex items-center justify-between px-6 pt-6 landscape:pt-3 pb-3">
+            <span className="font-serif text-xl text-tan-neutral tracking-wide">
+              Jacob Brown
+            </span>
             <button
               onClick={() => setMenuOpen(false)}
               aria-label="Close menu"
-              className="text-tan-neutral p-1 cursor-pointer"
+              className="text-tan-neutral/60 p-2 rounded-lg
+                         hover:text-tan-neutral hover:bg-white/10
+                         transition-colors duration-200 cursor-pointer"
             >
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" className="w-7 h-7">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" className="w-6 h-6">
                 <path d="M18 6L6 18M6 6l12 12" />
               </svg>
             </button>
           </div>
 
-          {/* Nav links */}
-          <div className="flex flex-col gap-2 px-6 overflow-y-auto">
-            {navLinks.map((link) => {
+          {/* Divider */}
+          <div className="mx-6 h-px bg-gradient-to-r from-blue-medium-2/40 via-blue-medium-1/20 to-transparent" />
+
+          {/* Nav links — staggered entrance, scrollable in landscape */}
+          <div className="flex flex-col gap-1 px-4 pt-6 landscape:pt-3 overflow-y-auto min-h-0 flex-1">
+            {navLinks.map((link, i) => {
               const isActive = activeLink === link.href
               return (
                 <a
@@ -193,17 +206,34 @@ export default function NavBar() {
                     e.preventDefault()
                     handleNavClick(link.href)
                   }}
-                  className={`font-serif text-2xl tracking-wide py-3 px-4 rounded-lg
-                    transition-all duration-200
+                  style={{
+                    transitionDelay: menuOpen ? `${i * 60}ms` : '0ms',
+                  }}
+                  className={`font-serif text-2xl landscape:text-xl tracking-wide py-4 landscape:py-2.5 px-5 rounded-lg
+                    transition-all duration-300 ease-out shrink-0
+                    ${menuOpen ? 'translate-x-0 opacity-100' : 'translate-x-8 opacity-0'}
                     ${isActive
-                      ? 'text-blue-medium-2 font-bold bg-white/5'
-                      : 'text-tan-neutral font-normal hover:text-blue-medium-1 hover:bg-white/5'
+                      ? 'text-blue-medium-2 font-bold bg-white/8 border-l-3 border-blue-medium-2'
+                      : 'text-tan-neutral font-normal border-l-3 border-transparent hover:text-blue-medium-1 hover:bg-white/5 hover:border-blue-medium-1/40'
                     }`}
                 >
                   {link.label}
                 </a>
               )
             })}
+          </div>
+
+          {/* Footer — contact */}
+          <div className="shrink-0 px-6 pb-6 landscape:pb-3">
+            <div className="h-px bg-gradient-to-r from-blue-medium-2/40 via-blue-medium-1/20 to-transparent mb-4 landscape:mb-2" />
+
+            <a
+              href="mailto:Jacob@jacobebrown.dev"
+              className="block text-sm text-tan-neutral/60 hover:text-blue-medium-1
+                         transition-colors duration-200"
+            >
+              Jacob@jacobebrown.dev
+            </a>
           </div>
         </div>
       </div>
