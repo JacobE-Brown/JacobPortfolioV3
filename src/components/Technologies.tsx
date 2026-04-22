@@ -546,18 +546,15 @@ function MobileModal({ tech, onClose, activeFilters, onToggleFilter }: {
       aria-modal="true"
       aria-label={tech.label}
       className={`fixed inset-0 z-50 flex flex-col items-center
-        backdrop-blur-md bg-white/70 p-6 landscape:px-4 landscape:py-6 overflow-y-auto
+        backdrop-blur-md bg-white/70 p-6 landscape:px-4 landscape:py-6 overflow-hidden
         outline-none transition-opacity duration-300 ${visible ? 'opacity-100' : 'opacity-0'}`}
       style={{ paddingTop: 'calc(var(--nav-h, 80px) + 1.5rem)' }}
       onClick={animateClose}
     >
-      {/* Card — portrait: flex column, landscape: two-column grid */}
+      {/* Card — two-column grid: text left, hex right */}
       <div
-        className={`relative flex flex-col
-          landscape:grid landscape:grid-cols-[2fr_1fr]
-          items-center landscape:items-stretch gap-6
-          w-full max-w-sm landscape:max-w-none
-          landscape:my-auto landscape:h-[calc(100svh-3rem)]
+        className={`relative grid grid-cols-[2fr_1fr] items-center gap-10
+          w-full flex-1 min-h-0 px-6 sm:px-12 md:px-20
           transition-all duration-300 ${visible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}
         onClick={(e) => e.stopPropagation()}
       >
@@ -565,7 +562,7 @@ function MobileModal({ tech, onClose, activeFilters, onToggleFilter }: {
         <button
           onClick={animateClose}
           aria-label="Close"
-          className="absolute -top-2 right-0 landscape:top-2 landscape:right-2
+          className="absolute -top-2 right-0
             z-10 w-10 h-10 flex items-center justify-center
             rounded-full bg-blue-neutral text-text-1 text-xl font-bold
             border-2 border-blue-medium-2 hover:bg-blue-medium-1 transition-colors cursor-pointer"
@@ -573,10 +570,9 @@ function MobileModal({ tech, onClose, activeFilters, onToggleFilter }: {
           ✕
         </button>
 
-        {/* Text — below hex in portrait, left column in landscape */}
-        <div className="flex flex-col gap-4 w-full order-2 landscape:order-none
-                        landscape:min-w-0 landscape:min-h-0 landscape:overflow-y-auto
-                        landscape:justify-center landscape:py-2 landscape:pr-6">
+        {/* Text — left column */}
+        <div className="flex flex-col gap-4 w-full min-w-0 min-h-0 max-h-full overflow-y-auto
+                        justify-center py-2">
           {tech.id === 'education' ? (
             <>
               <div className="flex flex-col gap-2 w-full">
@@ -677,11 +673,9 @@ function MobileModal({ tech, onClose, activeFilters, onToggleFilter }: {
           </button>
         </div>
 
-        {/* Hex badge — top in portrait, right column in landscape (vertically centered) */}
-        <div className="order-1 landscape:order-none shrink-0
-                        landscape:flex landscape:items-center landscape:justify-center">
-          <div className="w-40 h-44 sm:w-56 sm:h-60
-                          landscape:w-36 landscape:h-40
+        {/* Hex badge — right column */}
+        <div className="flex items-center justify-center">
+          <div className="w-28 h-32 sm:w-40 sm:h-44
                           cursor-default transition-transform duration-200 ease-out hover:scale-105">
             <TechBadge
               icon={<img className="relative w-full h-full object-contain rounded-md" alt={tech.label} src={tech.iconSrc} />}
