@@ -494,6 +494,7 @@ function MobileModal({ tech, onClose, activeFilters, onToggleFilter }: {
   const overlayRef = useRef<HTMLDivElement>(null)
   const [visible, setVisible] = useState(false)
   const closingRef = useRef(false)
+  const [isPortrait, setIsPortrait] = useState(() => window.matchMedia('(orientation: portrait)').matches)
 
   const animateClose = useCallback(() => {
     if (closingRef.current) return
@@ -511,6 +512,13 @@ function MobileModal({ tech, onClose, activeFilters, onToggleFilter }: {
       document.body.style.overflow = ''
       if (fab) fab.style.display = ''
     }
+  }, [])
+
+  useEffect(() => {
+    const mql = window.matchMedia('(orientation: portrait)')
+    const handler = (e: MediaQueryListEvent) => setIsPortrait(e.matches)
+    mql.addEventListener('change', handler)
+    return () => mql.removeEventListener('change', handler)
   }, [])
 
   useEffect(() => {
@@ -538,6 +546,110 @@ function MobileModal({ tech, onClose, activeFilters, onToggleFilter }: {
     return () => document.removeEventListener('keydown', handleKey)
   }, [animateClose])
 
+  /* Shared content block — education vs tech detail */
+  const modalContent = tech.id === 'education' ? (
+    <>
+      <div className="flex flex-col gap-2 w-full">
+        <h4 className="font-sans font-semibold text-text-1 text-xs uppercase tracking-widest opacity-50">
+          Diplomas & Resume
+        </h4>
+        <div className="flex flex-col gap-2">
+          {educationDiplomas.map((doc) => (
+            <a
+              key={doc.label}
+              href={doc.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 self-start font-sans text-sm text-text-2 hover:text-text-1 transition-colors duration-200"
+            >
+              <img src={graduatedIcon} alt="" className="w-5 h-5 object-contain opacity-60 shrink-0" />
+              {doc.label}
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <div className="flex flex-col gap-6 w-full">
+        <div>
+          <h3 className="font-sans font-extrabold text-text-1 text-lg mb-2">Magdalen College</h3>
+          <p className="font-sans text-text-1 text-base leading-relaxed">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
+            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+            exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+          </p>
+        </div>
+        <div>
+          <h3 className="font-sans font-extrabold text-text-1 text-lg mb-2">College of Western Idaho</h3>
+          <p className="font-sans text-text-1 text-base leading-relaxed">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent
+            libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum
+            imperdiet. Duis sagittis ipsum. Praesent mauris.
+          </p>
+        </div>
+      </div>
+
+      <div className="flex flex-col gap-2 w-full">
+        <h4 className="font-sans font-semibold text-text-1 text-xs uppercase tracking-widest opacity-50">
+          Certifications
+        </h4>
+        <div className="flex flex-wrap gap-1.5">
+          {educationCerts.map((cert) => (
+            <SubTechChip key={cert.label} sub={cert} />
+          ))}
+        </div>
+      </div>
+    </>
+  ) : (
+    <>
+      <p className="font-sans text-text-1 text-base leading-relaxed">{tech.description}</p>
+      {tech.subTech && tech.subTech.length > 0 && (
+        <div className="flex flex-col gap-2">
+          <h4 className="font-sans font-semibold text-text-1 text-xs uppercase tracking-widest opacity-50">
+            Related
+          </h4>
+          <div className="flex flex-wrap gap-1.5">
+            {tech.subTech.map((sub) => (
+              <SubTechChip key={sub.label} sub={sub} />
+            ))}
+          </div>
+        </div>
+      )}
+      <div className="flex flex-wrap gap-1.5">
+        {tech.categories.map((cat) => {
+          const isActive = activeFilters.has(cat)
+          return (
+            <button
+              key={cat}
+              onClick={() => { onToggleFilter(cat); animateClose() }}
+              className={`text-xs font-sans px-2.5 py-1 rounded-full border cursor-pointer
+                transition-all duration-150 active:scale-95
+                ${isActive
+                  ? 'bg-blue-medium-1 border-blue-medium-2 text-text-1 font-semibold ring-2 ring-blue-medium-2/30'
+                  : 'bg-blue-medium-1/20 border-blue-medium-1/40 text-text-1 hover:bg-blue-medium-1/40 hover:border-blue-medium-1/70'
+                }`}
+            >
+              {cat}
+            </button>
+          )
+        })}
+      </div>
+    </>
+  )
+
+  const closeButton = (
+    <button
+      onClick={animateClose}
+      className="bg-transparent border-2 border-text-1 rounded-full
+        px-8 py-3 shadow-md
+        font-sans font-semibold text-text-1 text-base tracking-wider
+        hover:bg-text-1 hover:text-cream-neutral hover:shadow-xl hover:scale-105
+        active:scale-95
+        transition-all duration-300 ease-out cursor-pointer"
+    >
+      Close
+    </button>
+  )
+
   return (
     <div
       ref={overlayRef}
@@ -545,136 +657,75 @@ function MobileModal({ tech, onClose, activeFilters, onToggleFilter }: {
       role="dialog"
       aria-modal="true"
       aria-label={tech.label}
-      className={`fixed inset-0 z-50 flex flex-col items-center
-        backdrop-blur-md bg-white/70 p-6 landscape:px-4 landscape:py-6 overflow-hidden
-        outline-none transition-opacity duration-300 ${visible ? 'opacity-100' : 'opacity-0'}`}
-      style={{ paddingTop: 'calc(var(--nav-h, 80px) + 1.5rem)' }}
+      className={`fixed inset-0 z-50 flex flex-col
+        backdrop-blur-md bg-white/70 overflow-hidden
+        outline-none transition-opacity duration-300
+        ${isPortrait ? 'justify-end' : 'items-center p-6'}
+        ${visible ? 'opacity-100' : 'opacity-0'}`}
+      style={isPortrait ? undefined : { paddingTop: 'calc(var(--nav-h, 80px) + 1.5rem)' }}
       onClick={animateClose}
     >
-      {/* Card — two-column grid: text left, hex right */}
-      <div
-        className={`grid grid-cols-[2fr_1fr] items-center gap-10
-          w-full flex-1 min-h-0 px-6 sm:px-12 md:px-20
-          transition-all duration-300 ${visible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}
-        onClick={(e) => e.stopPropagation()}
-      >
-        {/* Text — left column */}
-        <div className="flex flex-col gap-4 w-full min-w-0 min-h-0 max-h-full overflow-y-auto
-                        py-2">
-          {tech.id === 'education' ? (
-            <>
-              <div className="flex flex-col gap-2 w-full">
-                <h4 className="font-sans font-semibold text-text-1 text-xs uppercase tracking-widest opacity-50">
-                  Diplomas & Resume
-                </h4>
-                <div className="flex flex-col gap-2">
-                  {educationDiplomas.map((doc) => (
-                    <a
-                      key={doc.label}
-                      href={doc.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2 self-start font-sans text-sm text-text-2 hover:text-text-1 transition-colors duration-200"
-                    >
-                      <img src={graduatedIcon} alt="" className="w-5 h-5 object-contain opacity-60 shrink-0" />
-                      {doc.label}
-                    </a>
-                  ))}
-                </div>
-              </div>
-
-              <div className="flex flex-col gap-6 w-full">
-                <div>
-                  <h3 className="font-sans font-extrabold text-text-1 text-lg mb-2">Magdalen College</h3>
-                  <p className="font-sans text-text-1 text-base leading-relaxed">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
-                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                    exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                  </p>
-                </div>
-                <div>
-                  <h3 className="font-sans font-extrabold text-text-1 text-lg mb-2">College of Western Idaho</h3>
-                  <p className="font-sans text-text-1 text-base leading-relaxed">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent
-                    libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum
-                    imperdiet. Duis sagittis ipsum. Praesent mauris.
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex flex-col gap-2 w-full">
-                <h4 className="font-sans font-semibold text-text-1 text-xs uppercase tracking-widest opacity-50">
-                  Certifications
-                </h4>
-                <div className="flex flex-wrap gap-1.5">
-                  {educationCerts.map((cert) => (
-                    <SubTechChip key={cert.label} sub={cert} />
-                  ))}
-                </div>
-              </div>
-            </>
-          ) : (
-            <>
-              <h3 className="font-sans font-extrabold text-text-1 text-xl">{tech.label}</h3>
-              <p className="font-sans text-text-1 text-base leading-relaxed">{tech.description}</p>
-              {tech.subTech && tech.subTech.length > 0 && (
-                <div className="flex flex-col gap-2">
-                  <h4 className="font-sans font-semibold text-text-1 text-xs uppercase tracking-widest opacity-50">
-                    Related
-                  </h4>
-                  <div className="flex flex-wrap gap-1.5">
-                    {tech.subTech.map((sub) => (
-                      <SubTechChip key={sub.label} sub={sub} />
-                    ))}
-                  </div>
-                </div>
-              )}
-              <div className="flex flex-wrap gap-1.5">
-                {tech.categories.map((cat) => {
-                  const isActive = activeFilters.has(cat)
-                  return (
-                    <button
-                      key={cat}
-                      onClick={() => { onToggleFilter(cat); animateClose() }}
-                      className={`text-xs font-sans px-2.5 py-1 rounded-full border cursor-pointer
-                        transition-all duration-150 active:scale-95
-                        ${isActive
-                          ? 'bg-blue-medium-1 border-blue-medium-2 text-text-1 font-semibold ring-2 ring-blue-medium-2/30'
-                          : 'bg-blue-medium-1/20 border-blue-medium-1/40 text-text-1 hover:bg-blue-medium-1/40 hover:border-blue-medium-1/70'
-                        }`}
-                    >
-                      {cat}
-                    </button>
-                  )
-                })}
-              </div>
-            </>
-          )}
-        </div>
-
-        {/* Hex badge + close — right column */}
-        <div className="flex flex-col items-center justify-center gap-10">
-          <div className="flex items-center justify-center
-                          cursor-default transition-transform duration-200 ease-out hover:scale-105">
-            <TechBadge
-              icon={<img className="relative w-full h-full object-contain rounded-md" alt={tech.label} src={tech.iconSrc} />}
-              name={tech.label}
-              hexSize={{ x: 120, y: 120 }}
+      {isPortrait ? (
+        /* ── Portrait: bottom sheet ── */
+        <div
+          className={`flex flex-col w-full h-full
+            bg-blue-neutral
+            transition-transform duration-300 ease-out
+            ${visible ? 'translate-y-0' : 'translate-y-full'}`}
+          onClick={(e) => e.stopPropagation()}
+        >
+          {/* Header: icon + title */}
+          <div className="flex items-center gap-4 px-6 pt-4 pb-4 shrink-0">
+            <img
+              className="w-10 h-10 object-contain rounded-md shrink-0"
+              alt={tech.label}
+              src={tech.iconSrc}
             />
+            <h3 className="font-sans font-extrabold text-text-1 text-xl">
+              {tech.id === 'education' ? 'My Education' : tech.label}
+            </h3>
           </div>
-          <button
-            onClick={animateClose}
-            className="bg-transparent border-2 border-text-1 rounded-full
-              px-8 py-3 shadow-md
-              font-sans font-semibold text-text-1 text-base tracking-wider
-              hover:bg-text-1 hover:text-cream-neutral hover:shadow-xl hover:scale-105
-              active:scale-95
-              transition-all duration-300 ease-out cursor-pointer"
-          >
-            Close
-          </button>
+
+          {/* Scrollable content */}
+          <div className="flex-1 min-h-0 overflow-y-auto px-6 flex flex-col gap-4">
+            {modalContent}
+          </div>
+
+          {/* Close — pinned at bottom */}
+          <div className="shrink-0 flex justify-center px-6 py-5">
+            {closeButton}
+          </div>
         </div>
-      </div>
+      ) : (
+        /* ── Landscape: two-column grid ── */
+        <div
+          className={`grid grid-cols-[2fr_1fr] items-center gap-10
+            w-full flex-1 min-h-0 px-6 sm:px-12 md:px-20
+            transition-all duration-300 ${visible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}
+          onClick={(e) => e.stopPropagation()}
+        >
+          {/* Text — left column */}
+          <div className="flex flex-col gap-4 w-full min-w-0 min-h-0 max-h-full overflow-y-auto py-2">
+            {tech.id !== 'education' && (
+              <h3 className="font-sans font-extrabold text-text-1 text-xl">{tech.label}</h3>
+            )}
+            {modalContent}
+          </div>
+
+          {/* Hex badge + close — right column */}
+          <div className="flex flex-col items-center justify-center gap-10">
+            <div className="flex items-center justify-center
+                            cursor-default transition-transform duration-200 ease-out hover:scale-105">
+              <TechBadge
+                icon={<img className="relative w-full h-full object-contain rounded-md" alt={tech.label} src={tech.iconSrc} />}
+                name={tech.label}
+                hexSize={{ x: 120, y: 120 }}
+              />
+            </div>
+            {closeButton}
+          </div>
+        </div>
+      )}
     </div>
   )
 }
