@@ -1,6 +1,9 @@
 import React, { useRef, useEffect, useState, useCallback } from 'react';
 import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import HexTile from './HexTile';
+
+gsap.registerPlugin(ScrollTrigger);
 
 interface HexData {
   id: string;
@@ -277,6 +280,49 @@ const HexGrid: React.FC<HexGridProps> = ({
       });
     }
   }, [hexes, getAdjacentHexes]);
+
+  // Mobile scroll bounce — staggered bounce via ScrollTrigger.batch()
+  useEffect(() => {
+    if (window.innerWidth >= 768) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    // Snapshot current triggers before creating new ones
+    const existingTriggers = new Set(ScrollTrigger.getAll());
+
+    // Wait a frame so hex-* DOM elements are mounted
+    const rafId = requestAnimationFrame(() => {
+      ScrollTrigger.batch('.hex-tile', {
+        onEnter: (batch) => {
+          gsap.fromTo(batch, { y: 8 }, {
+            y: 0,
+            duration: 0.4,
+            ease: 'elastic.out(1, 0.5)',
+            stagger: 0.05,
+            overwrite: true,
+          });
+        },
+        onEnterBack: (batch) => {
+          gsap.fromTo(batch, { y: -5 }, {
+            y: 0,
+            duration: 0.35,
+            ease: 'elastic.out(1, 0.4)',
+            stagger: 0.04,
+            overwrite: true,
+          });
+        },
+        start: 'top 95%',
+        end: 'bottom 5%',
+      });
+    });
+
+    return () => {
+      cancelAnimationFrame(rafId);
+      // Kill only the triggers this effect created
+      ScrollTrigger.getAll()
+        .filter(st => !existingTriggers.has(st))
+        .forEach(st => st.kill());
+    };
+  }, [hexes, responsiveSize]);
 
   // Handle hex hover
   const handleHover = useCallback((id: string, isHovering: boolean) => {
