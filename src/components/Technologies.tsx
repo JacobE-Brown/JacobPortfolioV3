@@ -120,7 +120,7 @@ export function Technologies() {
       <div className="flex flex-col lg:flex-row items-center lg:items-start justify-center gap-8 w-full max-w-7xl">
         {/* Left: Filters + Hex Grid */}
         <div className="flex flex-col items-center gap-4 flex-1">
-          <div className="flex flex-col items-center gap-2">
+          <div id="skill-filters" className="flex flex-col items-center gap-2 pt-4">
             <div className="flex flex-wrap items-center justify-center gap-2 max-w-2xl px-4">
               {categoryDefs.map((cat) => {
                 const isActive = activeFilters.has(cat.name)

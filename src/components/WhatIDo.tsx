@@ -78,7 +78,7 @@ export default function WhatIDo() {
   }
 
   const handleClick = (category: string) => {
-    const target = document.getElementById('hex-grid-anchor') || document.getElementById('skills')
+    const target = document.getElementById('skill-filters') || document.getElementById('skills')
     if (target) {
       target.scrollIntoView({ behavior: 'smooth' })
     }
@@ -96,14 +96,13 @@ export default function WhatIDo() {
 
       <div
         ref={gridRef}
-        className="grid grid-cols-2 lg:grid-cols-5 items-start justify-items-center gap-6 sm:gap-10 md:gap-15 w-full max-w-6xl"
+        className="flex flex-wrap justify-center gap-6 sm:gap-10 md:gap-15 w-full max-w-6xl"
       >
         {workItems.map((item, i) => (
           <div
             key={item.label}
             ref={el => { itemRefs.current[i] = el }}
-            className={`flex flex-col items-center gap-2 w-full max-w-44 sm:max-w-52 md:max-w-64 lg:max-w-72 cursor-pointer
-                        ${i === workItems.length - 1 && workItems.length % 2 !== 0 ? 'col-span-2 lg:col-span-1' : ''}`}
+            className="flex flex-col items-center gap-2 w-[calc(50%-0.75rem)] sm:w-[calc(50%-1.25rem)] lg:w-[calc(33.333%-2.5rem)] max-w-72 cursor-pointer"
             onMouseEnter={() => handleHover(i, true)}
             onMouseLeave={() => handleHover(i, false)}
             onClick={() => handleClick(item.category)}
