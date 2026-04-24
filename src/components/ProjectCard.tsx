@@ -59,18 +59,16 @@ function HexGallery({
     const hexes = [largeHexRef.current, smallHex0Ref.current, smallHex1Ref.current]
     if (hexes.some(h => !h)) return
 
-    gsap.set(hexes, { opacity: 0, y: 40 })
-
     const ctx = gsap.context(() => {
-      gsap.to(hexes, {
-        opacity: 1,
-        y: 0,
+      gsap.from(hexes, {
+        opacity: 0,
+        y: 40,
         duration: 0.6,
         ease: 'power2.out',
         stagger: 0.15,
         scrollTrigger: {
           trigger: containerRef.current,
-          start: 'top 80%',
+          start: 'top 85%',
           once: true,
         },
       })
@@ -194,11 +192,10 @@ function BrowserGallery({
 
   useEffect(() => {
     if (!mockupRef.current) return
-    gsap.set(mockupRef.current, { opacity: 0, y: 40 })
     const ctx = gsap.context(() => {
-      gsap.to(mockupRef.current, {
-        opacity: 1, y: 0, duration: 0.6, ease: 'power2.out',
-        scrollTrigger: { trigger: containerRef.current, start: 'top 80%', once: true },
+      gsap.from(mockupRef.current, {
+        opacity: 0, y: 40, duration: 0.6, ease: 'power2.out',
+        scrollTrigger: { trigger: containerRef.current, start: 'top 85%', once: true },
       })
     })
     return () => ctx.revert()
