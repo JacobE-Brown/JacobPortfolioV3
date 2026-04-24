@@ -255,7 +255,7 @@ export const technologies: TechItem[] = [
     ]),
   makeTech('education', 'My Education', educationIcon, 'Education', -1, 0,
     ['Miscellaneous'],
-    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.'),
+    'B.A. in Liberal Arts from Magdalen College and A.A.S. in Full-Stack Software Development from the College of Western Idaho. Education spanning classical liberal arts, software engineering, and industry certifications.'),
 
   // Indices 10-13 — cloud hosting + backend (mobile r=-2)
   makeTech('amplify', 'AWS Amplify', amplifyIcon, 'AWS Amplify', -2, 0,

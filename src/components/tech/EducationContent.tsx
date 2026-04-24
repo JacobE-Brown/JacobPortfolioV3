@@ -36,9 +36,12 @@ export function EducationContent({ compact = false }: { compact?: boolean }) {
             Magdalen College
           </h3>
           <p className={`font-sans text-text-1 leading-relaxed ${compact ? 'text-base' : 'text-base md:text-lg'}`}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
-            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-            exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            At Magdalen College, I earned my Bachelor's in Liberal Arts with a concentration in
+            History. My degree involved reading and engaging in the Great Conversation in source
+            texts such as Aristotle, Plutarch, Einstein, Dante and many others. I learned how to
+            listen, think, understand, and communicate various perspectives while seeking the good,
+            true, and beautiful. Through this experience, I have strengthened my skills in
+            interpersonal relationships, logical thinking, and problem solving.
           </p>
         </div>
         <div>
@@ -46,9 +49,10 @@ export function EducationContent({ compact = false }: { compact?: boolean }) {
             College of Western Idaho
           </h3>
           <p className={`font-sans text-text-1 leading-relaxed ${compact ? 'text-base' : 'text-base md:text-lg'}`}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent
-            libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum
-            imperdiet. Duis sagittis ipsum. Praesent mauris.
+            I got my associate's degree in Full-Stack Software Development from the College of
+            Western Idaho. There I was introduced to a wide array of technologies and trained in
+            SCRUM methodologies. The teachers helped us to build many projects and earn lightweight
+            certifications along the way to solidify our proficiency.
           </p>
         </div>
       </div>

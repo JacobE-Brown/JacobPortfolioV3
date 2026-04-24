@@ -1,6 +1,7 @@
 import React from 'react';
 import { gsap } from 'gsap';
 import TechBadge from './TechBadge';
+import hexBaseTeal from '@/assets/images/misc/hex-base-teal.svg';
 
 interface HexTileProps {
   id: string;
@@ -91,10 +92,11 @@ const HexTile: React.FC<HexTileProps> = ({
       onMouseLeave={handleMouseLeave}
     >
       <div className="w-full h-full flex items-center justify-center">
-        <TechBadge 
-          icon={icon} 
+        <TechBadge
+          icon={icon}
           name={label}
           hexSize={{ x: size, y: size }}
+          hexBgSrc={id === 'education' ? hexBaseTeal : undefined}
         />
       </div>
     </div>

@@ -50,8 +50,8 @@ const projects = [
       { href: 'https://netacent.com', label: 'Visit Site', icon: externalLinkIcon },
     ],
     description: [
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
-      'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.',
+      'Netacent is a Data Station platform that uses cloud computing to handle unemployment insurance claims for the state. The platform is built on Azure cloud infrastructure with microservices running in Kubernetes, deployed through Azure DevOps CI/CD pipelines. Key technologies include ASP.NET Core, Docker, Helm, and monitoring with Prometheus and Grafana.',
+      'As a Developer-Operator, I run tests, update and deploy software across environments, monitor cluster health and application performance, troubleshoot issues, and contribute to both infrastructure and application code. My role spans the full DevOps lifecycle — from code review and build pipelines to production deployments and incident response.',
     ],
   },
   {
@@ -71,8 +71,8 @@ const projects = [
       { href: 'https://github.com/JacobE-Brown/SamsBees/tree/master', label: 'View on GitHub', icon: githubIcon },
     ],
     description: [
-      "Sam's Bees is a full e-commerce storefront built for a local beekeeper, designed to showcase and sell handcrafted honey, beeswax, and candle products. Built with React, Tailwind CSS, and Vite, the site features a product catalog with cart functionality and a clean, warm aesthetic that reflects the brand's natural, artisan identity.",
-      'Deployed as a static site to AWS S3, the project demonstrates end-to-end frontend delivery — from component design to cloud hosting — and served as the foundation for developing production habits around responsive layout, component reuse, and performance-conscious asset handling.',
+      "Sam's Bees is an online storefront built for a fictional local beekeeper. It is a school project for frontend design, nominally to showcase and sell handcrafted honey, beeswax, and candle products. Built with React, Tailwind CSS, and Vite, the site has a product catalog and functional cart.",
+      'The focus of this project was to craft a visually polished website with CSS — paying close attention to color palette, spacing, typography, and visual hierarchy to create a warm, cohesive brand feel. Deployed as a static site to AWS S3, the project demonstrates frontend delivery from component design to cloud hosting.',
     ],
   },
   {

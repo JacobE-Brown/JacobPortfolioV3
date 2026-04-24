@@ -6,9 +6,10 @@ interface HexBaseProps {
   className?: string;
   style?: React.CSSProperties;
   hexSize?: { x: number; y: number };
+  bgSrc?: string;
 }
 
-export const HexBase = ({ children, className = "", style, hexSize = { x: 50, y: 50 } }: HexBaseProps) => {
+export const HexBase = ({ children, className = "", style, hexSize = { x: 50, y: 50 }, bgSrc }: HexBaseProps) => {
   // Calculate responsive dimensions based on hexSize
   const width = hexSize.x * 1.72; // 86px for 50px base = 1.72 ratio
   const height = hexSize.y * 1.74; // 87px for 50px base = 1.74 ratio
@@ -39,7 +40,7 @@ export const HexBase = ({ children, className = "", style, hexSize = { x: 50, y:
         <img
           className="absolute w-full h-full top-0 left-0"
           alt="Hexagonal background shape"
-          src={base}
+          src={bgSrc ?? base}
         />
       </div>
 

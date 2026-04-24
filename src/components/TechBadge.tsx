@@ -7,9 +7,10 @@ interface TechBadgeProps {
   className?: string;
   zoomLevel?: number;
   hexSize?: { x: number; y: number };
+  hexBgSrc?: string;
 }
 
-const TechBadge = ({ icon, name, className = "", zoomLevel = 1, hexSize = { x: 50, y: 50 } }: TechBadgeProps) => {
+const TechBadge = ({ icon, name, className = "", zoomLevel = 1, hexSize = { x: 50, y: 50 }, hexBgSrc }: TechBadgeProps) => {
   // Calculate responsive sizes based on hex size and zoom level
   const baseIconSize = Math.max(hexSize.x * 0.7, 24); // 70% of hex size, minimum 24px
   const baseFontSize = Math.max(hexSize.x * 0.15, 6); // 15% of hex size, minimum 6px
@@ -22,9 +23,10 @@ const TechBadge = ({ icon, name, className = "", zoomLevel = 1, hexSize = { x: 5
   const padding = basePadding * scaleFactor;
   
   return (
-    <HexBase 
+    <HexBase
       className={`${className} tech-badge-responsive`}
       hexSize={hexSize}
+      bgSrc={hexBgSrc}
       style={{ 
         '--zoom-level': zoomLevel,
         '--scale-factor': scaleFactor,

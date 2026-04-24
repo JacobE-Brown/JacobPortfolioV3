@@ -154,6 +154,21 @@ export default function NavBar() {
               </a>
             )
           })}
+          <span className="ml-11 xl:ml-14 w-px h-6 xl:h-8 bg-tan-neutral/20" aria-hidden="true" />
+          <a
+            href="/documents/Jacob Brown Resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="relative font-serif text-2xl xl:text-4xl tracking-wide
+                       ml-11 xl:ml-14
+                       text-tan-neutral font-normal hover:text-blue-medium-1
+                       transition-all duration-300 ease-out hover:scale-105
+                       after:absolute after:bottom-0 after:left-0 after:h-0.5
+                       after:bg-blue-medium-1 after:transition-all after:duration-300
+                       after:w-0 hover:after:w-full"
+          >
+            Resume
+          </a>
         </div>
       </nav>
 
@@ -249,9 +264,19 @@ export default function NavBar() {
             })}
           </div>
 
-          {/* Footer — contact */}
+          {/* Footer — resume + contact */}
           <div className="shrink-0 px-6 pb-6 landscape:pb-3">
             <div className="h-px bg-gradient-to-r from-blue-medium-2/40 via-blue-medium-1/20 to-transparent mb-4 landscape:mb-2" />
+
+            <a
+              href="/documents/Jacob Brown Resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-serif text-lg text-tan-neutral hover:text-blue-medium-1
+                         transition-colors duration-200 mb-3"
+            >
+              Resume
+            </a>
 
             <a
               href="mailto:Jacob@jacobebrown.dev"
