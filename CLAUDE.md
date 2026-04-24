@@ -72,11 +72,11 @@ The container size is computed dynamically from the bounding box of all hex posi
 **Current layout (April 2026): 22 tiles in a 4-5-4-5-4 diamond.**
 
 ```
-r=-2 (4):  education   figma       github      aws
-r=-1 (5):  amplify     linux       python      sql         docker
-r= 0 (4):  kubernetes  helm        azure_devops azure_cloud
+r=-2 (4):  docker      linux       kubernetes  helm
+r=-1 (5):  aws         azure_cloud azure_devops prometheus  grafana
+r= 0 (4):  amplify     education   python      sql
 r= 1 (5):  csharp      netcore     react       tailwind    javascript
-r= 2 (4):  typescript  prometheus  grafana     claude
+r= 2 (4):  claude      figma       github      typescript
 ```
 
 ### Hex grid layout planning — how to reorganize tiles
@@ -127,12 +127,11 @@ Goal: keep related tiles adjacent (sharing an edge = axial diff of one step).
 **Six axial neighbor directions:** `(±1,0)`, `(0,±1)`, `(1,−1)`, `(−1,1)`
 
 **Standard grouping order used in this portfolio:**
-1. Info/context tiles at top (education, figma, github)
-2. Cloud providers + backend foundation (AWS, amplify, python, SQL)
-3. **DevOps core at the widest row** — containers, orchestration, infra
-4. Azure/Helm tooling + frontend stack
-5. More frontend → monitoring bridge
-6. Monitoring + AI tooling at bottom (prometheus, grafana, claude)
+1. **DevOps core at the top** — containers, orchestration, Linux (docker, linux, kubernetes, helm)
+2. Cloud providers + monitoring (AWS, Azure, azure_devops, prometheus, grafana)
+3. Education center + cloud hosting + backend (amplify, education, python, SQL)
+4. Backend + frontend stack (csharp, netcore, react, tailwind, javascript)
+5. Misc + AI tooling at bottom (claude, figma, github, typescript)
 
 When placing tiles, check that high-affinity pairs land in adjacent positions. Common high-affinity pairs: `aws↔amplify`, `docker↔linux↔kubernetes`, `kubernetes↔helm`, `csharp↔netcore`, `react↔tailwind`, `javascript↔typescript`, `prometheus↔grafana`.
 
@@ -140,7 +139,7 @@ When placing tiles, check that high-affinity pairs land in adjacent positions. C
 
 Below 768px, `Technologies` remaps all hexes via `mobileGridPositions` to a narrower compact grid (max 4 wide). Apply the same centering formula. Tiles remap **by index** in the `technologies[]` array, so array order determines which tile gets which mobile slot.
 
-**Current mobile layout: 3-4-3-4-3-4-1 = 22 tiles (r=−5 to r=1)** — claude is the solo tile at r=1
+**Current mobile layout: 3-4-3-4-3-4-1 = 22 tiles (r=−5 to r=1)** — DevOps at top, education in row 3, claude solo at r=1
 
 Mobile max-4-wide at 60% scale ≈ 312px, fits all phones ≥ 320px.
 

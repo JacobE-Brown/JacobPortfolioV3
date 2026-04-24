@@ -11,18 +11,6 @@ import figmaIcon from '@/assets/images/tech/figma.svg'
 
 const workItems = [
   {
-    icon: reactIcon,
-    label: 'Frontend',
-    category: 'Front-End Development',
-    description: 'Building responsive, interactive UIs with modern frameworks and design systems.',
-  },
-  {
-    icon: pythonIcon,
-    label: 'Backend',
-    category: 'Back-End Development',
-    description: 'Designing scalable APIs, services, and data pipelines that power applications.',
-  },
-  {
     icon: awsIcon,
     label: 'Cloud & DevOps',
     category: 'Cloud & DevOps',
@@ -33,6 +21,18 @@ const workItems = [
     label: 'Observability',
     category: 'Monitoring & Observability',
     description: 'Monitoring clusters and applications with metrics, dashboards, and alerting.',
+  },
+  {
+    icon: pythonIcon,
+    label: 'Backend',
+    category: 'Back-End Development',
+    description: 'Designing scalable APIs, services, and data pipelines that power applications.',
+  },
+  {
+    icon: reactIcon,
+    label: 'Frontend',
+    category: 'Front-End Development',
+    description: 'Building responsive, interactive UIs with modern frameworks and design systems.',
   },
   {
     icon: figmaIcon,

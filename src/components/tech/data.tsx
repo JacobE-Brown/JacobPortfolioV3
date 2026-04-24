@@ -103,9 +103,9 @@ const certWireframes     = '/documents/Wireframes.pdf'
 
 export const categoryDefs: CategoryDef[] = [
   { name: 'Cloud & DevOps',              displayName: 'Cloud & DevOps', icon: null },
+  { name: 'Monitoring & Observability',   displayName: 'Observability',  icon: null },
   { name: 'Back-End Development',        displayName: 'Backend',        icon: null },
   { name: 'Front-End Development',       displayName: 'Frontend',       icon: null },
-  { name: 'Monitoring & Observability',   displayName: 'Observability',  icon: null },
   { name: 'Miscellaneous',               displayName: 'Misc',           icon: null },
 ]
 
@@ -138,40 +138,60 @@ function makeTech(
 // Desktop layout: 4-5-4-5-4 diamond (22 tiles)
 // All rows satisfy the centering invariant: q_left + q_right + r = -1
 //
-//   r=-2 (4):  education   figma       github      aws
-//   r=-1 (5):  amplify     linux       python      sql         docker
-//   r= 0 (4):  kubernetes  helm        azure_devops azure_cloud
+//   r=-2 (4):  docker      linux       kubernetes  helm
+//   r=-1 (5):  aws         azure_cloud azure_devops prometheus  grafana
+//   r= 0 (4):  amplify     education   python      sql
 //   r= 1 (5):  csharp      netcore     react       tailwind    javascript
-//   r= 2 (4):  typescript  prometheus  grafana     claude
+//   r= 2 (4):  claude      figma       github      typescript
 //
 // Array order is mobile-driven (see mobileGridPositions below).
 // Desktop q,r are set per-item and are independent of array index.
 
 export const technologies: TechItem[] = [
-  // Indices 0-2 — info / context tiles (mobile r=-5)
-  makeTech('education', 'My Education', educationIcon, 'Education', -1, -2,
-    ['Miscellaneous'],
-    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.'),
-  makeTech('figma', 'Figma', figmaIcon, 'Figma', 0, -2,
-    ['Front-End Development', 'Miscellaneous'],
-    'One of my favorite tools. Use Figma for UI/UX design, prototyping, and design systems — including the design for this portfolio.',
+  // Indices 0-2 — DevOps core: containers + orchestration (mobile r=-5)
+  makeTech('docker', 'Docker', dockerIcon, 'Docker', -1, -2,
+    ['Cloud & DevOps'],
+    'Daily use for containerizing applications and managing local dev environments. Comfortable writing Dockerfiles, managing images, and working within container-based workflows.',
     [
-      { label: 'Claude AI', iconSrc: claudeIcon },
-      { label: 'Figma Design Essentials', iconSrc: awardIcon, href: certFigmaDesign },
-      { label: 'Wireframes',              iconSrc: awardIcon, href: certWireframes },
+      { label: 'Docker Compose', iconSrc: dockerIcon },
+      { label: 'Docker Hub',     iconSrc: dockerIcon },
+      { label: 'Dockerfile',     iconSrc: dockerIcon },
+      { label: 'ACR',            iconSrc: acrIcon },
     ]),
-  makeTech('github', 'GitHub', githubIcon, 'GitHub', 1, -2,
-    ['Miscellaneous'],
-    'Version control with Git and GitHub for collaboration, code review, and CI/CD. Proficient with branching strategies, rebasing, cherry-picking, and resolving complex merge conflicts.',
+  makeTech('linux', 'Linux', linuxIcon, 'Linux', 0, -2,
+    ['Cloud & DevOps'],
+    'Daily driver OS and primary server environment. Comfortable with system administration, shell scripting, package management, and managing Linux-based container hosts.',
     [
-      { label: 'Git',             iconSrc: githubIcon },
-      { label: 'GitHub Actions', iconSrc: githubActionsIcon },
-      { label: 'Azure Repos',    iconSrc: azureReposIcon },
-      { label: 'Git & GitHub',   iconSrc: awardIcon, href: certGitGithub },
+      { label: 'Bash', iconSrc: terminalIcon },
+      { label: 'Vim', iconSrc: null },
+      { label: 'SSH', iconSrc: terminalIcon },
+      { label: 'Arch Linux', iconSrc: archLinuxIcon },
+      { label: 'Ubuntu', iconSrc: ubuntuIcon },
+      { label: 'Debian', iconSrc: debianIcon },
+      { label: 'Cybersecurity',    iconSrc: awardIcon, href: certCybersecurity },
+      { label: 'Network Security', iconSrc: awardIcon, href: certNetworkSecurity },
+    ]),
+  makeTech('kubernetes', 'Kubernetes', kubernetesIcon, 'Kubernetes', 1, -2,
+    ['Cloud & DevOps'],
+    'Hands-on experience deploying and managing workloads in Kubernetes clusters. Comfortable with pods, deployments, services, ingress, namespaces, and YAML resource management. Use k9s for cluster navigation and Cilium/Hubble for networking and observability.',
+    [
+      { label: 'kubectl',            iconSrc: kubernetesIcon },
+      { label: 'k9s',                iconSrc: k9sIcon },
+      { label: 'Ingress',            iconSrc: kubernetesIcon },
+      { label: 'Namespaces',        iconSrc: kubernetesIcon },
+      { label: 'Security Risk Mgmt', iconSrc: awardIcon, href: certManageSecurity },
     ]),
 
-  // Indices 3-6 — cloud + backend foundation (mobile r=-4)
-  makeTech('aws', 'AWS', awsIcon, 'AWS', 2, -2,
+  // Indices 3-6 — cloud providers + pipelines (mobile r=-4)
+  makeTech('helm', 'Helm', helmIcon, 'Helm', 2, -2,
+    ['Cloud & DevOps'],
+    'Use Helm to manage Kubernetes application deployments via charts. Experience writing and customizing Helm charts for repeatable, version-controlled cluster releases.',
+    [
+      { label: 'Helm Charts',  iconSrc: helmIcon },
+      { label: 'Helmfile',     iconSrc: helmIcon },
+      { label: 'Values Files', iconSrc: helmIcon },
+    ]),
+  makeTech('aws', 'AWS', awsIcon, 'AWS', -2, -1,
     ['Cloud & DevOps'],
     'One of my favorite technologies. Experience with EC2, S3, Lambda, RDS, CloudFront, and IAM. Comfortable deploying and managing cloud infrastructure using AWS services.',
     [
@@ -189,14 +209,63 @@ export const technologies: TechItem[] = [
       { label: 'DynamoDB',     iconSrc: dynamoDbIcon },
       { label: 'Google Cloud', iconSrc: awardIcon, href: certGoogleCloud },
     ]),
-  makeTech('amplify', 'AWS Amplify', amplifyIcon, 'AWS Amplify', -2, -1,
+  makeTech('azure_cloud', 'Azure Cloud', azureCloudIcon, 'Azure Cloud', -1, -1,
+    ['Cloud & DevOps'],
+    'Experience with Azure cloud services for container-based workloads. Use AKS for Kubernetes orchestration, ACR as a container registry, and ACNS with Retina for network observability.',
+    [
+      { label: 'AKS', iconSrc: aksIcon },
+      { label: 'ACR', iconSrc: acrIcon },
+      { label: 'ACNS', iconSrc: hubbleIcon },
+      { label: 'Blob Storage', iconSrc: azureBlobIcon },
+      { label: 'Azure SQL', iconSrc: azureSqlIcon },
+      { label: 'VMs', iconSrc: azureVmIcon },
+      { label: 'Functions', iconSrc: azureFuncIcon },
+      { label: 'Entra ID', iconSrc: azureEntraIcon },
+    ]),
+  makeTech('azure_devops', 'Azure DevOps', azureDevOpsIcon, 'Azure DevOps', 0, -1,
+    ['Cloud & DevOps'],
+    'Daily use at Netacent — managing pipelines, releases, repos, and work items. Experience authoring YAML pipelines and configuring multi-stage release definitions.',
+    [
+      { label: 'Pipelines', iconSrc: azurePipelinesIcon },
+      { label: 'Repos', iconSrc: azureReposIcon },
+      { label: 'Boards', iconSrc: azureBoardsIcon },
+      { label: 'Artifacts', iconSrc: azureArtifactsIcon },
+      { label: 'AWS', iconSrc: awsIcon },
+    ]),
+
+  // Indices 7-9 — monitoring + education (mobile r=-3)
+  makeTech('prometheus', 'Prometheus', prometheusIcon, 'Prometheus', 1, -1,
+    ['Monitoring & Observability'],
+    'Experience setting up Prometheus for metrics collection in Kubernetes environments. Use Retina for network metrics and integrate with Grafana for visualization and alerting.',
+    [
+      { label: 'Retina', iconSrc: retinaIcon },
+      { label: 'Alloy', iconSrc: alloyIcon },
+      { label: 'ACNS', iconSrc: hubbleIcon },
+      { label: 'Cilium', iconSrc: ciliumIcon },
+      { label: 'eBPF', iconSrc: ebpfIcon },
+    ]),
+  makeTech('grafana', 'Grafana', grafanaIcon, 'Grafana', 2, -1,
+    ['Monitoring & Observability'],
+    'Build and maintain Grafana dashboards for cluster and application observability. Experience configuring data sources, panels, and alert rules across Prometheus and Loki.',
+    [
+      { label: 'Alloy', iconSrc: alloyIcon },
+      { label: 'Loki', iconSrc: lokiIcon },
+      { label: 'Prometheus', iconSrc: prometheusIcon },
+      { label: 'ACNS', iconSrc: hubbleIcon },
+    ]),
+  makeTech('education', 'My Education', educationIcon, 'Education', -1, 0,
+    ['Miscellaneous'],
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.'),
+
+  // Indices 10-13 — cloud hosting + backend (mobile r=-2)
+  makeTech('amplify', 'AWS Amplify', amplifyIcon, 'AWS Amplify', -2, 0,
     ['Cloud & DevOps'],
     'Hosting this portfolio on AWS Amplify. Experience using Amplify for CI/CD deployment pipelines, custom domains, and hosting static sites and full-stack web apps.',
     [
       { label: 'Lightsail', iconSrc: lightsailIcon },
       { label: 'WordPress', iconSrc: wordpressIcon },
     ]),
-  makeTech('python', 'Python', pythonIcon, 'Python', 0, -1,
+  makeTech('python', 'Python', pythonIcon, 'Python', 0, 0,
     ['Back-End Development'],
     'Strong Python skills with a focus on scripting, automation, and tooling. Experience building utilities and working with data processing libraries.',
     [
@@ -208,7 +277,7 @@ export const technologies: TechItem[] = [
       { label: 'Python Certification',  iconSrc: awardIcon, href: certPython },
       { label: 'Data Analytics',        iconSrc: awardIcon, href: certDataAnalytics },
     ]),
-  makeTech('sql', 'SQL / Databases', sqlIcon, 'SQL', 1, -1,
+  makeTech('sql', 'SQL / Databases', sqlIcon, 'SQL', 1, 0,
     ['Back-End Development'],
     'Experienced with relational databases including MySQL, SQLite, MSSQL, and PostgreSQL. Also familiar with caching solutions like Redis.',
     [
@@ -222,73 +291,6 @@ export const technologies: TechItem[] = [
       { label: 'DynamoDB',              iconSrc: null },
       { label: 'Database Certification',iconSrc: awardIcon, href: certDatabase },
     ]),
-
-  // Indices 7-9 — DevOps core (mobile r=-3)
-  makeTech('docker', 'Docker', dockerIcon, 'Docker', 2, -1,
-    ['Cloud & DevOps'],
-    'Daily use for containerizing applications and managing local dev environments. Comfortable writing Dockerfiles, managing images, and working within container-based workflows.',
-    [
-      { label: 'Docker Compose', iconSrc: dockerIcon },
-      { label: 'Docker Hub',     iconSrc: dockerIcon },
-      { label: 'Dockerfile',     iconSrc: dockerIcon },
-      { label: 'ACR',            iconSrc: acrIcon },
-    ]),
-  makeTech('linux', 'Linux', linuxIcon, 'Linux', -1, -1,
-    ['Cloud & DevOps'],
-    'Daily driver OS and primary server environment. Comfortable with system administration, shell scripting, package management, and managing Linux-based container hosts.',
-    [
-      { label: 'Bash', iconSrc: terminalIcon },
-      { label: 'Vim', iconSrc: null },
-      { label: 'SSH', iconSrc: terminalIcon },
-      { label: 'Arch Linux', iconSrc: archLinuxIcon },
-      { label: 'Ubuntu', iconSrc: ubuntuIcon },
-      { label: 'Debian', iconSrc: debianIcon },
-      { label: 'Cybersecurity',    iconSrc: awardIcon, href: certCybersecurity },
-      { label: 'Network Security', iconSrc: awardIcon, href: certNetworkSecurity },
-    ]),
-  makeTech('kubernetes', 'Kubernetes', kubernetesIcon, 'Kubernetes', -2, 0,
-    ['Cloud & DevOps'],
-    'Hands-on experience deploying and managing workloads in Kubernetes clusters. Comfortable with pods, deployments, services, ingress, namespaces, and YAML resource management. Use k9s for cluster navigation and Cilium/Hubble for networking and observability.',
-    [
-      { label: 'kubectl',            iconSrc: kubernetesIcon },
-      { label: 'k9s',                iconSrc: k9sIcon },
-      { label: 'Ingress',            iconSrc: kubernetesIcon },
-      { label: 'Namespaces',        iconSrc: kubernetesIcon },
-      { label: 'Security Risk Mgmt', iconSrc: awardIcon, href: certManageSecurity },
-    ]),
-
-  // Indices 10-13 — orchestration + Azure pair (mobile r=-2)
-  makeTech('helm', 'Helm', helmIcon, 'Helm', -1, 0,
-    ['Cloud & DevOps'],
-    'Use Helm to manage Kubernetes application deployments via charts. Experience writing and customizing Helm charts for repeatable, version-controlled cluster releases.',
-    [
-      { label: 'Helm Charts',  iconSrc: helmIcon },
-      { label: 'Helmfile',     iconSrc: helmIcon },
-      { label: 'Values Files', iconSrc: helmIcon },
-    ]),
-  makeTech('azure_devops', 'Azure DevOps', azureDevOpsIcon, 'Azure DevOps', 0, 0,
-    ['Cloud & DevOps'],
-    'Daily use at Netacent — managing pipelines, releases, repos, and work items. Experience authoring YAML pipelines and configuring multi-stage release definitions.',
-    [
-      { label: 'Pipelines', iconSrc: azurePipelinesIcon },
-      { label: 'Repos', iconSrc: azureReposIcon },
-      { label: 'Boards', iconSrc: azureBoardsIcon },
-      { label: 'Artifacts', iconSrc: azureArtifactsIcon },
-      { label: 'AWS', iconSrc: awsIcon },
-    ]),
-  makeTech('azure_cloud', 'Azure Cloud', azureCloudIcon, 'Azure Cloud', 1, 0,
-    ['Cloud & DevOps'],
-    'Experience with Azure cloud services for container-based workloads. Use AKS for Kubernetes orchestration, ACR as a container registry, and ACNS with Retina for network observability.',
-    [
-      { label: 'AKS', iconSrc: aksIcon },
-      { label: 'ACR', iconSrc: acrIcon },
-      { label: 'ACNS', iconSrc: hubbleIcon },
-      { label: 'Blob Storage', iconSrc: azureBlobIcon },
-      { label: 'Azure SQL', iconSrc: azureSqlIcon },
-      { label: 'VMs', iconSrc: azureVmIcon },
-      { label: 'Functions', iconSrc: azureFuncIcon },
-      { label: 'Entra ID', iconSrc: azureEntraIcon },
-    ]),
   makeTech('csharp', 'C#', csharpIcon, 'C#', -3, 1,
     ['Back-End Development'],
     'Strongest backend language. Proficient in C# with ASP.NET Core, Entity Framework, LINQ, and .NET ecosystem tooling.',
@@ -298,7 +300,7 @@ export const technologies: TechItem[] = [
       { label: 'Chocolatey', iconSrc: chocolateyIcon },
     ]),
 
-  // Indices 14-16 — back-end + frontend (mobile r=-1)
+  // Indices 14-16 — backend + frontend (mobile r=-1)
   makeTech('netcore', 'ASP.NET Core', netcoreIcon, '.NET', -2, 1,
     ['Back-End Development'],
     'Backend framework for building REST APIs and web applications. Experience with middleware pipelines, dependency injection, and Entity Framework Core.',
@@ -327,7 +329,7 @@ export const technologies: TechItem[] = [
       { label: 'Figma', iconSrc: figmaIcon },
     ]),
 
-  // Indices 17-20 — frontend + monitoring (mobile r=0)
+  // Indices 17-20 — frontend + misc (mobile r=0)
   makeTech('javascript', 'JavaScript', jsIcon, 'JavaScript', 1, 1,
     ['Front-End Development', 'Back-End Development'],
     'Core language for web development. Proficient with ES6+, async/await patterns, DOM manipulation, and Node.js runtime.',
@@ -337,7 +339,7 @@ export const technologies: TechItem[] = [
       { label: 'Vue', iconSrc: vueIcon },
       { label: 'Angular', iconSrc: angularIcon },
     ]),
-  makeTech('typescript', 'TypeScript', tsIcon, 'TypeScript', -3, 2,
+  makeTech('typescript', 'TypeScript', tsIcon, 'TypeScript', 0, 2,
     ['Front-End Development', 'Back-End Development'],
     'Preferred over plain JavaScript. Strong typing, interfaces, generics, and type-safe design across full-stack projects — used exclusively in this portfolio.',
     [
@@ -345,28 +347,26 @@ export const technologies: TechItem[] = [
       { label: 'Vue', iconSrc: vueIcon },
       { label: 'Angular', iconSrc: angularIcon },
     ]),
-  makeTech('prometheus', 'Prometheus', prometheusIcon, 'Prometheus', -2, 2,
-    ['Monitoring & Observability'],
-    'Experience setting up Prometheus for metrics collection in Kubernetes environments. Use Retina for network metrics and integrate with Grafana for visualization and alerting.',
+  makeTech('figma', 'Figma', figmaIcon, 'Figma', -2, 2,
+    ['Front-End Development', 'Miscellaneous'],
+    'One of my favorite tools. Use Figma for UI/UX design, prototyping, and design systems — including the design for this portfolio.',
     [
-      { label: 'Retina', iconSrc: retinaIcon },
-      { label: 'Alloy', iconSrc: alloyIcon },
-      { label: 'ACNS', iconSrc: hubbleIcon },
-      { label: 'Cilium', iconSrc: ciliumIcon },
-      { label: 'eBPF', iconSrc: ebpfIcon },
+      { label: 'Claude AI', iconSrc: claudeIcon },
+      { label: 'Figma Design Essentials', iconSrc: awardIcon, href: certFigmaDesign },
+      { label: 'Wireframes',              iconSrc: awardIcon, href: certWireframes },
     ]),
-  makeTech('grafana', 'Grafana', grafanaIcon, 'Grafana', -1, 2,
-    ['Monitoring & Observability'],
-    'Build and maintain Grafana dashboards for cluster and application observability. Experience configuring data sources, panels, and alert rules across Prometheus and Loki.',
+  makeTech('github', 'GitHub', githubIcon, 'GitHub', -1, 2,
+    ['Miscellaneous'],
+    'Version control with Git and GitHub for collaboration, code review, and CI/CD. Proficient with branching strategies, rebasing, cherry-picking, and resolving complex merge conflicts.',
     [
-      { label: 'Alloy', iconSrc: alloyIcon },
-      { label: 'Loki', iconSrc: lokiIcon },
-      { label: 'Prometheus', iconSrc: prometheusIcon },
-      { label: 'ACNS', iconSrc: hubbleIcon },
+      { label: 'Git',             iconSrc: githubIcon },
+      { label: 'GitHub Actions', iconSrc: githubActionsIcon },
+      { label: 'Azure Repos',    iconSrc: azureReposIcon },
+      { label: 'Git & GitHub',   iconSrc: awardIcon, href: certGitGithub },
     ]),
 
   // Index 21 — AI tooling (mobile r=1)
-  makeTech('claude', 'Claude AI', claudeIcon, 'Claude', 0, 2,
+  makeTech('claude', 'Claude AI', claudeIcon, 'Claude', -3, 2,
     ['Miscellaneous'],
     'Daily AI collaborator for development, architecture decisions, and complex problem-solving. Use Claude Code as a CLI-driven coding agent — leveraging subagents, skills, and hooks to automate multi-step workflows directly in the terminal.',
     [
@@ -401,19 +401,28 @@ export const educationCerts: SubTechItem[] = [
 
 // --- Mobile portrait hex layout ---
 // 3-4-3-4-3-4-1 = 22 tiles across 7 rows (r=-5 to r=1)
+// Mapped by array index:
+//
+//   r=-5 (3):  docker      linux       kubernetes
+//   r=-4 (4):  helm        aws         azure_cloud azure_devops
+//   r=-3 (3):  prometheus  grafana     education
+//   r=-2 (4):  amplify     python      sql         csharp
+//   r=-1 (3):  netcore     react       tailwind
+//   r= 0 (4):  javascript  typescript  figma       github
+//   r= 1 (1):  claude
 
 export const mobileGridPositions: { q: number; r: number }[] = [
-  // Row r=-5 (3): education, figma, github
+  // Row r=-5 (3): docker, linux, kubernetes
   { q: 1, r: -5 }, { q: 2, r: -5 }, { q: 3, r: -5 },
-  // Row r=-4 (4): aws, amplify, python, sql
+  // Row r=-4 (4): helm, aws, azure_cloud, azure_devops
   { q: 0, r: -4 }, { q: 1, r: -4 }, { q: 2, r: -4 }, { q: 3, r: -4 },
-  // Row r=-3 (3): docker, linux, kubernetes
+  // Row r=-3 (3): prometheus, grafana, education
   { q: 0, r: -3 }, { q: 1, r: -3 }, { q: 2, r: -3 },
-  // Row r=-2 (4): helm, azure_devops, azure_cloud, csharp
+  // Row r=-2 (4): amplify, python, sql, csharp
   { q: -1, r: -2 }, { q: 0, r: -2 }, { q: 1, r: -2 }, { q: 2, r: -2 },
   // Row r=-1 (3): netcore, react, tailwind
   { q: -1, r: -1 }, { q: 0, r: -1 }, { q: 1, r: -1 },
-  // Row r=0 (4): javascript, typescript, prometheus, grafana
+  // Row r=0 (4): javascript, typescript, figma, github
   { q: -2, r: 0 }, { q: -1, r: 0 }, { q: 0, r: 0 }, { q: 1, r: 0 },
   // Row r=1 (1): claude
   { q: -1, r: 1 },
@@ -421,14 +430,20 @@ export const mobileGridPositions: { q: number; r: number }[] = [
 
 // --- Mobile landscape hex layout ---
 // 6-5-6-5 = 22 tiles across 4 rows (r=-2 to r=1)
+// Mapped by array index:
+//
+//   r=-2 (6):  docker  linux  kubernetes  helm  aws  azure_cloud
+//   r=-1 (5):  azure_devops  prometheus  grafana  education  amplify
+//   r= 0 (6):  python  sql  csharp  netcore  react  tailwind
+//   r= 1 (5):  javascript  typescript  figma  github  claude
 
 export const landscapeMobileGridPositions: { q: number; r: number }[] = [
-  // Row r=-2 (6): education, figma, github, aws, amplify, python
+  // Row r=-2 (6): docker, linux, kubernetes, helm, aws, azure_cloud
   { q: -2, r: -2 }, { q: -1, r: -2 }, { q: 0, r: -2 }, { q: 1, r: -2 }, { q: 2, r: -2 }, { q: 3, r: -2 },
-  // Row r=-1 (5): sql, docker, linux, kubernetes, helm
+  // Row r=-1 (5): azure_devops, prometheus, grafana, education, amplify
   { q: -2, r: -1 }, { q: -1, r: -1 }, { q: 0, r: -1 }, { q: 1, r: -1 }, { q: 2, r: -1 },
-  // Row r=0 (6): azure_devops, azure_cloud, csharp, netcore, react, tailwind
+  // Row r=0 (6): python, sql, csharp, netcore, react, tailwind
   { q: -3, r: 0 }, { q: -2, r: 0 }, { q: -1, r: 0 }, { q: 0, r: 0 }, { q: 1, r: 0 }, { q: 2, r: 0 },
-  // Row r=1 (5): javascript, typescript, prometheus, grafana, claude
+  // Row r=1 (5): javascript, typescript, figma, github, claude
   { q: -3, r: 1 }, { q: -2, r: 1 }, { q: -1, r: 1 }, { q: 0, r: 1 }, { q: 1, r: 1 },
 ]
