@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import ResumeSvg from '@/assets/images/misc/Resume.svg'
+import JBLogo from '@/assets/jb-logo.svg'
 
 const navLinks = [
   { label: 'Home', href: '#home' },
@@ -129,7 +130,18 @@ export default function NavBar() {
                          ? 'rounded-none shadow-md'
                          : 'rounded-t-3xl shadow-[0_-2px_4px_rgba(0,0,0,0.04),0_-4px_12px_rgba(0,0,0,0.08),0_-8px_24px_rgba(0,0,0,0.12)]'
                        }`}>
-        <div className="flex items-center justify-end px-12 xl:px-18 py-5">
+        <div className="flex items-center justify-between px-12 xl:px-18 py-5">
+          <a
+            href="#home"
+            onClick={(e) => {
+              e.preventDefault()
+              handleNavClick('#home')
+            }}
+            className="transition-opacity duration-300 hover:opacity-80"
+          >
+            <img src={JBLogo} alt="Jacob Brown" className="h-10 xl:h-12 w-auto" />
+          </a>
+          <div className="flex items-center">
           {navLinks.map((link) => {
             const isActive = activeLink === link.href
             return (
@@ -170,6 +182,7 @@ export default function NavBar() {
             <img src={ResumeSvg} alt="" className="h-5 xl:h-6 w-auto" aria-hidden="true" />
             Resume
           </a>
+          </div>
         </div>
       </nav>
 
@@ -281,28 +294,33 @@ export default function NavBar() {
             })}
           </div>
 
-          {/* Footer — resume + contact */}
+          {/* Footer — resume + contact + logo */}
           <div className="shrink-0 px-6 pb-6 landscape:pb-3">
             <div className="h-px bg-gradient-to-r from-blue-medium-2/40 via-blue-medium-1/20 to-transparent mb-4 landscape:mb-2" />
 
-            <a
-              href="/documents/Jacob Brown Resume.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-serif text-lg text-tan-neutral hover:text-blue-medium-1
-                         transition-colors duration-200 mb-3 flex items-center gap-2"
-            >
-              <img src={ResumeSvg} alt="" className="h-5 w-auto" aria-hidden="true" />
-              Resume
-            </a>
+            <div className="flex items-end justify-between">
+              <div>
+                <a
+                  href="/documents/Jacob Brown Resume.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-serif text-lg text-tan-neutral hover:text-blue-medium-1
+                             transition-colors duration-200 mb-3 flex items-center gap-2"
+                >
+                  <img src={ResumeSvg} alt="" className="h-5 w-auto" aria-hidden="true" />
+                  Resume
+                </a>
 
-            <a
-              href="mailto:Jacob@jacobebrown.dev"
-              className="block text-sm text-tan-neutral/60 hover:text-blue-medium-1
-                         transition-colors duration-200"
-            >
-              Jacob@jacobebrown.dev
-            </a>
+                <a
+                  href="mailto:Jacob@jacobebrown.dev"
+                  className="block text-sm text-tan-neutral/60 hover:text-blue-medium-1
+                             transition-colors duration-200"
+                >
+                  Jacob@jacobebrown.dev
+                </a>
+              </div>
+              <img src={JBLogo} alt="" className="h-12 w-auto opacity-40" aria-hidden="true" />
+            </div>
           </div>
         </div>
       </div>
