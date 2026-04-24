@@ -279,7 +279,7 @@ const HexGrid: React.FC<HexGridProps> = ({
         }
       });
     }
-  }, [hexes, getAdjacentHexes]);
+  }, [hexes, getAdjacentHexes, animateSelection]);
 
   // Mobile scroll bounce — staggered bounce via ScrollTrigger.batch()
   useEffect(() => {
@@ -353,8 +353,6 @@ const HexGrid: React.FC<HexGridProps> = ({
             <HexTile
               key={hex.id}
               id={hex.id}
-              q={hex.q}
-              r={hex.r}
               icon={hex.icon}
               label={hex.label}
               size={responsiveSize}

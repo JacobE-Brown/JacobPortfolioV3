@@ -4,8 +4,6 @@ import TechBadge from './TechBadge';
 
 interface HexTileProps {
   id: string;
-  q: number;
-  r: number;
   icon: React.ReactNode;
   label: string;
   size: number;
@@ -52,6 +50,13 @@ const HexTile: React.FC<HexTileProps> = ({
     onClick?.(id);
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault()
+      onClick?.(id)
+    }
+  }
+
   const handleMouseEnter = () => {
     onHover?.(id, true);
   };
@@ -67,20 +72,21 @@ const HexTile: React.FC<HexTileProps> = ({
   return (
     <div
       id={`hex-${id}`}
-      className={`hex-tile absolute cursor-pointer ${isSelected ? 'selected' : ''} ${className}`}
+      role="button"
+      tabIndex={faded ? -1 : 0}
+      aria-label={label}
+      className={`hex-tile absolute cursor-pointer origin-center transition-[opacity,filter] duration-400 ease-in-out
+        ${isSelected ? 'selected z-10' : 'z-1'}
+        ${faded ? 'opacity-20 pointer-events-none grayscale-80' : 'opacity-100 pointer-events-auto'}
+        ${className}`}
       style={{
         left: `${left}px`,
         top: `${top}px`,
         width: `${size * 2}px`,
         height: `${size * Math.sqrt(3)}px`,
-        zIndex: isSelected ? 10 : 1,
-        opacity: faded ? 0.2 : 1,
-        pointerEvents: faded ? 'none' as const : 'auto' as const,
-        ...(faded ? { filter: 'grayscale(80%)' } : {}),
-        transition: 'opacity 0.4s ease, filter 0.4s ease',
-        transformOrigin: 'center center'
       }}
       onClick={handleClick}
+      onKeyDown={handleKeyDown}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >

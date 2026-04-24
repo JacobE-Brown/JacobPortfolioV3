@@ -37,27 +37,18 @@ const TechBadge = ({ icon, name, className = "", zoomLevel = 1, hexSize = { x: 5
         transition: 'transform 0.3s ease'
       } as React.CSSProperties}
     >
-      <div 
-        className="relative tech-icon"
-        style={{ 
-          width: iconSize, 
+      <div
+        className="relative flex items-center justify-center tech-icon"
+        style={{
+          width: iconSize,
           height: iconSize,
           '--icon-size': `${iconSize}px`,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center'
         } as React.CSSProperties}
       >
-        <div 
-          className="tech-icon-content"
-          style={{ 
-            width: '100%', 
-            height: '100%',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
+        <div
+          className="w-full h-full flex items-center justify-center origin-center tech-icon-content"
+          style={{
             transform: `scale(${scaleFactor})`,
-            transformOrigin: 'center'
           }}
         >
           {icon}
@@ -67,8 +58,8 @@ const TechBadge = ({ icon, name, className = "", zoomLevel = 1, hexSize = { x: 5
         className="flex items-center justify-center gap-1 relative flex-[0_0_auto] overflow-hidden tech-label"
         style={{
           borderRadius: `${fontSize * 0.8}px`,
-          border: `${fontSize * 0.15}px solid #54BAB9`,
-          background: '#F7FBFC',
+          border: `${fontSize * 0.15}px solid var(--color-blue-medium-2)`,
+          background: 'var(--color-blue-neutral)',
           boxShadow: `0 ${fontSize * 0.15}px ${fontSize * 0.15}px 0 rgba(0, 0, 0, 0.25)`,
           fontSize: `${fontSize}px`,
           padding: `${padding}px ${padding * 1.5}px`,

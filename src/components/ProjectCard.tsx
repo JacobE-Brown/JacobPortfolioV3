@@ -3,7 +3,6 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import hexBase from '@/assets/images/misc/hex-base.svg'
 import ProjectLink from '@/components/ProjectLink'
-import { useExternalLink } from '@/components/ExternalLinkModal'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -52,7 +51,6 @@ function HexGallery({
 }) {
   const containerRef = useRef<HTMLDivElement>(null)
   const largeHexRef = useRef<HTMLDivElement>(null)
-  const { openExternalLink } = useExternalLink()
   const smallHex0Ref = useRef<HTMLDivElement>(null)
   const smallHex1Ref = useRef<HTMLDivElement>(null)
 
@@ -137,13 +135,14 @@ function HexGallery({
             style={{ aspectRatio: '1 / 0.866', clipPath: HEX_CLIP }}
             onMouseEnter={() => handleHover('large', true)}
             onMouseLeave={() => handleHover('large', false)}
-            onClick={() => { if (projectUrl) openExternalLink(projectUrl) }}
+            onClick={() => { if (projectUrl) window.open(projectUrl, '_blank', 'noopener,noreferrer') }}
           >
             <div className="w-full h-full" style={{ clipPath: HEX_CLIP }}>
               <img
                 src={primaryImage ?? hexBase}
                 alt={projectName}
                 className={primaryImageClassName ?? 'w-full h-full object-contain bg-tan-neutral p-8'}
+                loading="lazy"
               />
             </div>
           </div>
@@ -164,6 +163,7 @@ function HexGallery({
                     src={secondaryImages[i] ?? hexBase}
                     alt=""
                     className={`w-full h-full object-contain bg-tan-neutral ${secondaryImagePaddings[i] ?? 'p-2'}`}
+                    loading="lazy"
                   />
                 </div>
               </div>
@@ -188,7 +188,9 @@ function BrowserGallery({
 }) {
   const containerRef = useRef<HTMLDivElement>(null)
   const mockupRef = useRef<HTMLDivElement>(null)
-  const { openExternalLink } = useExternalLink()
+
+  let displayUrl = projectUrl ?? ''
+  try { displayUrl = new URL(projectUrl ?? '').host } catch { /* use raw */ }
 
   useEffect(() => {
     if (!mockupRef.current) return
@@ -209,7 +211,7 @@ function BrowserGallery({
     gsap.to(mockupRef.current, { scale: 1, duration: 0.25, ease: 'power2.out' })
   }
   const handleClick = () => {
-    if (projectUrl) openExternalLink(projectUrl)
+    if (projectUrl) window.open(projectUrl, '_blank', 'noopener,noreferrer')
   }
 
   const desktopBorderClass = reversed ? 'lg:border-r-8' : 'lg:border-l-8'
@@ -235,8 +237,7 @@ function BrowserGallery({
         {/* Browser mockup */}
         <div
           ref={mockupRef}
-          className="w-full max-w-sm md:max-w-md lg:max-w-lg rounded-lg overflow-hidden shadow-2xl"
-          style={{ cursor: projectUrl ? 'pointer' : 'default' }}
+          className={`w-full max-w-sm md:max-w-md lg:max-w-lg rounded-lg overflow-hidden shadow-2xl ${projectUrl ? 'cursor-pointer' : 'cursor-default'}`}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
           onClick={handleClick}
@@ -247,7 +248,7 @@ function BrowserGallery({
             <span className="w-3 h-3 rounded-full bg-[#febc2e]" />
             <span className="w-3 h-3 rounded-full bg-[#28c840]" />
             <div className="ml-2 flex-1 bg-[#3a3a3e] rounded text-[10px] text-gray-400 px-3 py-0.5 truncate font-sans">
-              samsbees.s3-website-us-east-1.amazonaws.com
+              {displayUrl}
             </div>
           </div>
           {/* Screenshot */}
@@ -255,6 +256,7 @@ function BrowserGallery({
             src={primaryImage ?? hexBase}
             alt={projectName}
             className="w-full block object-cover"
+            loading="lazy"
           />
         </div>
       </div>
@@ -290,7 +292,7 @@ function TextContent({ title, description, reversed = false, technologies, links
           <div className="flex flex-wrap gap-2">
             {technologies.map((tech, i) => (
               <div key={i} className="flex items-center gap-2 bg-white/60 border border-blue-medium-1/30 rounded-full px-3 py-1.5 hover:bg-white/80 transition-colors">
-                <img src={tech.icon} alt="" className="w-5 h-5 sm:w-6 sm:h-6 object-contain rounded shrink-0" />
+                <img src={tech.icon} alt="" className="w-5 h-5 sm:w-6 sm:h-6 object-contain rounded shrink-0" loading="lazy" />
                 <span className="font-sans text-text-2 text-sm leading-none">{tech.label}</span>
               </div>
             ))}

@@ -20,13 +20,12 @@ import tailwindIcon from './assets/images/tech/tailwinds.svg'
 import viteIcon from './assets/images/tech/vitejs.svg'
 import s3Icon from './assets/images/tech/AWS/Simple Storage Service.svg'
 import typescriptIcon from './assets/images/tech/typescript.svg'
-import samsBeesHomepage from "./assets/images/Projects/Sam's Bees/SamsBeesHomepage.png"
+import samsBeesHomepage from "./assets/images/Projects/Sam's Bees/SamsBeesHomepage.webp"
 import githubIcon from './assets/images/tech/github-1-1.svg'
 import portfolioHero from "./assets/images/Projects/Recursive Portfolio/Portfolio pic.png"
 import figmaIcon from './assets/images/tech/figma.svg'
 import amplifyIcon from './assets/images/tech/AWS/Amplify.svg'
 import ContactMe from './components/ContactMe'
-import { ExternalLinkProvider } from './components/ExternalLinkModal'
 import externalLinkIcon from './assets/images/misc/external-link.svg'
 
 const projects = [
@@ -104,8 +103,10 @@ const projects = [
 
 function App() {
   return (
-    <ExternalLinkProvider>
     <div className="min-h-screen bg-parchment text-text-1">
+      <a href="#about" className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:bg-text-1 focus:text-cream-neutral focus:px-4 focus:py-2 focus:rounded-lg focus:shadow-lg focus:font-sans focus:text-sm">
+        Skip to content
+      </a>
       <ParticleBackground />
       <HeroSection />
       <NavBar />
@@ -151,7 +152,6 @@ function App() {
         <ContactMe />
       </main>
     </div>
-    </ExternalLinkProvider>
   )
 }
 

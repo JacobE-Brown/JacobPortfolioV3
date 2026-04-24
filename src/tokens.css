@@ -4,6 +4,7 @@
 @theme {
   /* Colors from Figma */
   --color-text-1: #002A58;
+  --color-text-2: #7D6E4F;
 
   --color-blue-medium-1: #70CFFB;
   --color-blue-medium-2: #54BAB9;
@@ -108,21 +109,20 @@
     transform-origin: center;
   }
 
-  .tech-badge-responsive img {
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: contain !important;
-    max-width: none !important;
-    max-height: none !important;
-    min-width: 0 !important;
-    min-height: 0 !important;
-  }
-
   .tech-badge-responsive .tech-icon,
   .tech-badge-responsive .tech-icon-content,
   .tech-badge-responsive .tech-label,
   .tech-badge-responsive .tech-label-text {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     transform-origin: center;
+  }
+
+  .contact-min-h {
+    min-height: auto;
+  }
+  @media (min-width: 1024px) {
+    .contact-min-h {
+      min-height: calc(100svh - var(--nav-h, 5rem));
+    }
   }
 }

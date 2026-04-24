@@ -1,12 +1,9 @@
 import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { useExternalLink } from './ExternalLinkModal'
-
 import githubIcon from '@/assets/images/tech/github-1-1.svg'
 import linkedinIcon from '@/assets/images/misc/linkedin(1).svg'
 import substackIcon from '@/assets/images/misc/substack.svg'
-import figmaIcon from '@/assets/images/tech/figma.svg'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -17,14 +14,12 @@ function smoothScroll(e: React.MouseEvent<HTMLAnchorElement>) {
 }
 
 const socials = [
-  { name: "GitHub",   href: "https://github.com/JacobE-Brown",      icon: githubIcon },
-  { name: "LinkedIn", href: "https://www.linkedin.com/in/jacobbrowndev/",  icon: linkedinIcon },
-  { name: "Substack", href: "https://substack.com/@jacobbrowndev",   icon: substackIcon },
-  { name: "Figma",    href: "#",                                     icon: figmaIcon, disabled: true },
+  { name: "GitHub",   href: "https://github.com/JacobE-Brown",            icon: githubIcon },
+  { name: "LinkedIn", href: "https://www.linkedin.com/in/jacobbrowndev/", icon: linkedinIcon },
+  { name: "Substack", href: "https://substack.com/@jacobbrowndev",        icon: substackIcon },
 ];
 
 export default function ContactMe() {
-  const { openExternalLink } = useExternalLink()
   const headingRef = useRef<HTMLHeadingElement>(null)
   const emailRef = useRef<HTMLDivElement>(null)
   const emailLinkRef = useRef<HTMLAnchorElement>(null)
@@ -83,7 +78,7 @@ export default function ContactMe() {
   }, [])
 
   return (
-    <section id="contact" className="bg-blue-neutral flex flex-col items-center justify-end" style={{ minHeight: 'calc(100svh - var(--nav-h, 5rem))' }}>
+    <section id="contact" className="contact-min-h bg-blue-neutral flex flex-col items-center justify-end">
       <div className="flex-1 flex flex-col items-center justify-center gap-6 sm:gap-8 md:gap-12 lg:gap-16 px-6 sm:px-8 pb-10 sm:pb-12">
         <h2
           ref={headingRef}
@@ -123,39 +118,16 @@ export default function ContactMe() {
             {socials.map((s) => (
               <a
                 key={s.name}
-                href={s.disabled ? undefined : s.href}
-                onClick={(e) => {
-                  if (s.disabled) {
-                    e.preventDefault()
-                    return
-                  }
-                  if (s.href.startsWith('http')) {
-                    e.preventDefault()
-                    openExternalLink(s.href)
-                  }
-                }}
-                target={s.disabled ? undefined : "_blank"}
-                rel={s.disabled ? undefined : "noopener noreferrer"}
-                className={`group relative flex items-center gap-2 rounded-full px-4 py-2
+                href={s.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group relative flex items-center gap-2 rounded-full px-4 py-2
                            transition-all duration-300 ease-out
-                           ${s.disabled
-                             ? 'bg-white/30 border border-gray-300/50 cursor-default opacity-50 grayscale'
-                             : 'bg-white/60 border border-blue-medium-2/50 cursor-pointer hover:bg-white/90 hover:border-blue-medium-2 hover:shadow-md hover:scale-105 active:scale-95'
-                           }`}
+                           bg-white/60 border border-blue-medium-2/50 cursor-pointer hover:bg-white/90 hover:border-blue-medium-2 hover:shadow-md hover:scale-105 active:scale-95"
               >
-                <img src={s.icon} alt="" className="w-5 h-5 sm:w-6 sm:h-6 object-contain rounded shrink-0" />
+                <img src={s.icon} alt="" className="w-5 h-5 sm:w-6 sm:h-6 object-contain rounded shrink-0" loading="lazy" />
                 <span className="font-sans font-semibold text-text-2 text-sm sm:text-base leading-none">{s.name}</span>
-                {!s.disabled && (
-                  <span className="font-sans text-blue-medium-2 text-xs leading-none opacity-90 ml-0.5">↗</span>
-                )}
-                {s.disabled && (
-                  <span className="absolute -top-10 left-1/2 -translate-x-1/2
-                                   bg-text-1 text-blue-neutral text-xs font-sans font-medium rounded-lg px-3 py-1.5
-                                   opacity-0 group-hover:opacity-100 transition-opacity duration-200
-                                   pointer-events-none whitespace-nowrap shadow-lg">
-                    Coming Soon
-                  </span>
-                )}
+                <span className="font-sans text-blue-medium-2 text-xs leading-none opacity-90 ml-0.5">↗</span>
               </a>
             ))}
           </div>

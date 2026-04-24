@@ -109,11 +109,11 @@ export default function WhatIDo() {
             onClick={() => handleClick(item.category)}
           >
             <TechBadge
-              icon={<img src={item.icon} alt={item.label} className="w-full h-full" />}
+              icon={<img src={item.icon} alt={item.label} className="w-full h-full" loading="lazy" />}
               name={item.label}
               hexSize={{ x: 75, y: 75 }}
             />
-            <p className="font-sans text-xs md:text-xl lg:text-xl text-text-1 text-center leading-relaxed">
+            <p className="font-sans text-xs sm:text-sm md:text-base lg:text-lg text-text-1 text-center leading-relaxed">
               {item.description}
             </p>
           </div>
