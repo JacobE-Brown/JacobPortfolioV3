@@ -16,11 +16,15 @@ export function EducationContent({ compact = false }: { compact?: boolean }) {
               href={doc.href}
               target="_blank"
               rel="noopener noreferrer"
-              className={`flex items-center gap-2 self-start font-sans text-text-2 hover:text-text-1 transition-colors duration-200
+              className={`flex items-center gap-2 self-start font-sans font-semibold text-text-2 rounded-full px-4 py-2
+                transition-all duration-300 ease-out cursor-pointer
+                bg-white/60 border border-blue-medium-2/50
+                hover:bg-white/90 hover:border-blue-medium-2 hover:text-text-1 hover:shadow-md hover:scale-105 active:scale-95
                 ${compact ? 'text-sm' : 'text-sm md:text-base'}`}
             >
               <img src={graduatedIcon} alt="" loading="lazy" className="w-5 h-5 object-contain opacity-60 shrink-0" />
               {doc.label}
+              <span className="font-sans text-blue-medium-2 text-xs leading-none opacity-90 ml-0.5">↗</span>
             </a>
           ))}
         </div>
