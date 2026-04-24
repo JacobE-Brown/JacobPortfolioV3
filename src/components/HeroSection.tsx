@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import HexProfileFrame from "@/components/HexProfileFrame";
 import profileImg from "@/assets/images/profile.jpg";
 
@@ -8,11 +9,39 @@ function smoothScroll(e: React.MouseEvent<HTMLAnchorElement>) {
 }
 
 export default function HeroSection() {
+  // On mobile browsers, lock hero height on mount to prevent layout shifts
+  // when browser chrome (bottom toolbar) appears/disappears during scroll
+  const [fixedHeight, setFixedHeight] = useState<string | null>(null);
+
+  useEffect(() => {
+    const lock = () => {
+      if (window.innerWidth < 1024) {
+        setFixedHeight(`${window.innerHeight}px`);
+      } else {
+        setFixedHeight(null);
+      }
+    };
+    lock();
+
+    // Re-lock on orientation change (not on scroll-triggered resizes)
+    const onOrientation = () => setTimeout(lock, 150);
+    window.addEventListener("orientationchange", onOrientation);
+
+    // Handle crossing the lg breakpoint
+    const mql = window.matchMedia("(min-width: 1024px)");
+    mql.addEventListener("change", lock);
+
+    return () => {
+      window.removeEventListener("orientationchange", onOrientation);
+      mql.removeEventListener("change", lock);
+    };
+  }, []);
+
   return (
     <section
       id="home"
       className="relative overflow-hidden"
-      style={{ height: 'calc(100svh - var(--nav-h, 80px))' }}
+      style={{ height: fixedHeight ?? 'calc(100svh - var(--nav-h, 80px))' }}
     >
       <div
         className="flex items-center justify-center h-full py-8 sm:py-16 md:py-24
