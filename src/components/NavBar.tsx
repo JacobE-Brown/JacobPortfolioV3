@@ -186,19 +186,19 @@ export default function NavBar() {
         </div>
       </nav>
 
-      {/* Mobile/tablet: subtle hint arrow when FAB is hidden */}
+      {/* Mobile/tablet: subtle mini hamburger hint when FAB is hidden */}
       <div
         aria-hidden="true"
         onClick={() => setMenuOpen(true)}
-        className={`fixed bottom-0 right-8 z-39 lg:hidden
-                   flex items-end justify-center cursor-pointer
+        className={`fixed bottom-6 right-10 z-39 lg:hidden
+                   flex items-center justify-center cursor-pointer
                    transition-all duration-500 ease-out
                    ${menuOpen || (pastHero && scrollingUp)
                      ? 'opacity-0 pointer-events-none translate-y-full'
                      : 'opacity-100 translate-y-0'}`}
       >
-        <svg width="28" height="16" viewBox="0 0 28 16" fill="none" className="text-text-1/25">
-          <path d="M4 14L14 4L24 14" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+        <svg width="20" height="16" viewBox="0 0 20 16" fill="none" className="text-text-1/25">
+          <path d="M2 2h16M2 8h12M2 14h14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
         </svg>
       </div>
 
