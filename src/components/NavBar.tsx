@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
+import ResumeSvg from '@/assets/images/misc/Resume.svg'
 
 const navLinks = [
   { label: 'Home', href: '#home' },
@@ -159,14 +160,14 @@ export default function NavBar() {
             href="/documents/Jacob Brown Resume.pdf"
             target="_blank"
             rel="noopener noreferrer"
-            className="relative font-serif text-2xl xl:text-4xl tracking-wide
-                       ml-11 xl:ml-14
-                       text-tan-neutral font-normal hover:text-blue-medium-1
-                       transition-all duration-300 ease-out hover:scale-105
-                       after:absolute after:bottom-0 after:left-0 after:h-0.5
-                       after:bg-blue-medium-1 after:transition-all after:duration-300
-                       after:w-0 hover:after:w-full"
+            className="font-serif text-xl xl:text-2xl tracking-wide
+                       ml-11 xl:ml-14 flex items-center gap-2 xl:gap-3
+                       text-tan-neutral font-normal
+                       border border-tan-neutral/30 rounded-full px-5 xl:px-6 py-1.5 xl:py-2
+                       hover:border-blue-medium-1 hover:text-blue-medium-1 hover:bg-blue-medium-1/10
+                       transition-all duration-300 ease-out hover:scale-105"
           >
+            <img src={ResumeSvg} alt="" className="h-5 xl:h-6 w-auto" aria-hidden="true" />
             Resume
           </a>
         </div>
@@ -289,8 +290,9 @@ export default function NavBar() {
               target="_blank"
               rel="noopener noreferrer"
               className="font-serif text-lg text-tan-neutral hover:text-blue-medium-1
-                         transition-colors duration-200 mb-3"
+                         transition-colors duration-200 mb-3 flex items-center gap-2"
             >
+              <img src={ResumeSvg} alt="" className="h-5 w-auto" aria-hidden="true" />
               Resume
             </a>
 

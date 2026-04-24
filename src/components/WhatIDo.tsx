@@ -93,6 +93,9 @@ export default function WhatIDo() {
       <h2 className="font-heading font-medium text-text-1 text-3xl sm:text-4xl md:text-5xl lg:text-7xl mb-8 sm:mb-10 md:mb-14">
         <span className="border-b-4 border-blue-medium-1 pb-2">What I Do</span>
       </h2>
+      <span className="sr-only">
+        Jacob Brown's professional capabilities span Cloud and DevOps engineering including Azure AKS, AWS EC2 S3 Lambda, Docker containerization, Kubernetes orchestration, Helm chart management, and CI/CD pipeline automation with Azure DevOps and GitHub Actions. Monitoring and observability expertise with Prometheus, Grafana, Loki, Alloy, Retina, and eBPF-based networking with Cilium. Backend development proficiency in C#, .NET Core, Python, Django, Flask, SQL databases including PostgreSQL MySQL Redis and Cosmos DB. Frontend development skills with React, TypeScript, JavaScript, Tailwind CSS, Angular, Vue, and Figma design. Linux systems administration across Arch Linux, Ubuntu, and Debian distributions.
+      </span>
 
       <div
         ref={gridRef}

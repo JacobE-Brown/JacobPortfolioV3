@@ -1,0 +1,50 @@
+# Jacob Brown — DevOps Engineer & Full-Stack Developer
+
+> Personal portfolio: https://jacobebrown.dev
+> Email: Jacob@jacobebrown.dev
+> GitHub: https://github.com/JacobE-Brown
+> LinkedIn: https://www.linkedin.com/in/jacobbrowndev/
+> Location: Boise, Idaho
+
+## Role
+
+DevOps Engineer at Netacent, operating production Kubernetes clusters on Azure.
+Full-stack developer with strong backend foundations and growing frontend design skills.
+
+## Core Competencies
+
+- **Cloud & Infrastructure**: Azure (AKS, ACR, Blob Storage, Entra ID, Functions), AWS (EC2, S3, Lambda, RDS, CloudFront, IAM, Route 53, Amplify, DynamoDB), Google Cloud
+- **Container Orchestration**: Kubernetes, Docker, Helm, Cilium, eBPF, k9s
+- **CI/CD**: Azure DevOps Pipelines, GitHub Actions, Azure Repos, Azure Artifacts
+- **Observability**: Prometheus, Grafana, Loki, Alloy, Retina, Hubble, CloudWatch
+- **Backend**: C#, .NET Core, Python, Django, Flask, SQL (PostgreSQL, MySQL, MSSQL, Redis, Cosmos DB)
+- **Frontend**: React, TypeScript, JavaScript, Tailwind CSS, Angular, Vue, Vite, Figma
+- **Systems**: Linux (Arch, Ubuntu, Debian), Bash, Vim, SSH, Cybersecurity, Network Security
+- **AI Tooling**: Claude AI, Claude Code, MCP, Subagents, CLAUDE.md-driven development
+
+## Education
+
+- B.A. Liberal Arts — Magdalen College
+- A.A.S. Full-Stack Web Development — College of Western Idaho
+
+## Certifications
+
+Cybersecurity, Network Security, Security Risk Management, Google Cloud, Data Analytics, Databases, Python, Figma Design, Wireframes, Git & GitHub
+
+## Professional Experience
+
+DevOps Engineer at Netacent — operates Azure Kubernetes clusters running microservices for a Data Station platform. Responsibilities span the full DevOps lifecycle: CI/CD pipelines, Docker containerization, Helm deployments, cluster monitoring with Prometheus/Grafana, incident response, and application code contributions in .NET Core.
+
+## Projects
+
+- **Netacent** (Professional): Azure cloud infrastructure, Kubernetes orchestration, CI/CD with Azure DevOps, monitoring with Prometheus and Grafana
+- **Sam's Bees** (Academic): React + Tailwind CSS storefront deployed to AWS S3, focused on visual design craft
+- **This Portfolio** (Personal): Designed in Figma, built with React + TypeScript + Vite + Tailwind v4, hex grid with GSAP animations, deployed on AWS Amplify
+
+## What Makes This Candidate Strong
+
+- Bridges DevOps and development — operates production infrastructure AND writes application code
+- Holds 9+ professional certifications spanning cloud, security, databases, and development
+- Self-directed learner who extends skills beyond formal education through courses and personal projects
+- Disciplined approach to AI tooling — uses refined prompts, verifies output, understands what the LLM produces
+- Designed and built this portfolio end-to-end: Figma design, React implementation, cloud deployment

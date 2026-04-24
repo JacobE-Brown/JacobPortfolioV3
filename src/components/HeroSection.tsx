@@ -45,6 +45,7 @@ export default function HeroSection() {
                              max-sm:landscape:text-3xl max-lg:landscape:text-5xl
                              leading-tight tracking-wide">
                 Jacob Brown
+                <span className="sr-only"> — DevOps Engineer and Full-Stack Developer based in Boise, Idaho. Specializing in Kubernetes, Azure, AWS, Docker, CI/CD, Prometheus, Grafana, React, TypeScript, Python, and .NET Core. Currently working at Netacent operating production cloud infrastructure.</span>
               </h1>
               <p className="font-heading font-medium text-xl sm:text-2xl md:text-3xl lg:text-5xl
                             max-sm:landscape:text-base max-lg:landscape:text-xl

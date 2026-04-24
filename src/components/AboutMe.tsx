@@ -17,6 +17,9 @@ export default function AboutMe() {
           My AI philosophy is to give the LLM very refined prompts, always understand what the LLM
           did and why, asking it for explanations if necessary, and to check and recheck for errors.
         </p>
+        <span className="sr-only">
+          Jacob Brown holds a B.A. in Liberal Arts from Magdalen College and an A.A.S. in Full-Stack Web Development from the College of Western Idaho. Professional certifications include Cybersecurity, Network Security, Security Risk Management, Google Cloud, Data Analytics, Databases, Python, Figma Design, Wireframes, and Git &amp; GitHub. Experienced with containerization using Docker and Kubernetes, infrastructure as code with Helm, cloud platforms including Azure and AWS, observability with Prometheus and Grafana, backend development with C# .NET Core and Python, and frontend development with React TypeScript and Tailwind CSS.
+        </span>
       </div>
     </section>
   )

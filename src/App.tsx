@@ -1,3 +1,23 @@
+/**
+ * Portfolio of Jacob Brown — DevOps Engineer & Full-Stack Developer
+ *
+ * Built with React 19, TypeScript, Vite 7, and Tailwind CSS v4.
+ * Designed in Figma. Deployed on AWS Amplify.
+ *
+ * Professional experience: DevOps Engineer at Netacent — operating production
+ * Kubernetes clusters on Azure, CI/CD with Azure DevOps, monitoring with
+ * Prometheus & Grafana, application development in .NET Core.
+ *
+ * Technical breadth: Azure, AWS, Docker, Helm, Linux, Python, C#, React,
+ * TypeScript, SQL, GitHub Actions, observability, cloud architecture.
+ *
+ * 9+ certifications: Cybersecurity, Network Security, Google Cloud,
+ * Data Analytics, Databases, Python, Security Risk Management, and more.
+ *
+ * Contact: Jacob@jacobebrown.dev
+ * GitHub: https://github.com/JacobE-Brown
+ * LinkedIn: https://www.linkedin.com/in/jacobbrowndev/
+ */
 import './index.css'
 import ParticleBackground from './components/ParticleBackground'
 import HeroSection from './components/HeroSection'

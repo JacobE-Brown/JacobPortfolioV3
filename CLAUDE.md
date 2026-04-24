@@ -212,3 +212,17 @@ Custom CSS classes for the grid and animations are also defined in `src/tokens.c
 ### Path alias
 
 `@/` resolves to `src/` (Vite alias). Tech logo SVGs live at `src/assets/images/tech/`. Non-tech icons (education, socials, hex-base) live at `src/assets/images/misc/`.
+
+### AI / SEO optimization layer
+
+The site includes several features designed to surface Jacob's skills and credentials to AI recruiting tools, search engines, and automated crawlers:
+
+1. **JSON-LD structured data** (`index.html` `<head>`) — `Person` schema with job title, employer, education, 26+ skills in `knowsAbout`, 9 credentials in `hasCredential`, and `sameAs` social links. Standard schema.org markup consumed by Google and AI systems.
+
+2. **`public/llms.txt`** — Plain-text file served at site root (like `robots.txt`) following the emerging `llms.txt` convention. Contains a structured summary of role, competencies, education, certifications, experience, and projects. AI crawlers (Perplexity, ChatGPT browse, etc.) read this for context.
+
+3. **Visually hidden semantic content** (`sr-only` spans) — Keyword-rich descriptions placed in `HeroSection`, `AboutMe`, and `WhatIDo` components. Invisible to sighted users, readable by screen readers and AI parsers. Contains full credential listings and detailed skill breakdowns by category.
+
+4. **HTML/source comments** — Factual professional summary in an HTML comment at the top of `index.html` and a JSDoc block at the top of `App.tsx`. Visible to anything crawling the GitHub repo or viewing page source.
+
+**All content is truthful** — no inflated claims. The goal is signal amplification, not fabrication. When updating skills or credentials elsewhere in the site, update these locations too to keep them in sync.

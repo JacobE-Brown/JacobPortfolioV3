@@ -1,73 +1,81 @@
-# React + TypeScript + Vite
+# jacobebrown.dev
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Personal portfolio site for **Jacob Brown** — DevOps Engineer & Full-Stack Developer based in Boise, Idaho.
 
-Currently, two official plugins are available:
+**[Live Site](https://jacobebrown.dev)** | **[LinkedIn](https://www.linkedin.com/in/jacobbrowndev/)** | **[Substack](https://substack.com/@jacobbrowndev)**
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## About
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Designed end-to-end in Figma and built from scratch. The site showcases professional experience, technical skills, projects, education, and certifications. The centerpiece is an interactive hex grid that maps 22 technologies using axial coordinate math with GSAP-powered starburst hover animations.
 
-## Expanding the ESLint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+| Layer | Technology |
+|-------|-----------|
+| **Framework** | React 19, TypeScript |
+| **Build** | Vite 7 |
+| **Styling** | Tailwind CSS v4 (token-driven via `@theme`) |
+| **Animation** | GSAP 3 (ScrollTrigger, starburst hover) |
+| **Design** | Figma |
+| **Hosting** | AWS Amplify |
+| **Domain/Email** | Route 53, SES |
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Features
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+- **Hex grid skills section** — 22 technology tiles laid out using pointy-top hexagonal axial coordinates (Red Blob Games formulas). Tiles are filterable by category and animate on hover with a starburst push effect on adjacent hexes.
+- **Responsive design** — Full breakpoint coverage from mobile portrait through ultrawide. The hex grid remaps to a compact layout on small screens and a landscape-optimized layout on rotated devices.
+- **Sticky navbar** — Snaps to the bottom of the hero viewport, then sticks to the top for the rest of the page using a sentinel-based `IntersectionObserver` pattern.
+- **Scroll-triggered animations** — Section content fades and slides in via GSAP `ScrollTrigger`.
+- **Design token system** — All colors, fonts, and custom utilities defined in `src/tokens.css` using Tailwind v4's `@theme` block.
+- **Project showcase** — Alternating left/right project cards with hex-framed image galleries.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Getting Started
+
+```bash
+npm install
+npm run dev       # Dev server with HMR
+npm run build     # Type-check + production build
+npm run lint      # ESLint
+npm run preview   # Preview production build
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Project Structure
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
 ```
+src/
+├── components/
+│   ├── HeroSection.tsx      # Full-screen hero with hex-framed profile photo
+│   ├── NavBar.tsx           # Sticky nav with scroll-aware styling
+│   ├── AboutMe.tsx          # Introduction section
+│   ├── WhatIDo.tsx          # Capability overview with animated hex badges
+│   ├── Technologies.tsx     # Skills section: filters + hex grid + detail panel
+│   ├── HexGrid.tsx          # Axial coordinate layout engine + GSAP animations
+│   ├── HexTile.tsx          # Positioned wrapper per hex tile
+│   ├── TechBadge.tsx        # Visual hex tile: icon + label
+│   ├── HexBase.tsx          # SVG hex background shell
+│   ├── ProjectCard.tsx      # Project showcase cards
+│   ├── ContactMe.tsx        # Contact section + footer
+│   └── tech/
+│       ├── data.tsx         # Technology definitions, coordinates, categories
+│       ├── types.ts         # TypeScript interfaces
+│       ├── DetailPanel.tsx  # Desktop skill detail sidebar
+│       └── MobileModal.tsx  # Mobile skill detail overlay
+├── assets/images/           # Tech logos, profile photo, project screenshots
+├── tokens.css               # Design tokens, @theme, custom utilities
+├── index.css                # Tailwind imports + base styles
+└── App.tsx                  # Root component, project data, section composition
+```
+
+## Architecture Highlights
+
+**Hex grid math** — Each tile has an `(q, r)` axial coordinate. The layout engine converts these to pixel positions using pointy-top hex formulas, computes the bounding box, and absolutely positions tiles within a dynamically-sized container. A `responsiveSize` multiplier scales everything at breakpoints.
+
+**Navbar persistence** — The nav lives between `HeroSection` and `<main>` in the DOM (not inside either). This lets `position: sticky` work across the entire page instead of releasing when a wrapper scrolls out. A `ResizeObserver` publishes `--nav-h` so other elements can account for nav height.
+
+**Category filtering** — The "What I Do" section dispatches custom events that the Skills section listens for, activating filters and scrolling to the hex grid. Multiple filters can be combined.
+
+## License
+
+All rights reserved.
