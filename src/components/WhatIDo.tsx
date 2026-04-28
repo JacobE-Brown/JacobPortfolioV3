@@ -5,13 +5,13 @@ import TechBadge from './TechBadge'
 
 import reactIcon from '@/assets/images/tech/react.svg'
 import pythonIcon from '@/assets/images/tech/python.svg'
-import awsIcon from '@/assets/images/tech/AWS/aws.svg'
+import azureCloudIcon from '@/assets/images/tech/Azure/Azure-A.svg'
 import prometheusIcon from '@/assets/images/tech/Prometheus.svg'
 import figmaIcon from '@/assets/images/tech/figma.svg'
 
 const workItems = [
   {
-    icon: awsIcon,
+    icon: azureCloudIcon,
     label: 'Cloud & DevOps',
     category: 'Cloud & DevOps',
     description: 'Deploying and managing infrastructure with CI/CD pipelines and cloud services.',
